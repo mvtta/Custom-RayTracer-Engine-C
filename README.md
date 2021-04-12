@@ -39,6 +39,3 @@ computation, the basic idea is to reverse the light path from the "eye" or "came
 4-> test2.c pushing pixels to the window
 ```
 =======
-# 02.miniRT
-## Mini raytracing implementation -> rendering of simple CGI 
->>>>>>> 1d3c63a9c1e5f6f56722b19bf3b99fb7b1684508
