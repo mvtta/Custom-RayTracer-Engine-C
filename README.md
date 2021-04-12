@@ -20,14 +20,14 @@ computation, the basic idea is to reverse the light path from the "eye" or "came
 ```
 ## Research
 
-[XQuartz](https://www.xquartz.org/)
-[PurpleAlien](https://www.purplealienplanet.com/node/20)
-[Divide&Conquer](https://cs.swansea.ac.uk/wordpressvc/wp-content/uploads/2012/10/d-and-c-ray-tracing.pdf)
-[miniLibx](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html)
-[GlobalIllumination](http://www.kevinbeason.com/smallpt/)
-[RayTracingOneWeekend-book](https://raytracing.github.io/books/RayTracingInOneWeekend.html)
-[RayTracingOneWeekend-code](https://github.com/RayTracing/raytracing.github.io/blob/master/books/RayTracingInOneWeekend.html)
-[Cray](https://awesomeopensource.com/project/vkoskiv/c-ray)
+[XQuartz](https://www.xquartz.org/)  
+[PurpleAlien](https://www.purplealienplanet.com/node/20)  
+[Divide&Conquer](https://cs.swansea.ac.uk/wordpressvc/wp-content/uploads/2012/10/d-and-c-ray-tracing.pdf)  
+[miniLibx](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html)  
+[GlobalIllumination](http://www.kevinbeason.com/smallpt/)  
+[RayTracingOneWeekend-book](https://raytracing.github.io/books/RayTracingInOneWeekend.html)  
+[RayTracingOneWeekend-code](https://github.com/RayTracing/raytracing.github.io/blob/master/booksRayTracingInOneWeekend.html)  
+[Cray](https://awesomeopensource.com/project/vkoskiv/c-ray)  
 
 
 ## Steps
