@@ -37,5 +37,6 @@ computation, the basic idea is to reverse the light path from the "eye" or "came
 2-> Install Xquartz for window
 3-> test.c to init mlx && open window (basic window management) 
 4-> test2.c pushing pixels to the window
+[small red pixel on window](https://github.com/m4r11/02.miniRT/blob/master/media/Screen%20Shot%202021-04-12%20at%2011.46.29.png)
 ```
 =======
