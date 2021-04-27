@@ -1,6 +1,12 @@
 # miniRT
 ## Mini raytracing engine implementation -> rendering of simple CGI.
 
+###### Testing parsing
+```
+gcc -g  rtlib.h get_next_line.h get_next_line.c get_next_line_utils.c test_parse.c
+./a.out scene_test.rt 
+```
+
 ###### Subject
 ```
 "This project is an introduction to the beautiful world of Raytracing.  
@@ -15,12 +21,11 @@ traveling along the same path. In a perfect vacuum this ray will be a straight l
 light ray: absorption, reflection, refraction and fluorescence. "
 ```
 ```
-Instead of of following the light path from it's source, wich would result in unnecessary  
+Instead of following the light path from it's source, wich would result in unnecessary  
 computation, the basic idea is to reverse the light path from the "eye" or "camera".
 ```
 ## Research
 
-[XQuartz](https://www.xquartz.org/)  
 [PurpleAlien](https://www.purplealienplanet.com/node/20)  
 [Divide&Conquer](https://cs.swansea.ac.uk/wordpressvc/wp-content/uploads/2012/10/d-and-c-ray-tracing.pdf)  
 [miniLibx](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html)  
@@ -34,15 +39,27 @@ computation, the basic idea is to reverse the light path from the "eye" or "came
 ```
 0-> Collecting resources to suport my research
 1-> Exploring minilibx && math.h functions
-2-> Install Xquartz for window
+2-> Install Xquartz for window (u actually don't need this with minilxlib)
 3-> test.c to init mlx && open window (basic window management) 
 4-> test2.c pushing pixels to the window
+5-> learned: vectors, 3D graphics fundamentals.  
+6-> found vector lib made by Mashpoe and I'm going to try that out. made sense to have   vectors as arrays with it's special name instead of a structure.  
+
 ```
+[vector lib by Mashpoe](https://github.com/Mashpoe/c-vector)
+
 ![small red pixel on window](https://github.com/m4r11/02.miniRT/blob/master/media/Screen%20Shot%202021-04-12%20at%2011.46.29.png)
+
 
 ## Glossary
 ```
-endian: denoting or relating to two systems of ordering data, in which the most significant unit is put either first or last.
+endian: denoting or relating to two systems of ordering data, in which the most   significant unit is put either first or last.  
+radian: is a pure measure based on the Radius of the circle. To go from radians to   degrees: multiply by 180, divide by π. To go from degrees to radians: multiply by π,   divide by 180   
+float Degrees = Radians * 180.0f / 3.14159265359f  
+float Radian = Degrees * 3.14159265359f / 180.0f  
+The C language uses radians instead of degrees when calculating angles. Humans should   use radians as well, as they're logical and easy to work with (radians, not humans).  
+
+
 
 ```
 =======
