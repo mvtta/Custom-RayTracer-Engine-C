@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:02:16 by user              #+#    #+#             */
-/*   Updated: 2021/04/27 20:51:13 by user             ###   ########.fr       */
+/*   Updated: 2021/04/28 18:02:27 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,28 @@ int str_create(size_t size)
     return (i);
 }
 
-int parse_file(int fd, char **line)
+/* int trim_n_put(char identifier, char *data, t_all objects)
 {
+    int i;
+    i = 0;
+    if(str[i] != identifier)
+        return(-3);
+    i=+1;
+    while (str[i] != '\0')
+        atof(&str[i]);
+} */
+
+int parse_data(t_file_data data)
+{
+    printf("saved data as resolution%s", data.res);
+    if
+
     return(0);
 }
 
-int main(int argc, char **argv)
+int parse_file(int fd, t_file_data data, char **argv, int r)
 {
-    static char arch[4094];
-    char **buff;
-    char *line;
-    t_file_data data;
-    int fd;
-    int i;
-    int r;
-
-    i = 0;
-    r = 0;
-    if (argc > 1)
-    {
+        char *line;
         printf("\033[1;35m");
         printf("while I'm parsing your scene, go on and eat a dumplin...\n");
         printf("\033[0m");
@@ -65,8 +68,37 @@ int main(int argc, char **argv)
         r = get_next_line(fd, &line);
         data.light = line;
         printf("%s\n", data.light);
+        r = get_next_line(fd, &line);
+        data.plane = line;
+        printf("%s\n", data.plane);
+        r = get_next_line(fd, &line);
+        data.sphere = line;
+        printf("%s\n", data.sphere);
+        r = get_next_line(fd, &line);
+        data.square = line;
+        printf("%s\n", data.square);
+        r = get_next_line(fd, &line);
+        data.cyl = line;
+        printf("%s\n", data.cyl);
+        r = get_next_line(fd, &line);
+        data.tri = line;
+        printf("%s\n", data.tri);
         free(line);
+        parse_data(data);
         return(0);
-    }
+}
+
+int main(int argc, char **argv)
+{
+    t_file_data data;
+    int fd;
+    int i;
+    int r;
+    int check;
+
+    i = 0;
+    r = 0;
+    if (argc > 1)
+       check = parse_file(fd, data, argv, r);
     return (0);
 }
