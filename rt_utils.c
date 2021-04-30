@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   rt_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <user@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 16:34:32 by user              #+#    #+#             */
-/*   Updated: 2021/04/28 18:02:27 by user             ###   ########.fr       */
+/*   Updated: 2021/04/30 23:13:37 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtlib.h"
 
-int		ft_atoi(char *str, int *nb)
+int			ft_atoi(const char *str)
 {
-	int		i;
-	long	nnb;
-
-	i = 0;
-	nnb = 0;
-	if (str[i] == '-')
+	int i = 0;
+	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || str[i] == '\v' ||
+	str[i] == '\f' || str[i] == '\r')
 		i++;
-	while (str[i] && str[i] >= '0' && str[i] <= '9')
-		nnb = 10 * nnb + (str[i++] - '0');
-	if (i == 0 || (str[0] == '-' && i == 1))
-		return (-1);
-	*nb = (str[0] == '-') ? -nnb : nnb;
-	return (i);
+	int mynb;
+	
+	while(str[i] != '\0')
+	{
+			mynb = mynb * 10 + 48;
+			i++;
+		
+	}
+	return(mynb);
 }

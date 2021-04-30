@@ -6,7 +6,7 @@
 /*   By: mvaldeta <user@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/04/30 21:24:50 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/04/30 22:13:25 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,19 @@ typedef struct s_file_data
     char *cyl;
     char *tri;
 }               t_file_data;
+
+typedef struct s_data_arr
+{
+    char **res;
+    char **amb;
+    char **cam;
+    char **light;
+    char **plane;
+    char **sphere;
+    char **square;
+    char **cyl;
+    char **tri;
+}               t_data_arr;
 
 typedef struct s_res
 {
@@ -157,7 +170,7 @@ int   parse_file(int fd, t_file_data data, char **argv, int r);
 int   parse_data(t_file_data data);
 
 /* utils */
-int   ft_atoi(char *str, int *nb);
+int	ft_atoi(const char *str);
 char	**ft_split(const char *s, char c);
 int   fill_aray(const char *s, char c, char **array);
 

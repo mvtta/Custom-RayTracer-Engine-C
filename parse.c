@@ -6,7 +6,7 @@
 /*   By: mvaldeta <user@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 11:20:21 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/04/30 21:39:20 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/04/30 22:51:48 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,36 @@ int parse_data(t_file_data data)
 	printf("\n%s", data.square);
 	printf("\n%s", data.cyl);
 	printf("\n%s", data.tri);
-	char **arr_res = ft_split(data.res, ' ');
-	char **arr_amb = ft_split(data.amb, ' ');
-	char **arr_cam = ft_split(data.cam, ' ');
-	char **arr_light = ft_split(data.light, ' ');
-	char **arr_plane = ft_split(data.plane, ' ');
-	char **arr_sphere = ft_split(data.sphere, ' ');
-	char **arr_square = ft_split(data.square, ' ');
-	char **arr_cyl = ft_split(data.cyl, ' ');
-	char **arr_tri = ft_split(data.tri, ' ');
-	int i = 0;
+	t_data_arr arr;
+	arr.res = ft_split(data.res, ' ');
+	arr.amb = ft_split(data.amb, ' ');
+	arr.cam = ft_split(data.cam, ' ');
+	arr.light = ft_split(data.light, ' ');
+	arr.plane = ft_split(data.plane, ' ');
+	arr.sphere = ft_split(data.sphere, ' ');
+	arr.square = ft_split(data.square, ' ');
+	arr.cyl = ft_split(data.cyl, ' ');
+	arr.tri = ft_split(data.tri, ' ');
+	t_res res;
+	int *ptr;
+	printf("\n%s\n", arr.res[1]);
+	res.x = ft_atoi(arr.res[1]);
+	res.y = ft_atoi(arr.res[2]);
+	double ttest = 0;
+	char test[7] = "0.2";
+	ttest = ft_atoi(test);
+	/* todo:fazer um atod + atof */
+	printf("\n%d", res.x);
+	printf("\n%d", res.y);
+	printf("\n%lf", ttest);
+
+	/* int i = 0;
 	while(arr_cyl[i])
 	{
 		printf("\n%s", arr_cyl[i]);
 		i++;
-	}
-	t_res res;
+	} */
+	
 	return (0);
 }
 
