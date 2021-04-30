@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtlib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <user@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/04/28 18:01:44 by user             ###   ########.fr       */
+/*   Updated: 2021/04/30 21:24:50 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "get_next_line.h"
+
+#define START 10
 
 typedef struct s_file_data
 {
@@ -37,6 +39,8 @@ typedef struct s_res
     int x;
     int y;
 }               t_res;
+
+/* 
 
 typedef struct s_amb
 {
@@ -146,13 +150,16 @@ typedef struct s_all
     struct t_tri;
 
 }t_all;
+ */
 
-int get_next_line(int fd, char **line);
-int parse_file(int fd, t_file_data data, char **argv, int r);
-int parse_data(t_file_data data);
+int   get_next_line(int fd, char **line);
+int   parse_file(int fd, t_file_data data, char **argv, int r);
+int   parse_data(t_file_data data);
 
 /* utils */
-int		ft_atoi(char *str, int *nb);
+int   ft_atoi(char *str, int *nb);
+char	**ft_split(const char *s, char c);
+int   fill_aray(const char *s, char c, char **array);
 
 
 #endif

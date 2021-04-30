@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_parse.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <user@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:02:16 by user              #+#    #+#             */
-/*   Updated: 2021/04/28 18:02:27 by user             ###   ########.fr       */
+/*   Updated: 2021/04/29 11:18:28 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ int str_create(size_t size)
 int parse_data(t_file_data data)
 {
     printf("saved data as resolution%s", data.res);
-    if
-
     return(0);
 }
 
