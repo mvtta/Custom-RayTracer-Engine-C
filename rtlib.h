@@ -6,7 +6,7 @@
 /*   By: mvaldeta <user@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/04/30 22:13:25 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/05/04 12:29:08 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <float.h>
 #include "get_next_line.h"
 
 #define START 10
@@ -38,9 +39,17 @@ typedef struct s_data_arr
 {
     char **res;
     char **amb;
+    char **ambcolor;
     char **cam;
+    char **camxyz;
+    char **cam_norm;
     char **light;
+    char **lightvec;
+    char **lightcolor;
     char **plane;
+    char **planexyz;
+    char **plane_norm;
+    char **planecolor;
     char **sphere;
     char **square;
     char **cyl;
@@ -52,8 +61,6 @@ typedef struct s_res
     int x;
     int y;
 }               t_res;
-
-/* 
 
 typedef struct s_amb
 {
@@ -87,6 +94,22 @@ typedef struct s_light
    int b;
 }               t_light;
 
+typedef struct s_plane
+{
+   int x;
+   int y;
+   int z;
+   float norm_x;
+   float norm_y;
+   float norm_z;
+   int r;
+   int g;
+   int b;
+}               t_plane;
+
+/* 
+
+
 typedef struct s_sphere
 {
    int x;
@@ -97,19 +120,6 @@ typedef struct s_sphere
    int g;
    int b;
 }               t_sphere;
-
-typedef struct s_plane
-{
-   int x;
-   int y;
-   int z;
-   double norm_x;
-   double norm_y;
-   double norm_z;
-   int r;
-   int g;
-   int b;
-}               t_plane;
 
 typedef struct s_square
 {
@@ -173,6 +183,7 @@ int   parse_data(t_file_data data);
 int	ft_atoi(const char *str);
 char	**ft_split(const char *s, char c);
 int   fill_aray(const char *s, char c, char **array);
+float ft_atof(char *str);
 
 
 #endif
