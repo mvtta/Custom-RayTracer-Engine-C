@@ -1,10 +1,11 @@
 # miniRT
 ## Mini raytracing engine implementation -> rendering of simple CGI.
 
-###### Testing parsing
+###### Experimenting with
 ```
-gcc -g  rtlib.h get_next_line.h get_next_line.c get_next_line_utils.c test_parse.c
-./a.out scene_test.rt 
+gcc -framework OpenGL -framework AppKit libmlx.dylib  rtlib.h get_next_line.h get_next_line.c get_next_line_utils.c rt_utils.c ft_split.c parse.c minirt.c 
+
+./a.out scene_test.rt
 ```
 
 ###### Subject

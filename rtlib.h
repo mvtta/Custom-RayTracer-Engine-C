@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtlib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <user@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/05/04 12:29:08 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/05/04 21:36:55 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,18 @@
 #include <stdlib.h>
 #include <float.h>
 #include "get_next_line.h"
+#include "mlx.h"
 
 #define START 10
+
+typedef struct s_data
+{
+    void *img;
+    char *addr;
+    int bits_per_pixel;
+    int line_length;
+    int endian;
+} t_data;
 
 typedef struct s_file_data
 {
@@ -60,7 +70,7 @@ typedef struct s_res
 {
     int x;
     int y;
-}               t_res;
+}              t_res;
 
 typedef struct s_amb
 {
@@ -68,7 +78,6 @@ typedef struct s_amb
     int r;
     int g;
     int b;
-
 }               t_amb;
 
 typedef struct s_cam
