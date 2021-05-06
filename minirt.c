@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 11:20:09 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/05/04 22:18:32 by user             ###   ########.fr       */
+/*   Updated: 2021/05/05 20:16:06 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ int main(int argc, char **argv)
     int fd;
     int i;
     int r;
-    int put_backgr_x = 0;
+    int put_backgr_x = 40;
     int put_backgr_y = 0;
+    int color[2] = {0x090979, 0xffc3a0};
 
     i = 0;
     r = 0;
@@ -43,21 +44,38 @@ int main(int argc, char **argv)
         parse_file(fd, data, argv, r);
     close(fd);
     mlx = mlx_init();
-    mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-    img.img = mlx_new_image(mlx,  1920, 1080);
+    mlx_win = mlx_new_window(mlx, 1920, 1200, "Hello world!");
+    img.img = mlx_new_image(mlx, 1920, 1200);
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
                                  &img.endian);
-    while(put_backgr_y < 1080)
+    /* pink square */
+/*     while (put_backgr_x < 200)
     {
-        while(put_backgr_x < 1000)
-        {
-            my_mlx_pixel_put(&img, put_backgr_y, put_backgr_x, 0x090979);
-            mlx_put_image_to_window(mlx, mlx_win, img.img, put_backgr_y, put_backgr_y);
-            put_backgr_x++;
-        }
-        my_mlx_pixel_put(&img, put_backgr_y, put_backgr_x, 0x090979);
-        mlx_put_image_to_window(mlx, mlx_win, img.img, put_backgr_y, put_backgr_y);
+        my_mlx_pixel_put(&img, put_backgr_y, put_backgr_x, 0xffc3a0);
+        mlx_put_image_to_window(mlx, mlx_win, img.img, put_backgr_x, put_backgr_y / 2);
+        put_backgr_x++;
+    } */
+    put_backgr_x = 0;
+    put_backgr_y = 0;
+    while (put_backgr_x < 1000 && put_backgr_y < 1000)
+    {
+        //verde
+        my_mlx_pixel_put(&img, put_backgr_y, put_backgr_x, 0x0ddd6f3);
+        mlx_put_image_to_window(mlx, mlx_win, img.img, put_backgr_x, put_backgr_y / 2);
+        put_backgr_y *= 2;
+        put_backgr_x *= 2;
         put_backgr_y++;
+        put_backgr_x++;
+    }
+    put_backgr_x = 1080;
+    put_backgr_y = 1920;
+    while (put_backgr_x > 0 && put_backgr_y > 0)
+    {
+        //verde
+        my_mlx_pixel_put(&img, put_backgr_y, put_backgr_x, 0x36d1dc);
+        mlx_put_image_to_window(mlx, mlx_win, img.img, put_backgr_x / 2, put_backgr_y / 2);
+        put_backgr_y--;
+        put_backgr_x--;
     }
     mlx_loop(mlx);
     return (0);
