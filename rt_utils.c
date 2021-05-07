@@ -6,7 +6,7 @@
 /*   By: mvaldeta <user@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 16:34:32 by user              #+#    #+#             */
-/*   Updated: 2021/05/04 12:33:28 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/05/07 17:19:24 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,30 @@ float ft_atof(char *str)
 	if(inter + deci > FLT_MAX)
 		return(0);
 	return(inter + deci);
+}
+
+void			ft_lstadd_back(t_ele **lst, t_ele *new)
+{
+	t_ele			*node;
+
+	node = *lst;
+	if (!node)
+		*lst = new;
+	else
+	{
+		while (node->next)
+			node = node->next;
+		node->next = new;
+	}
+}
+
+t_ele	*ft_lstnew(void *content)
+{
+	t_ele *new;
+
+	if (!(new = malloc(sizeof(t_ele))))
+		return (0);
+	new->data = content;
+	new->next = NULL;
+	return (new);
 }

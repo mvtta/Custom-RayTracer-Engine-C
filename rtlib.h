@@ -6,7 +6,7 @@
 /*   By: mvaldeta <user@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/05/07 17:04:17 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/05/07 17:21:10 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,11 @@
 #define T 't'
 
 
-typedef struct s_node {
+typedef struct    s_ele {
    void  *data;
-   char *type;
-   t_node *next;
-   t_node *prev;
-} t_node;
+   char  *type;
+   struct s_ele *next;
+}                 t_ele;
 
 
 typedef struct s_data
@@ -202,16 +201,18 @@ typedef struct s_nested
 }t_nested;
 
 
-int      get_next_line(int fd, char **line);
-int      parse_file(int fd, t_file_data data, char **argv, int r);
-int      parse_data(t_file_data data);
+int         get_next_line(int fd, char **line);
+int         parse_file(int fd, t_file_data data, char **argv, int r);
+int         parse_data(t_file_data data);
 
 /* utils */
-int      ft_atoi(const char *str);
-char     **ft_split(const char *s, char c);
-int      fill_aray(const char *s, char c, char **array);
-float    ft_atof(char *str);
-int      match(char *str, int c);
+int         ft_atoi(const char *str);
+char        **ft_split(const char *s, char c);
+int         fill_aray(const char *s, char c, char **array);
+float       ft_atof(char *str);
+int         match(char *str, int c);
+t_ele	      *ft_lstnew(void *content);
+void			ft_lstadd_back(t_ele **lst, t_ele *new);
 
 
 #endif

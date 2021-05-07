@@ -20,18 +20,18 @@ int parse(char *file)
 {
 	int i;
 	char **splitted; 
-	t_node *head;
-	t_node *tmp;
+	t_ele *head;
+	t_ele *tmp;
 
 	splitted = ft_split(file, '\n');
 	while (splitted[i])
 	{
 		if (!(match(splitted[0], ID[i])))
 			return(printf("%s", "error"));
-		tmp = malloc(sizeof(t_node));
-		tmp.data = new_node(splitted[i]);
-		tmp.type = 
-		head = ft_list_add_back(head, tmp);
+		tmp = malloc(sizeof(t_ele));
+		tmp->data = ft_lstnew(splitted[i]);
+		tmp->type = 
+		head = ft_lstadd_back(&head, tmp);
 	}
 }
 
