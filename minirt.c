@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <user@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 11:20:09 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/05/05 20:16:06 by user             ###   ########.fr       */
+/*   Updated: 2021/05/07 13:25:37 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,15 @@ int main(int argc, char **argv)
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
                                  &img.endian);
     /* pink square */
-/*     while (put_backgr_x < 200)
+    while (put_backgr_x < 200)
     {
         my_mlx_pixel_put(&img, put_backgr_y, put_backgr_x, 0xffc3a0);
         mlx_put_image_to_window(mlx, mlx_win, img.img, put_backgr_x, put_backgr_y / 2);
         put_backgr_x++;
-    } */
+    }
     put_backgr_x = 0;
     put_backgr_y = 0;
-    while (put_backgr_x < 1000 && put_backgr_y < 1000)
+/*     while (put_backgr_x < 1000 && put_backgr_y < 1000)
     {
         //verde
         my_mlx_pixel_put(&img, put_backgr_y, put_backgr_x, 0x0ddd6f3);
@@ -66,7 +66,7 @@ int main(int argc, char **argv)
         put_backgr_x *= 2;
         put_backgr_y++;
         put_backgr_x++;
-    }
+    } */
     put_backgr_x = 1080;
     put_backgr_y = 1920;
     while (put_backgr_x > 0 && put_backgr_y > 0)

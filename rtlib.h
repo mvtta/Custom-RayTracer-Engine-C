@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtlib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <user@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/05/04 21:36:55 by user             ###   ########.fr       */
+/*   Updated: 2021/05/07 17:04:17 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,23 @@
 #include "mlx.h"
 
 #define START 10
+#define ID "RAclpst"
+#define R 'R'
+#define A 'A'
+#define C 'c'
+#define L 'l'
+#define P 'p'
+#define S 's'
+#define T 't'
+
+
+typedef struct s_node {
+   void  *data;
+   char *type;
+   t_node *next;
+   t_node *prev;
+} t_node;
+
 
 typedef struct s_data
 {
@@ -30,6 +47,7 @@ typedef struct s_data
     int bits_per_pixel;
     int line_length;
     int endian;
+    
 } t_data;
 
 typedef struct s_file_data
@@ -116,7 +134,7 @@ typedef struct s_plane
    int b;
 }               t_plane;
 
-/* 
+
 
 
 typedef struct s_sphere
@@ -169,7 +187,7 @@ typedef struct s_tri
    int b;
 }               t_tri;
 
-typedef struct s_all
+typedef struct s_nested
 {
     struct t_res;
     struct t_amb;
@@ -181,18 +199,19 @@ typedef struct s_all
     struct t_cyl;
     struct t_tri;
 
-}t_all;
- */
+}t_nested;
 
-int   get_next_line(int fd, char **line);
-int   parse_file(int fd, t_file_data data, char **argv, int r);
-int   parse_data(t_file_data data);
+
+int      get_next_line(int fd, char **line);
+int      parse_file(int fd, t_file_data data, char **argv, int r);
+int      parse_data(t_file_data data);
 
 /* utils */
-int	ft_atoi(const char *str);
-char	**ft_split(const char *s, char c);
-int   fill_aray(const char *s, char c, char **array);
-float ft_atof(char *str);
+int      ft_atoi(const char *str);
+char     **ft_split(const char *s, char c);
+int      fill_aray(const char *s, char c, char **array);
+float    ft_atof(char *str);
+int      match(char *str, int c);
 
 
 #endif
