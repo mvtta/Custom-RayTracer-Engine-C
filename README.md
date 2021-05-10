@@ -8,6 +8,15 @@ gcc -framework OpenGL -framework AppKit libmlx.dylib  rtlib.h get_next_line.h ge
 ./a.out scene_test.rt
 ```
 
+###### Stage of the project
+```
+Todo: 
+1) background in gradient
+2) decide if convert all rgb to hex
+3) make room or put plane according to cam position
+4) put light
+```
+
 ###### Subject
 ```
 "This project is an introduction to the beautiful world of Raytracing.  
@@ -34,6 +43,7 @@ computation, the basic idea is to reverse the light path from the "eye" or "came
 [RayTracingOneWeekend-book](https://raytracing.github.io/books/RayTracingInOneWeekend.html)  
 [RayTracingOneWeekend-code](https://github.com/RayTracing/raytracing.github.io/blob/master/booksRayTracingInOneWeekend.html)  
 [Cray](https://awesomeopensource.com/project/vkoskiv/c-ray)  
+[Technical](https://www.slideshare.net/SyedZaidIrshad/ray-tracing-74531533)  
 
 
 ## Steps

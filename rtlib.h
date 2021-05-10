@@ -6,7 +6,7 @@
 /*   By: mvaldeta <user@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/05/07 17:21:10 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/05/10 18:25:31 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ typedef struct s_tri
    int b;
 }               t_tri;
 
-typedef struct s_nested
+/* typedef struct s_nested
 {
     struct t_res;
     struct t_amb;
@@ -198,7 +198,7 @@ typedef struct s_nested
     struct t_cyl;
     struct t_tri;
 
-}t_nested;
+}t_nested; */
 
 
 int         get_next_line(int fd, char **line);
