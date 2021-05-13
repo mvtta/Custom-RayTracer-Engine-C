@@ -6,7 +6,7 @@
 /*   By: mvaldeta <user@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/05/10 18:25:31 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/05/13 21:50:18 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ typedef struct s_res
     int y;
 }              t_res;
 
+
+
 typedef struct s_amb
 {
     double ratio;
@@ -132,8 +134,6 @@ typedef struct s_plane
    int g;
    int b;
 }               t_plane;
-
-
 
 
 typedef struct s_sphere
@@ -186,7 +186,7 @@ typedef struct s_tri
    int b;
 }               t_tri;
 
-/* typedef struct s_nested
+/* struct s_nested
 {
     struct t_res;
     struct t_amb;
@@ -200,10 +200,11 @@ typedef struct s_tri
 
 }t_nested; */
 
+struct t_nested *elem;
 
 int         get_next_line(int fd, char **line);
-int         parse_file(int fd, t_file_data data, char **argv, int r);
-int         parse_data(t_file_data data);
+t_res       parse_file(int fd, t_file_data data, char **argv, int r);
+t_res       parse_data(t_file_data data);
 
 /* utils */
 int         ft_atoi(const char *str);

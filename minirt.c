@@ -6,7 +6,7 @@
 /*   By: mvaldeta <user@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 11:20:09 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/05/10 20:49:37 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/05/13 21:55:27 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int main(int argc, char **argv)
 {
     t_data img;
     t_file_data data;
-    t_res *res;
+    t_res resolution;
+    
     void *mlx;
     void *mlx_win;
     int fd;
@@ -44,21 +45,26 @@ int main(int argc, char **argv)
     r = 0;
     fd = open(argv[1], O_RDONLY);
     if (argc > 1)
-        parse_file(fd, data, argv, r);
+        resolution = parse_file(fd, data, argv, r);
     close(fd);
+    
+    printf("\nhey x resolution here :%d\n", resolution.x);
+    printf("\nhey x resolution here :%d\n", resolution.y);
     mlx = mlx_init();
-    mlx_win = mlx_new_window(mlx, 1920, 1200, "Hello world!");
-    img.img = mlx_new_image(mlx, 1920, 1200);
+    mlx_win = mlx_new_window(mlx, resolution.x, resolution.y, "Hello world!");
+    img.img = mlx_new_image(mlx, resolution.x, resolution.y);
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
                                  &img.endian);
     /* pink square */
-    while (put_backgr_x < 200)
+    while (put_backgr_x < resolution.x)
     {
         my_mlx_pixel_put(&img, put_backgr_y, put_backgr_x, 0xFFA500);
         mlx_put_image_to_window(mlx, mlx_win, img.img, put_backgr_x, put_backgr_y / 2);
         put_backgr_x++;
     }
-    while (put_backgr_x1 < 250)
+        printf("here");
+        exit(0);
+    while (put_backgr_x1 < resolution.y)
     {
         //my_mlx_pixel_put(&img, put_backgr_y, put_backgr_x1, 0xffff00);
         //mlx_put_image_to_window(mlx, mlx_win, img.img, put_backgr_x1, put_backgr_y / 2);
@@ -66,16 +72,16 @@ int main(int argc, char **argv)
     }
     /* make a grid */
     put_backgr_y = 1920 / 2;
-    /*     while (put_linex < 1200)
+    while (put_linex < 1200)
     {
         my_mlx_pixel_put(&img, put_backgr_y, put_linex, 0xFFA500);
         //mlx_put_image_to_window(mlx, mlx_win, img.img, put_backgr_x1, put_backgr_y / 2);
         put_linex++;
         
-    } */
+    }
     put_backgr_x = 0;
     put_backgr_y = 0;
-    /*     while (put_backgr_x < 1000 && put_backgr_y < 1000)
+    while (put_backgr_x < 1000 && put_backgr_y < 1000)
     {
         //verde
         my_mlx_pixel_put(&img, put_backgr_y, put_backgr_x, 0x0ddd6f3);
@@ -84,7 +90,7 @@ int main(int argc, char **argv)
         put_backgr_x *= 2;
         put_backgr_y++;
         put_backgr_x++;
-    } */
+    }
     put_backgr_x = 1200 / 2;
     put_backgr_y = 1920 / 2;
     while (put_backgr_x > 0 && put_backgr_y > 0)

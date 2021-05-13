@@ -6,7 +6,7 @@
 /*   By: mvaldeta <user@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 11:20:21 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/05/07 17:00:23 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/05/13 21:51:47 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 #include "rtlib.h"
 #include "get_next_line.h"
 
-int parse_data(t_file_data data)
+t_res parse_data(t_file_data data)
 {
 	t_data_arr arr;
-	t_res res;
 	t_amb amb;
 	t_cam cam;
 	t_light light;
 	t_plane plane;
+	t_res res;
 	printf("\n%s", data.res);
 	printf("\n%s", data.amb);
 	printf("\n%s", data.cam);
@@ -109,16 +109,17 @@ int parse_data(t_file_data data)
 	printf("\n%d", plane.g);
 	printf("\n%d", plane.b);
 
-	return (0);
+	return (res);
 }
 
-int parse_file(int fd, t_file_data data, char **argv, int r)
+t_res parse_file(int fd, t_file_data data, char **argv, int r)
 {
 	char *line;
 	printf("\033[1;35m");
 	printf("Hi, miniRT here 🦄\nWhile I'm parsing your scene, go on and eat a dumplin 🥟 ...\n");
 	printf("\033[0m");
 	r = START;
+	t_res res;
 	while (r > 0)
 	{
 		r = get_next_line(fd, &line);
@@ -142,6 +143,6 @@ int parse_file(int fd, t_file_data data, char **argv, int r)
 			data.cyl = line;
 		printf("%s\n", line);
 	}
-	parse_data(data);
-	return (0);
+	res = parse_data(data);
+	return (res);
 }
