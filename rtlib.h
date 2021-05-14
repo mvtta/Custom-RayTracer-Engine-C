@@ -6,7 +6,7 @@
 /*   By: mvaldeta <user@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/05/13 21:50:18 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/05/14 22:42:11 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,17 +136,6 @@ typedef struct s_plane
 }               t_plane;
 
 
-typedef struct s_sphere
-{
-   int x;
-   int y;
-   int z;
-   double d;
-   int r;
-   int g;
-   int b;
-}               t_sphere;
-
 typedef struct s_square
 {
    int x;
@@ -186,6 +175,44 @@ typedef struct s_tri
    int b;
 }               t_tri;
 
+/* vector */
+typedef struct s_vec{
+        float x;
+        float y;
+        float z;
+}                t_vec;
+
+typedef struct s_sphere
+{
+   int x;
+   int y;
+   int z;
+   double d;
+   int r;
+   int g;
+   int b;
+   t_vec c;
+}               t_sphere;
+
+/* ray */
+typedef struct s_ray{
+   t_vec    direction;
+   t_vec    origin;
+}              t_ray;
+
+typedef struct    s_hit{
+    t_sphere* sphere;
+    t_vec n;
+    t_vec p;
+    float t;
+}                 t_hit;
+
+typedef struct s_rgbf{
+    float r;
+    float g;
+    float b;
+}              t_rgbf;
+
 /* struct s_nested
 {
     struct t_res;
@@ -213,7 +240,26 @@ int         fill_aray(const char *s, char c, char **array);
 float       ft_atof(char *str);
 int         match(char *str, int c);
 t_ele	      *ft_lstnew(void *content);
-void			ft_lstadd_back(t_ele **lst, t_ele *new);
+void			ft_lstadd_back(t_ele **lst, t_ele *(new));
+
+
+/*colors*/
+t_rgbf new_rgb(float red, float green, float blue);
+t_rgbf scale_rgb(t_rgbf color, float value);
+t_rgbf addRGB(t_rgbf a, t_rgbf b);
+
+/* vectors */
+t_vec new_v(float x, float y, float z);
+float mag(t_vec v);
+float dot(t_vec a, t_vec b);
+t_vec scale_v(float value, t_vec v);
+t_vec cross(t_vec a, t_vec b);
+t_vec add_v(t_vec a, t_vec b);
+t_vec minus_v(t_vec a, t_vec b);
+
+/* intersect */
+float scene_hit(t_ray ray, t_hit* hit, t_sphere sphere);
+float intersection(t_ray ray, t_sphere sphere);
 
 
 #endif
