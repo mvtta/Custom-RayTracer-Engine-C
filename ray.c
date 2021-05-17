@@ -6,12 +6,18 @@
 /*   By: mvaldeta <user@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 21:20:41 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/05/14 21:31:16 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/05/17 16:55:28 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtlib.h"
 #include "math.h"
+
+
+t_ray			gen_ray(t_cam *cam, float x, float y, t_ray *viewray)
+{
+    /* ray_gen */
+}
 
 /* Create a new Vector with the given values */
 t_vec new_v(float x, float y, float z)

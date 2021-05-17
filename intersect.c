@@ -6,14 +6,20 @@
 /*   By: mvaldeta <user@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 21:42:57 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/05/14 22:54:46 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/05/17 16:25:20 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtlib.h"
 #include "math.h"
 
-
+float  shpere_vol(t_sphere *sphere)
+{
+    float pi = 3.1428571;
+    float radius = sqrt(sphere->d);
+    float volume=(4.0/3.0)*pi*(radius*radius*radius);
+    return(volume);
+}
 
 float scene_hit(t_ray ray, t_hit* hit, t_sphere sphere) 
 {

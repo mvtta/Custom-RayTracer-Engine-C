@@ -6,7 +6,7 @@
 /*   By: mvaldeta <user@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 11:20:09 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/05/15 00:13:32 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/05/17 16:49:19 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int main(int argc, char **argv)
     t_rgbf  pixel_color;
     t_ray   viewray;
     t_vec   ray;
+    t_sphere sphere;
     while (i < resolution.y)
     {
         while (j < resolution.x) 
@@ -68,10 +69,8 @@ int main(int argc, char **argv)
             viewray.origin.y = 0;
             viewray.origin.z = 20;
             vec_dir = mag(viewray.origin);
-            my_mlx_pixel_put(img.img, resolution.x, resolution.y, 0x8affa9);
-/*          trace_lines
-            calculate intersection with __OBJC
-            draw pixels */
+            if (intersection(viewray, sphere) != -1)
+                my_mlx_pixel_put(img.img, resolution.x, resolution.y, 0x8affa9);
             j++;
         }
         i++;

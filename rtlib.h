@@ -6,7 +6,7 @@
 /*   By: mvaldeta <user@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/05/14 22:42:11 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/05/17 16:54:39 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,7 @@ typedef struct s_sphere
 typedef struct s_ray{
    t_vec    direction;
    t_vec    origin;
+   float hit;
 }              t_ray;
 
 typedef struct    s_hit{
