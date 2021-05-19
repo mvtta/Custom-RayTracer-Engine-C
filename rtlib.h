@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtlib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <user@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/05/17 16:54:39 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/05/18 18:41:20 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,11 +176,12 @@ typedef struct s_tri
 }               t_tri;
 
 /* vector */
-typedef struct s_vec{
-        float x;
-        float y;
-        float z;
-}                t_vec;
+typedef struct		s_vector
+{
+	double			x;
+	double			y;
+	double			z;
+}					t_vector;
 
 typedef struct s_sphere
 {
@@ -191,28 +192,33 @@ typedef struct s_sphere
    int r;
    int g;
    int b;
-   t_vec c;
+   t_vector c;
 }               t_sphere;
 
+typedef struct s_rgb{
+    int r;
+    int g;
+    int b;
+}              t_rgb;
+
 /* ray */
-typedef struct s_ray{
-   t_vec    direction;
-   t_vec    origin;
-   float hit;
-}              t_ray;
+typedef struct	s_ray
+{
+	t_vector	origin;
+	t_vector	dir;
+	double		ray_t;
+	t_vector	ray_n_t;
+	t_rgb		ray_color;
+	void		*obj;
+}				t_ray;
 
 typedef struct    s_hit{
     t_sphere* sphere;
-    t_vec n;
-    t_vec p;
+    t_vector n;
+    t_vector p;
     float t;
 }                 t_hit;
 
-typedef struct s_rgbf{
-    float r;
-    float g;
-    float b;
-}              t_rgbf;
 
 /* struct s_nested
 {
@@ -245,22 +251,27 @@ void			ft_lstadd_back(t_ele **lst, t_ele *(new));
 
 
 /*colors*/
-t_rgbf new_rgb(float red, float green, float blue);
-t_rgbf scale_rgb(t_rgbf color, float value);
-t_rgbf addRGB(t_rgbf a, t_rgbf b);
+t_rgb new_rgb(float red, float green, float blue);
+t_rgb scale_rgb(t_rgb color, float value);
+t_rgb addRGB(t_rgb a, t_rgb b);
 
 /* vectors */
-t_vec new_v(float x, float y, float z);
-float mag(t_vec v);
-float dot(t_vec a, t_vec b);
-t_vec scale_v(float value, t_vec v);
-t_vec cross(t_vec a, t_vec b);
-t_vec add_v(t_vec a, t_vec b);
-t_vec minus_v(t_vec a, t_vec b);
+t_vector new_v(float x, float y, float z);
+float mag(t_vector v);
+float dot(t_vector a, t_vector b);
+t_vector scale_v(float value, t_vector v);
+t_vector cross(t_vector a, t_vector b);
+t_vector add_v(t_vector a, t_vector b);
+t_vector minus_v(t_vector a, t_vector b);
 
 /* intersect */
 float scene_hit(t_ray ray, t_hit* hit, t_sphere sphere);
 float intersection(t_ray ray, t_sphere sphere);
+
+void    ray_tracer(t_data img, int x, int y);
+t_rgb trace(t_ray ray, t_sphere sphere);
+int		color_to_int(t_rgb rgb);
+void	my_pixel_put(t_data *data, t_res resolution, t_rgb *rgb);
 
 
 #endif
