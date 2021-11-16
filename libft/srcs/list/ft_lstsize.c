@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtlib.h                                            :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/11/16 17:19:09 by mvaldeta         ###   ########.fr       */
+/*   Created: 2021/01/29 19:16:08 by mvaldeta          #+#    #+#             */
+/*   Updated: 2021/10/18 14:37:12 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RTLIB_H
-#define RTLIB_H
+/*
+** LIB: none
+** SYN: *lst = The beginning of the list.
+** DESC: Counts the number of elements in a list.
+** (｡◕‿◕｡)
+*/
 
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <float.h>
+#include "libft.h"
 
-#include "libft/includes/libft.h"
-#include "mlx.h"
+int	ft_lstsize(t_list *lst)
+{
+	size_t	i;
 
-#endif
+	i = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
+}

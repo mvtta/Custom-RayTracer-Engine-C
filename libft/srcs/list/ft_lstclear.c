@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtlib.h                                            :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/11/16 17:19:09 by mvaldeta         ###   ########.fr       */
+/*   Created: 2021/01/30 19:31:48 by mvaldeta          #+#    #+#             */
+/*   Updated: 2021/10/18 14:34:13 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RTLIB_H
-#define RTLIB_H
+/*
+** LIB: none
+** SYN:
+** DESC:
+** (｡◕‿◕｡)
+*/
 
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <float.h>
+#include "libft.h"
 
-#include "libft/includes/libft.h"
-#include "mlx.h"
+void	ft_lstclear(t_list **lst, void (*del)(void *))
+{
+	t_list	*aux;
 
-#endif
+	if (!*lst)
+		return ;
+	while (*lst)
+	{
+		aux = (*lst)->next;
+		ft_lstdelone(*lst, del);
+		*lst = aux;
+	}
+	*lst = 0;
+}

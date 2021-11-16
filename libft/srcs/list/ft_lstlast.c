@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtlib.h                                            :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/11/16 17:19:09 by mvaldeta         ###   ########.fr       */
+/*   Created: 2021/01/29 19:32:19 by mvaldeta          #+#    #+#             */
+/*   Updated: 2021/10/18 14:34:32 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RTLIB_H
-#define RTLIB_H
+/*
+** LIB: none
+** SYN: lst points to the beginning of the list aka current pointer.
+** DESC: Returns the last element of the list.
+** (｡◕‿◕｡)
+*/
 
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <float.h>
+#include "libft.h"
 
-#include "libft/includes/libft.h"
-#include "mlx.h"
-
-#endif
+t_list	*ft_lstlast(t_list *lst)
+{
+	if (!lst)
+		return (0);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}

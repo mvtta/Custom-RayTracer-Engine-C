@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtlib.h                                            :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/11/16 17:19:09 by mvaldeta         ###   ########.fr       */
+/*   Created: 2020/12/09 16:24:46 by mvaldeta          #+#    #+#             */
+/*   Updated: 2021/10/18 14:28:30 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RTLIB_H
-#define RTLIB_H
+/*
+** LIB: <ctype.h>
+** SYN: test for ASCII character
+** DESC:bThe isascii() function tests for an ASCII character
+** (｡◕‿◕｡)
+*/
 
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <float.h>
+#include "libft.h"
 
-#include "libft/includes/libft.h"
-#include "mlx.h"
-
-#endif
+int	ft_isascii(int c)
+{
+	if (c >= 0 && c <= 127)
+		return (1);
+	else
+		return (0);
+}

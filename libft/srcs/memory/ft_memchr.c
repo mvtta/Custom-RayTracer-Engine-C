@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtlib.h                                            :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/11/16 17:19:09 by mvaldeta         ###   ########.fr       */
+/*   Created: 2020/12/14 12:18:28 by mvaldeta          #+#    #+#             */
+/*   Updated: 2021/10/18 14:43:41 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RTLIB_H
-#define RTLIB_H
+/*
+** LIB: <string.h>
+** SYN: locate byte in byte string
+** DESC: The memchr() function locates the first occurrence of c
+** (converted to an unsigned char) in string s
+** (｡◕‿◕｡)
+*/
 
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <float.h>
+#include "libft.h"
 
-#include "libft/includes/libft.h"
-#include "mlx.h"
+void	*ft_memchr(const void *s, int c, size_t n)
+{
+	size_t	i;
 
-#endif
+	i = 0;
+	while (i < n)
+	{
+		if (((unsigned char *)s)[i] == (unsigned char)c)
+			return ((void *)(s + i));
+		i++;
+	}
+	return (0);
+}

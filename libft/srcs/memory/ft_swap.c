@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtlib.h                                            :+:      :+:    :+:   */
+/*   ft_swap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/11/16 17:19:09 by mvaldeta         ###   ########.fr       */
+/*   Created: 2020/12/27 18:00:21 by mvaldeta          #+#    #+#             */
+/*   Updated: 2021/10/18 14:43:06 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RTLIB_H
-#define RTLIB_H
+/*
+** LIB: none only built in c++
+** SYN: swaps value of variables
+** DESC: swap values with the use of three assignment statement
+** and no function or paramters.
+** (｡◕‿◕｡)
+*/
 
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <float.h>
+void	ft_swap(int *a, int *b)
+{
+	int	c;
 
-#include "libft/includes/libft.h"
-#include "mlx.h"
-
-#endif
+	c = *a;
+	*a = *b;
+	*b = c;
+}
