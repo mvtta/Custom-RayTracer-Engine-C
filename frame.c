@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtlib.h                                            :+:      :+:    :+:   */
+/*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/11/16 17:41:38 by mvaldeta         ###   ########.fr       */
+/*   Created: 2021/11/16 17:35:32 by mvaldeta          #+#    #+#             */
+/*   Updated: 2021/11/16 17:43:31 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RTLIB_H
-#define RTLIB_H
+#include "rtlib.h"
 
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <float.h>
-
-#include "libft/includes/libft.h"
-#include "mlx.h"
-
-typedef struct s_frame
+t_frame *init_frame(t_frame *scene)
 {
-
-}t_frame;
-
-#endif
+  
+}
