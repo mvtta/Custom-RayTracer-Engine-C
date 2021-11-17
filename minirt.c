@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 11:20:09 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/11/16 17:42:50 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/11/17 20:17:50 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ size_t ft_strlen(const char *str)
 
 int minirt(void)
 {
-    init_frame;
-    open_file;
-    while (parse(file))
-        create_objects;
-    fill_frame;
-    paint_frame;
+    t_frame *rt;
+    rt = init_frame();
+    fill_frame(rt);
+    create_scene(rt);
+    create_objs(rt);
+    //paint_frame;
 }
 
 int main(int ac, char **av)
