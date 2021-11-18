@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 11:20:21 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/11/18 17:47:25 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/11/18 22:46:12 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 char *parse_input(int fd)
 {
-	printf("parsing:\n");
-	return(get_next_line(fd));
+	char *data = NULL;
+	data = get_next_line(fd);
+	//printf("parsing:%s\n", data);
+	return(data);
 }
 
 char *save_raw(char *input)
@@ -23,13 +25,14 @@ char *save_raw(char *input)
 	char *raw = NULL;
 	int i = 0;
 	raw = malloc(ft_strlen(input));
-	printf("entering copy\n");
+	//write(1, "copy_in\n", 8);
 	while(input[i])
 	{
 		raw[i] = input[i];
 		i++;
 	}
 	raw[i] = 0;
-	printf("returning copy\n");
+	//write(1, "copy_out\n", 9);
+	//printf("returning copy\n");
 	return(raw);
 }

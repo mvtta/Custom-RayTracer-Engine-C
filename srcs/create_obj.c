@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_obj.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 17:32:20 by user              #+#    #+#             */
-/*   Updated: 2021/11/18 13:13:21 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/11/18 22:56:18 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,20 @@ t_obj *new_obj(t_frame *rt, char *data)
 
 void add_new_obj(t_frame *rt, char *data)
 {
-    t_obj *old_last;
-    t_obj *new;
+    t_obj *old_last = NULL;
+    t_obj *new = NULL;
+
+    new = new_obj(rt, data);
     if(rt->objs_first == NULL)
     {
-        new = new_obj(rt, data);
         rt->objs_first = new;
         rt->objs_last = new;
         return;
     }
-    new = new_obj(rt, data);
     old_last = rt->objs_last;
     new->prev = old_last;
-    old_last->prev = old_last->prev->next;
     rt->objs_last = NULL;
-    new = rt->objs_last;
+    rt->objs_last = new;
     return;
 }
 
@@ -54,9 +53,9 @@ void create_sphere(t_obj *obj, char *data)
     char **sphere;
     sphere = ft_split(data, ' ');
 
-    obj->obj_coord = ascii_to_vec(ft_split(sphere[1], ','));
+    obj->obj_coord = ascii_to_vec(*ft_split(sphere[1], ','));
     obj->diameter = ascii_to_float(sphere[2]);
-    obj->obj_color = ascii_to_rgb(ft_split(sphere[3], ','));
+    obj->obj_color = ascii_to_rgb(*ft_split(sphere[3], ','));
     
 }
 

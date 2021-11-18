@@ -1,6 +1,6 @@
 #include "gnl.h"
 
-static int ft_strlen(char *str)
+int ft_strlen(char *str)
 {
     int i = 0;
 
@@ -25,32 +25,28 @@ char *make_line(char *archive)
 {
     int i = 0;
     char *line = NULL;
-    line = malloc(i + 1);
-    int l;
-    l = has_line(archive) + 1;
+    line = malloc(90);
 
-    while (i < l)
+    while (archive[i] != '\n')
     {
         line[i] = archive[i];
         i++;
     }
-    line[i] = 0;
+    line[i] = '\n';
+    line[i + 1] = 0;
     return (line);
 }
 
-char *make_less(char *archive, char *line)
+char *make_less(char *archive, int new_start)
 {
     int i = 0;
-    int total_size;
-    int line_len = ft_strlen(line);
+    char *new = malloc(ft_strlen(archive) - new_start + 1);
 
-    total_size = ft_strlen(archive) - line_len;
-    char *new = malloc(total_size + 1);
-    while (archive[line_len])
+    while (archive[new_start])
     {
-        new[i] = archive[line_len];
+        new[i] = archive[new_start];
         i++;
-        line_len++;
+        new_start++;
     }
     new[i] = 0;
     free(archive);
@@ -63,6 +59,8 @@ char *ft_join(char *buf, char *archive)
     int k = 0;
     char *new = malloc(ft_strlen(buf) + ft_strlen(archive) + 1);
 
+    /*     printf("buf in join: %s\n", buf);
+        printf("archive before join: %s\n", archive); */
     while (archive[i])
     {
         new[i] = archive[i];
@@ -90,10 +88,11 @@ char *get_next_line(int fd)
     int r;
     if (!archive)
         archive = malloc(0);
+        
     if (has_line(archive))
     {
         line = make_line(archive);
-        archive = make_less(archive, line);
+        archive = make_less(archive, ft_strlen(line));
         return (line);
     }
     while ((r = read(fd, buf, BUFFER_SIZE)))
@@ -102,7 +101,7 @@ char *get_next_line(int fd)
         if (has_line(archive))
         {
             line = make_line(archive);
-            archive = make_less(archive, line);
+            archive = make_less(archive, ft_strlen(line));
             return (line);
         }
     }

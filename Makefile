@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+         #
+#    By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/07 12:36:54 by mvaldeta          #+#    #+#              #
-#    Updated: 2021/11/18 16:12:24 by mvaldeta         ###   ########.fr        #
+#    Updated: 2021/11/18 22:49:19 by user             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ OBJ_ROOT	= obj/
 
 CC = gcc
 
-CFLAGS = -g  -Imlx #-Werror -Wall -Wextra
+CFLAGS = -g  -Imlx -Werror -Wall -Wextra
 
 MLX = -Lmlx -lmlx -framework OpenGL -framework AppKit 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtlib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/11/18 16:34:34 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/11/18 22:56:00 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int ascii_to_int(char *data);
 float ascii_to_float(char *data);
 t_vec *ascii_to_vec(char *data);
 t_vec *ascii_to_vec(char *data);
-unsigned int *ascii_to_hex(int r, int g, int b);
+unsigned int ascii_to_hex(int r, int g, int b);
 t_color *ascii_to_rgb(char *data);
 
 /* create_obj.c */
@@ -107,9 +107,9 @@ void create_objs(t_frame *rt);
 
 /* fill_scene.c */
 
-void att_ambient(t_frame *rt, char id, char **data);
-void att_camera(t_frame *rt, char id, char **data);
-void att_light(t_frame *rt, char id, char **data);
+void att_ambient(t_frame *rt, char **data);
+void att_camera(t_frame *rt, char **data);
+void att_light(t_frame *rt, char **data);
 void attribute(t_frame *rt, char id, char *data);
 void fill_scene(t_frame *rt, char id);
 
