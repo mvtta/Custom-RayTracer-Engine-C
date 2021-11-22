@@ -105,7 +105,7 @@ char *get_next_line(int fd)
             return (line);
         }
     }
-    line = ft_join("", archive);
+    line = ft_join("\n", archive);
     archive = NULL;
     end += 1;
     return (line);

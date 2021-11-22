@@ -3,65 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   fill_scene.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 18:06:51 by user              #+#    #+#             */
-/*   Updated: 2021/11/18 23:17:02 by user             ###   ########.fr       */
+/*   Updated: 2021/11/22 14:22:36 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtlib.h"
 
-void att_ambient(t_frame *rt, char **data)
+t_scene *att_ambient(t_scene *scene, char **data)
 {
-/*     write(1, "\n", 1);
+    scene->ambient = ascii_to_float(data[1]);
+    scene->light_color = ascii_to_rgb(data[2]);
+    return(scene);
+}
+
+t_scene *att_camera(t_scene *scene, char **data)
+{
+/*     write(1, "\ncam_coord\n", 11);
     write(1, data[1], ft_strlen(data[1]));
-    write(1, "\n", 1);
-    write(1, data[2], ft_strlen(data[2])); */
-    rt->scene->ambient = ascii_to_float(data[1]);
-    rt->scene->light_color = ascii_to_rgb(data[2]);
-    return;
+    write(1, "\ncam_norm\n", 10);
+    write(1, data[2], ft_strlen(data[2]));
+    write(1, "\nfov\n", 5);
+    write(1, data[2], ft_strlen(data[3])); */
+    scene->cam_coord = ascii_to_vec(data[1]);
+    scene->cam_norm = ascii_to_vec(data[2]);
+    scene->fov = ascii_to_int(data[3]);
+    return(scene);
 }
 
-void att_camera(t_frame *rt, char **data)
+t_scene *att_light(t_scene *scene,char **data)
 {
-    rt->scene->cam_coord = ascii_to_vec(data[1]);
-    rt->scene->cam_norm = ascii_to_vec(data[2]);
-    rt->scene->fov = ascii_to_int(data[3]);
-    return;
+    scene->light_coord = ascii_to_vec(data[1]);
+    scene->brightness = ascii_to_float(data[2]);
+    return(scene);
 }
 
-void att_light(t_frame *rt, char **data)
-{
-    rt->scene->light_coord = ascii_to_vec(data[1]);
-    rt->scene->brightness = ascii_to_float(data[2]);
-    return;
-}
-
-void attribute(t_frame *rt, char id, char *data)
+t_frame *attribute(t_frame *rt, t_scene *scene, char id, char *data)
 {
     char **split_data;
 
     split_data = ft_split(data, ' ');
 
     if (id == 'A')
-        att_ambient(rt, split_data);
+        rt->scene = att_ambient(scene, split_data);
     if (id == 'C')
-        att_camera(rt, split_data);
+        rt->scene = att_camera(scene, split_data);
     if (id == 'L')
-        att_light(rt, split_data);
-    return;
-}
-
-void fill_scene(t_frame *rt, char id)
-{
-    char *data;
-    if (id == 'A')
-        data = rt->ambient;
-    if (id == 'C')
-        data = rt->camera;
-    if (id == 'L')
-        data = rt->light;
-    attribute(rt, id, data);
-    return;
+        rt->scene = att_light(scene, split_data);
+    return(rt);
 }

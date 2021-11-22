@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtlib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/11/18 22:56:00 by user             ###   ########.fr       */
+/*   Updated: 2021/11/22 18:35:46 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <float.h>
+#include <mlx.h>
 
 #include "mlx.h"
 #include "gnl.h"
@@ -41,6 +42,8 @@ typedef struct s_color
 
 typedef struct s_obj
 {
+    char id1;
+    char id2;
     struct s_obj *prev;
     struct s_obj *next;
     char *raw;
@@ -80,12 +83,33 @@ typedef struct s_frame
     t_obj *objs_first;
     t_obj *objs_last;
     int nbr_objs;
+    t_data *images;
 }t_frame;
+
+/* mlx struct */
+
+typedef struct	s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
 
 /* prototypes */
 
-t_frame *init_frame(void);
-void fill_scene(t_frame *rt, char id);
+/* render.c */
+
+int render(t_frame *rt);
+
+/* image.c */
+
+t_data *create_image();
+
+/* window.c */
+
+void window_init(void);
+
 
 /* ascii_to.c */
 
@@ -105,12 +129,16 @@ void create_sphere(t_obj *obj, char *data);
 void create_scene(t_frame *rt);
 void create_objs(t_frame *rt);
 
+/* scene.c */
+
+t_scene *init_scene(void);
+
 /* fill_scene.c */
 
-void att_ambient(t_frame *rt, char **data);
-void att_camera(t_frame *rt, char **data);
-void att_light(t_frame *rt, char **data);
-void attribute(t_frame *rt, char id, char *data);
+t_scene *att_ambient(t_scene *scene, char **data);
+t_scene *att_camera(t_scene *scene,char **data);
+t_scene *att_light(t_scene *scene, char **data);
+t_frame *attribute(t_frame *rt,t_scene *scene, char id, char *data);
 void fill_scene(t_frame *rt, char id);
 
 /* frame.c */

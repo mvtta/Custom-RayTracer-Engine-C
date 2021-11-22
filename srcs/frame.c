@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 17:35:32 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/11/18 22:46:01 by user             ###   ########.fr       */
+/*   Updated: 2021/11/22 14:33:04 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ t_frame *fill_frame(t_frame *rt)
     // fd = open("scene_test.rt", O_RDONLY);
     while ((data = get_next_line(0)))
     {
-        write(1, "line: ", 6);
-        write(1, data, ft_strlen(data));
+/*         write(1, "line: ", 6);
+        write(1, data, ft_strlen(data)); */
         id1 = data[0];
         id2 = data[1];
         if (id1 == 'A')
