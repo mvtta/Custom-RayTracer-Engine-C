@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 17:35:32 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/11/22 14:33:04 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/11/23 21:59:08 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ t_frame *init_frame(void)
     rt->objs_first = NULL;
     rt->objs_last = NULL;
     rt->nbr_objs = 0;
-    return (rt);
+    rt->window_w = 1920;
+    rt->window_h = 1080;
+    return(rt);
 }
 
 t_frame *fill_frame(t_frame *rt)

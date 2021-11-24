@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtlib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/11/22 18:35:46 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/11/23 22:53:07 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <float.h>
 #include <mlx.h>
+#include <stdbool.h>
 
 #include "mlx.h"
 #include "gnl.h"
@@ -31,6 +32,12 @@ typedef struct s_vec
     float z;
 }t_vec;
 
+typedef struct s_ray
+{
+    t_vec start;
+    t_vec dir;
+}t_ray;
+
 typedef struct s_color
 {
     int r;
@@ -39,6 +46,20 @@ typedef struct s_color
     unsigned int hex;
     
 }t_color;
+
+/* mlx struct */
+
+typedef struct	s_data {
+	int		line_length; //width
+	int		bits_per_pixel; // bpp
+	int		endian;
+/* Endianness The attribute of a system that indicates whether 
+integers are represented with the most significant byte 
+stored at the lowest address (big endian) or at the highest address (little endian). 
+Each address stores one element of the memory array. */
+	int	    *data;
+	void	*img_ptr;
+}				t_data;
 
 typedef struct s_obj
 {
@@ -53,7 +74,6 @@ typedef struct s_obj
     float diameter;
     float height;
     
-
 }t_obj;
 
 typedef struct s_scene
@@ -70,6 +90,7 @@ typedef struct s_scene
     t_vec *light_coord;
     float brightness;
     t_color *light_color;
+    
 }t_scene;
 
 typedef struct s_frame
@@ -79,36 +100,47 @@ typedef struct s_frame
     char *light;
     /* 🔺these are alocated separatly please 
     free after use thanks */
+    int window_w;
+    int window_h;
     t_scene *scene;
     t_obj *objs_first;
     t_obj *objs_last;
     int nbr_objs;
-    t_data *images;
+    void *mlx_ptr;
+    void *win_ptr;
+    t_data bkg_img;
+    t_data obj_img;
+    
 }t_frame;
 
-/* mlx struct */
-
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
 
 /* prototypes */
 
+/* vector.c */
+
+t_vec   v_sub(t_vec *v1, t_vec *v2);
+float  dot_p(t_vec *v1, t_vec *v2);
+
+/* intersection.c */
+
+bool ray_sphere(t_ray *r, t_obj *s);
+
 /* render.c */
 
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int render(t_frame *rt);
+void general_img_to_window(t_frame *rt);
+void obj_to_window(t_frame *rt);
+void compute_sphere(t_obj *obj, t_frame *rt);
 
 /* image.c */
 
-t_data *create_image();
+void create_image(t_frame *rt, int obj, int bkg);
 
 /* window.c */
 
-void window_init(void);
+void window_init(t_frame *rt);
+void	map_to_img(t_data data, int x, int y, int color);
 
 
 /* ascii_to.c */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ascii_to.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 18:59:20 by user              #+#    #+#             */
-/*   Updated: 2021/11/22 14:42:40 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/11/24 15:34:55 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,20 @@ float ascii_to_float(char *data)
 
 t_vec *ascii_to_vec(char *data)
 {
-    t_vec *vec;
+    t_vec *vec = NULL;
 
     vec = malloc(sizeof(t_vec));
     char **vectorial;
 
     vectorial = ft_split(data, ',');
-    vec->x = ascii_to_float(&data[0]);
-    vec->y = ascii_to_float(&data[1]);
-    vec->z = ascii_to_float(&data[2]);
+    
+    printf("vectx%s\n", vectorial[0]);
+    printf("vecy%s\n", vectorial[1]);
+    printf("vecz%s\n", vectorial[2]);
+    
+    vec->x = ascii_to_float(vectorial[0]);
+    vec->y = ascii_to_float(vectorial[1]);
+    vec->z = ascii_to_float(vectorial[2]);
     //free(vectorial);
     return (vec);
 }
@@ -84,11 +89,11 @@ unsigned int ascii_to_hex(int r, int g, int b)
 t_color *ascii_to_rgb(char *data)
 {
     char **colors;
-
     t_color *color_in_hex;
-
     color_in_hex = malloc(sizeof(t_color));
+    
     colors = ft_split(data, ',');
+
     color_in_hex->r = ascii_to_int(colors[0]);
     color_in_hex->g = ascii_to_int(colors[1]);
     color_in_hex->b = ascii_to_int(colors[2]);

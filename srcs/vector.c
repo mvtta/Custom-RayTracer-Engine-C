@@ -1,24 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window.c                                           :+:      :+:    :+:   */
+/*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/22 17:53:53 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/11/24 09:54:23 by user             ###   ########.fr       */
+/*   Created: 2021/11/23 15:50:22 by user              #+#    #+#             */
+/*   Updated: 2021/11/23 15:57:38 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtlib.h"
 
-void	map_to_img(t_data data, int x, int y, int color)
+t_vec   v_sub(t_vec *v1, t_vec *v2)
 {
-	data.data[(y * data.line_length + x * (data.bits_per_pixel / 8) / 4)] = color;
+    t_vec new;
+
+    new.x = v1->x - v2->x;
+    new.y = v1->y - v2->y;
+    new.z = v1->z - v2->z;
+    
+    return(new);
 }
 
-void window_init(t_frame *rt)
+float  dot_p(t_vec *v1, t_vec *v2)
 {
-	rt->mlx_ptr = mlx_init();
-	rt->win_ptr = mlx_new_window(rt->mlx_ptr, rt->window_w, rt->window_h, "A cool rt");
+    float dot;
+    float a;
+    float b;
+    float c;
+
+    a = v1->x * v2->x;
+    b = v1->y * v2->y;
+    c = v1->z * v2->z;
+
+    dot = a + b + c;
+    return(dot); 
 }

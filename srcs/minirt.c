@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 11:20:09 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/11/22 18:28:43 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/11/24 09:51:59 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,14 @@ int minirt(void)
 {
     t_frame *rt;
     rt = init_frame();
-
-
-    fill_frame(&rt);
-    create_scene(&rt);
-    window_init();
-    create_objs(&rt);
-    render(&rt);
-    
-    
-    /* printf("nbr of obj: %d\n", rt->nbr_objs);
-    printf("nbr of obj: %d\n", rt->objs_first);
-    write(1, "\nobj_created\n", 15);
-    write(1, "\nscene_created\n", 15);
-    write(1, "\nframe_filled\n", 14); */
+    fill_frame(rt);
+    create_scene(rt);
+    window_init(rt);
+    create_objs(rt);
+    render(rt);
+    write(1, "render out\n", 11);
+    mlx_loop(rt->mlx_ptr);
     return(0);
-    //paint_frame;
 }
 
 int main(int ac, char **av)
@@ -44,7 +36,8 @@ int main(int ac, char **av)
         if (av[1][end - 3] == '.' 
         && av[1][end - 2] == 'r' 
         && av[1][end - 1] == 't')
-            minirt();
+        minirt();
+        return(1);
     }
     else
         write(1, "Error\n", 6);

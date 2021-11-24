@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_scene.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 18:06:51 by user              #+#    #+#             */
-/*   Updated: 2021/11/22 14:22:36 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/11/23 17:30:33 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@ t_scene *att_ambient(t_scene *scene, char **data)
 
 t_scene *att_camera(t_scene *scene, char **data)
 {
-/*     write(1, "\ncam_coord\n", 11);
-    write(1, data[1], ft_strlen(data[1]));
-    write(1, "\ncam_norm\n", 10);
-    write(1, data[2], ft_strlen(data[2]));
-    write(1, "\nfov\n", 5);
-    write(1, data[2], ft_strlen(data[3])); */
     scene->cam_coord = ascii_to_vec(data[1]);
     scene->cam_norm = ascii_to_vec(data[2]);
     scene->fov = ascii_to_int(data[3]);

@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "__locale": "c",
-        "rtlib.h": "c"
+        "rtlib.h": "c",
+        "mlx.h": "c"
     }
 }

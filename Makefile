@@ -6,7 +6,7 @@
 #    By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/07 12:36:54 by mvaldeta          #+#    #+#              #
-#    Updated: 2021/11/18 22:49:19 by user             ###   ########.fr        #
+#    Updated: 2021/11/23 20:13:03 by user             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,17 +35,12 @@
 # make -p for makefile database
 ################################################################################
 
-EXEC = ./minirt
-
-HEADERS = includes/
-
-SRC_EXEC = ${wildcard srcs/*.c}
-
-LIBFT = libft/bin/libft.a
-
-SRC_LIBFT = libft/
-
-BIN_ROOT = bin/
+EXEC 		= ./minirt
+HEADERS 	= includes/
+SRC_EXEC 	= ${wildcard srcs/*.c}
+LIBFT 		= libs/libft/bin/libft.a
+SRC_LIBFT 	= libs/libft/
+BIN_ROOT 	= bin/
 OBJ_ROOT	= obj/
 
 
@@ -55,29 +50,40 @@ OBJ_ROOT	= obj/
 
 CC = gcc
 
-CFLAGS = -g  -Imlx -Werror -Wall -Wextra
+CFLAGS = -g -Imlx -Werror -Wall -Wextra
 
-MLX = -Lmlx -lmlx -framework OpenGL -framework AppKit 
+MLX_DIR = libs/minilibx_opengl_20191021
+
+MLX_FLAGS = -L ./$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit 
+
+MLX_FILE = $(MLX_DIR)libmlx.a
 
 O_EXEC =  $(SRC_MAIN:%.c=%.o)
 
 all : $(EXEC)
 
-$(EXEC) : ${LIBFT} $(O_EXEC)
-	${AT} mkdir -p ${BIN_ROOT}
-	${AT} $(CC) $(CFLAGS) -I $(HEADERS) ${LIBFT} $(SRC_EXEC) $(O_EXEC) -o ${BIN_ROOT}$@
+$(EXEC) : ${LIBFT} $(MLX_FILE) $(O_EXEC)
+	mkdir -p ${BIN_ROOT}
+	$(CC) $(CFLAGS) $(MLX_FLAGS) -I $(HEADERS) ${LIBFT} $(SRC_EXEC) $(O_EXEC) -o ${BIN_ROOT}$@
 	@printf "\e[32m${EXEC}built🎆\e[0m\n"
 
 ${LIBFT} :
 					make -C ${SRC_LIBFT}
 					@printf "\e[32mcreating libft🎆\e[0m\n"
 
+${MLX_FILE} : 
+					@make -C $(MLX_DIR) 
+					@printf "\e[32mcreating MLX🎆\e[0m\n"
+
 clean :
-	$(RM) $(O_FILES)
+	@rm -f $(O_EXEC)
 	@printf "\e[31mclean done ✔️\e[0m\n"
 
 fclean : clean
-	$(RM) $(EXEC) $(LIBFT) ${BIN_ROOT}
+	@rm -rf $(BIN_ROOT)
+	@printf "\e[32mbin directory clean 👾\e[0m\n"
+	@rm -f $(EXEC) $(LIBFT)
+	@printf "\e[32mlibft clean 👾\e[0m\n"
 	@printf "\e[31mfsuper clean done ✔️\e[0m\n"
 
 re : fclean all
