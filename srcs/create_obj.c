@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_obj.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 17:32:20 by user              #+#    #+#             */
-/*   Updated: 2021/11/24 15:35:36 by user             ###   ########.fr       */
+/*   Updated: 2021/11/24 16:46:50 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void create_sphere(t_obj *obj, char *data)
     char **sphere;
     sphere = ft_split(data, ' ');
 
-    printf("obj 0:%s\n", sphere[0]);
+/*     printf("obj 0:%s\n", sphere[0]);
     printf("obj 1:%s\n", sphere[1]);
     printf("obj 2:%s\n", sphere[2]);
-    printf("obj 3:%s\n", sphere[3]);
+    printf("obj 3:%s\n", sphere[3]); */
 
     obj->id1 = 's';
     obj->id2 = 'p';
@@ -70,7 +70,7 @@ void create_sphere(t_obj *obj, char *data)
     printf("objy:%f\n", obj->obj_coord->y);
     printf("objz:%f\n", obj->obj_coord->z);
     printf("objdiameter:%f\n", obj->diameter); */
-    
+    //exit(0);
 }
 
 

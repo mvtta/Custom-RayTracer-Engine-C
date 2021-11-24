@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ascii_to.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 18:59:20 by user              #+#    #+#             */
-/*   Updated: 2021/11/24 15:34:55 by user             ###   ########.fr       */
+/*   Updated: 2021/11/24 16:44:21 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,37 @@ int ascii_to_int(char *data)
 float ascii_to_float(char *data)
 {
     float point;
-    int nbr = 0;
+    int power;
     int i = 0;
+    int sign = 1;
+    power = 1.0;    
+    point = 0.0;
 
-    if (data)
+    if(data[0] == '-')
+        sign = -1;
+    while(data[i] && data[i] != '.')
     {
-        while (data[i] == '0' || data[i] == '.')
-            i++;
-        while (data[i])
+        point = 10.0 * point + (data[i] - '0');
+        i++;
+    }
+
+    if(data[i] == '.')
+    {
+        i++;
+        while(data[i])
         {
-            nbr = data[i] - 48 + nbr;
-            nbr *= 10;
+            point = 10.0 * point + (data[i] - '0');
+            power *= 10.0;
             i++;
         }
     }
-    point = (float)nbr / (100);
+    return(sign * point / power);
+   // point = ((float)nbr);
     /*     printf("\n%d\n", nbr);
     printf("\n%d\n", i);
     printf("\n%f\n", point);
     exit(0); */
+    printf("float out:%f\n", point);
     return (point);
 }
 
@@ -67,9 +79,9 @@ t_vec *ascii_to_vec(char *data)
 
     vectorial = ft_split(data, ',');
     
-    printf("vectx%s\n", vectorial[0]);
+ /*    printf("vectx%s\n", vectorial[0]);
     printf("vecy%s\n", vectorial[1]);
-    printf("vecz%s\n", vectorial[2]);
+    printf("vecz%s\n", vectorial[2]); */
     
     vec->x = ascii_to_float(vectorial[0]);
     vec->y = ascii_to_float(vectorial[1]);

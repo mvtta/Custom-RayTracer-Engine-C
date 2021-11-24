@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/11/24 10:00:51 by user             ###   ########.fr       */
+/*   Updated: 2021/11/24 17:14:09 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ void compute_sphere(t_obj *obj, t_frame *rt)
     ray.start.z = 0;
     color = obj->obj_color->hex;
 
-    while (y++ < rt->window_h)
+    while (y < rt->window_h)
     {
         ray.start.y = y;
+        y++;
         x = 0;
-        while (x++ < rt->window_w)
+        while (x < rt->window_w)
         {
             ray.start.x = x;
             hit = ray_sphere(&ray, obj);
@@ -50,6 +51,7 @@ void compute_sphere(t_obj *obj, t_frame *rt)
                 //printf("++");
                 mlx_pixel_put(rt->mlx_ptr, rt->win_ptr, x, y, 49408);
             }
+            x++;
         }
     }
 }

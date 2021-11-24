@@ -60,7 +60,7 @@ char *ft_join(char *buf, char *archive)
     char *new = malloc(ft_strlen(buf) + ft_strlen(archive) + 1);
 
     /*     printf("buf in join: %s\n", buf);
-        printf("archive before join: %s\n", archive); */
+        printf("archive before join: %s\n", asome lines to malerchive); */
     while (archive[i])
     {
         new[i] = archive[i];
