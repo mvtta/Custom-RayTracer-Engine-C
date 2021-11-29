@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_scene.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:18:03 by user              #+#    #+#             */
-/*   Updated: 2021/11/24 17:01:16 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/11/29 10:03:02 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void create_scene(t_frame *rt)
 void create_objs(t_frame *rt)
 {
     t_obj *obj = rt->objs_first;
-    //if(obj->raw[0] == 's')
+    if(obj->raw[0] == 's')
     create_sphere(obj, obj->raw);
 /*     printf("objx:%f\n", rt->objs_first->obj_coord->x);
     printf("objy:%f\n", rt->objs_first->obj_coord->y);

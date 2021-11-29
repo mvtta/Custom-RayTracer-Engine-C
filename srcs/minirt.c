@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 11:20:09 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/11/24 09:51:59 by user             ###   ########.fr       */
+/*   Updated: 2021/11/29 08:56:36 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,13 @@ int minirt(void)
     t_frame *rt;
     rt = init_frame();
     fill_frame(rt);
+    write(1, "\tframe\n", 7);
     create_scene(rt);
+    write(1, "\tscene\n", 7);
     window_init(rt);
+    write(1, "\twindow\n", 8);
     create_objs(rt);
+    write(1, "\tobjects\n", 9);
     render(rt);
     write(1, "render out\n", 11);
     mlx_loop(rt->mlx_ptr);

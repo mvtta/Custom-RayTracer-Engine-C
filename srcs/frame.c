@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 17:35:32 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/11/23 21:59:08 by user             ###   ########.fr       */
+/*   Updated: 2021/11/29 01:10:02 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ t_frame *fill_frame(t_frame *rt)
     // fd = open("scene_test.rt", O_RDONLY);
     while ((data = get_next_line(0)))
     {
-/*         write(1, "line: ", 6);
-        write(1, data, ft_strlen(data)); */
+        write(1, "line: ", 6);
+        write(1, data, ft_strlen(data));
         id1 = data[0];
         id2 = data[1];
         if (id1 == 'A')
@@ -50,7 +50,7 @@ t_frame *fill_frame(t_frame *rt)
             add_new_obj(rt, data);
         if (id1 == 'c' && id2 == 'y')
             add_new_obj(rt, data);
-        free(data);
+        //free(data);
     }
     return (rt);
 }

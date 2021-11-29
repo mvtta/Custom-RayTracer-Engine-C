@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ascii_to.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 18:59:20 by user              #+#    #+#             */
-/*   Updated: 2021/11/24 16:44:21 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/11/29 18:57:30 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,19 @@
 int ascii_to_int(char *data)
 {
     int i;
-    int sign = 0;
-    int nbr;
+    int sign = 1;
+    int nbr = 0;
 
     i = -1;
     if (data[0] == '-')
     {
-        sign += 1;
+        sign = -1;
         i += 1;
     }
-    while (data[i])
-    {
-        nbr = data[i] - 48 + nbr;
-        nbr *= 10;
-        i++;
-    }
+    if(data[0] == '0')
+        return(0);
+    while (data[++i])
+        nbr = data[i] - 48 + nbr * 10;
     return (nbr *= sign);
 }
 
@@ -90,11 +88,12 @@ t_vec *ascii_to_vec(char *data)
     return (vec);
 }
 
+
 unsigned int ascii_to_hex(int r, int g, int b)
 {
-    unsigned int hex;
-
-    hex = ((r & 0xff) << 24) + ((g & 0xff) << 16) + ((b & 0xff) << 8);
+    uint32_t hex;
+  
+    hex = ((r & 0xff) << 16) + ((g & 0xff) << 8) + ((b & 0xff));
     return (hex);
 }
 
@@ -105,6 +104,11 @@ t_color *ascii_to_rgb(char *data)
     color_in_hex = malloc(sizeof(t_color));
     
     colors = ft_split(data, ',');
+
+    printf("data0:%s\n", colors[0]);
+    printf("data1:%s\n", colors[1]);
+    printf("data2:%s\n", colors[2]);
+    //exit(0);
 
     color_in_hex->r = ascii_to_int(colors[0]);
     color_in_hex->g = ascii_to_int(colors[1]);

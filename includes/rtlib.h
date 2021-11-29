@@ -6,14 +6,26 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/11/23 22:53:07 by user             ###   ########.fr       */
+/*   Updated: 2021/11/29 19:12:51 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RTLIB_H
 # define RTLIB_H
 
+#define PI 3.14159265358979323846
+#define MAX(x, y) (((x) > (y)) ? (x) : (y))
+#define MIN(x, y) (((x) < (y)) ? (x) : (y))
+#define BIT(x) (x * 100 / 255)
+#define P(x) (x * 0.01)
+#define BLACK(x) (x * -0.01)
+#define DEC(r, g, b) (((r * 65536) + (g * 256) + b))
+#define NO_HIT -33
+#define WHITE 1
+#define SHADE(x) (x < 0 ? PER(x) * BLACK : x * 1)
+
 #include <fcntl.h>
+#include <math.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -117,16 +129,21 @@ typedef struct s_frame
 /* prototypes */
 
 /* vector.c */
-
+t_color c_blend(float alpha, t_color *color);
+t_vec normalize(t_vec *p);
+t_vec v_scale(float scale, t_vec *vec);
 t_vec   v_sub(t_vec *v1, t_vec *v2);
+t_vec v_add(t_vec *v1, t_vec *v2);
+t_vec v_mult(t_vec *v1, t_vec *v2);
 float  dot_p(t_vec *v1, t_vec *v2);
 
 /* intersection.c */
 
-bool ray_sphere(t_ray *r, t_obj *s);
+float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord);
 
 /* render.c */
 
+int compute_light(t_frame *rt, t_obj obj, t_ray *ray, t_vec obj_coord, int hit);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int render(t_frame *rt);
 void general_img_to_window(t_frame *rt);

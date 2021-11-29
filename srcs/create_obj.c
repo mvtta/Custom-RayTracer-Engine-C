@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_obj.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 17:32:20 by user              #+#    #+#             */
-/*   Updated: 2021/11/24 16:46:50 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/11/29 10:03:50 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,28 @@ void create_sphere(t_obj *obj, char *data)
     char **sphere;
     sphere = ft_split(data, ' ');
 
-/*     printf("obj 0:%s\n", sphere[0]);
+    printf("obj 0:%s\n", sphere[0]);
     printf("obj 1:%s\n", sphere[1]);
     printf("obj 2:%s\n", sphere[2]);
-    printf("obj 3:%s\n", sphere[3]); */
+    printf("obj 3:%s\n", sphere[3]);
 
     obj->id1 = 's';
     obj->id2 = 'p';
     obj->obj_coord = ascii_to_vec(sphere[1]);
     obj->diameter = ascii_to_float(sphere[2]);
     obj->obj_color = ascii_to_rgb(sphere[3]);
+
+    printf("r:%d\t\n", obj->obj_color->r);
+    printf("g:%d\t\n", obj->obj_color->g);
+    printf("b:%d\t\n", obj->obj_color->b);
+    printf("hex:%u\t\n", obj->obj_color->hex);
+    //exit(0);
+
+  /*   printf("r:%d\t\n", obj->obj_color->r);
+    printf("g:%d\t\n", obj->obj_color->g);
+    printf("b:%d\t\n", obj->obj_color->b);
+    printf("hex:%d\t\n", obj->obj_color->hex);
+    exit(0); */
 
 /*     printf("objx:%f\n", obj->obj_coord->x);
     printf("objy:%f\n", obj->obj_coord->y);
