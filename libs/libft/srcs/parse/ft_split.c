@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 16:42:12 by mavaldeta         #+#    #+#             */
-/*   Updated: 2021/10/18 14:46:11 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/12/01 15:04:33 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static	size_t	ft_word_count(const char *s, char c)
 	int	count;
 
 	count = 0;
+	if(!s)
+		return(NULL);
 	while (*s)
 	{
 		if (*s++ == c)

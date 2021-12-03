@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 18:59:20 by user              #+#    #+#             */
-/*   Updated: 2021/11/29 18:57:30 by user             ###   ########.fr       */
+/*   Updated: 2021/12/01 15:46:14 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int ascii_to_int(char *data)
     int sign = 1;
     int nbr = 0;
 
-    i = -1;
+    i = 0;
     if (data[0] == '-')
     {
         sign = -1;
@@ -26,8 +26,13 @@ int ascii_to_int(char *data)
     }
     if(data[0] == '0')
         return(0);
-    while (data[++i])
-        nbr = data[i] - 48 + nbr * 10;
+    while (data[i])
+    {
+        nbr = data[i] - 48 + nbr;
+        i++;
+        if(data[i])
+            nbr *= 10;
+    }
     return (nbr *= sign);
 }
 
@@ -100,19 +105,19 @@ unsigned int ascii_to_hex(int r, int g, int b)
 t_color *ascii_to_rgb(char *data)
 {
     char **colors;
-    t_color *color_in_hex;
-    color_in_hex = malloc(sizeof(t_color));
-    
+    t_color *color = NULL; 
+    color = malloc(sizeof(t_color));
+       
     colors = ft_split(data, ',');
 
     printf("data0:%s\n", colors[0]);
     printf("data1:%s\n", colors[1]);
     printf("data2:%s\n", colors[2]);
-    //exit(0);
 
-    color_in_hex->r = ascii_to_int(colors[0]);
-    color_in_hex->g = ascii_to_int(colors[1]);
-    color_in_hex->b = ascii_to_int(colors[2]);
-    color_in_hex->hex = ascii_to_hex(color_in_hex->r, color_in_hex->g, color_in_hex->b);
-    return (color_in_hex);
+
+    color->r = ascii_to_int(colors[0]);
+    color->g = ascii_to_int(colors[1]);
+    color->b = ascii_to_int(colors[2]);
+    color->hex = DEC(color->r, color->g, color->b);
+    return (color);
 }

@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 18:06:51 by user              #+#    #+#             */
-/*   Updated: 2021/11/23 17:30:33 by user             ###   ########.fr       */
+/*   Updated: 2021/12/01 12:08:34 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,12 @@ t_scene *att_light(t_scene *scene,char **data)
 t_frame *attribute(t_frame *rt, t_scene *scene, char id, char *data)
 {
     char **split_data;
-
+    
+    printf("input on att:%s\n", data);
+    printf("id on att:%c\n", id);
     split_data = ft_split(data, ' ');
+    printf("split1 on att:%s\n", split_data[0]);
+    printf("split2 on att:%s\n", split_data[1]);
 
     if (id == 'A')
         rt->scene = att_ambient(scene, split_data);

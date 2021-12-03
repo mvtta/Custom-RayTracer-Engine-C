@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 17:32:20 by user              #+#    #+#             */
-/*   Updated: 2021/11/29 10:03:50 by user             ###   ########.fr       */
+/*   Updated: 2021/12/01 18:10:59 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ t_obj *new_obj(t_frame *rt, char *data)
     t_obj *new = NULL;
 
     new = malloc(sizeof(t_obj));
-    new->raw = malloc(ft_strlen(data));
-    new->raw = data;
+    printf("data in <data> new obj: %s\n", data);
      /* parse raw_data_now */
+    new->raw = malloc(ft_strlen(data) + 1);
+    ft_strlcpy(new->raw, data, ft_strlen(data));
+    printf("data in <raw> new obj: %s\n", new->raw);
     new->prev = NULL;
     new->next = NULL;
     new->obj_coord = NULL;
@@ -33,58 +35,55 @@ t_obj *new_obj(t_frame *rt, char *data)
 
 void add_new_obj(t_frame *rt, char *data)
 {
-    t_obj *old_last = NULL;
     t_obj *new = NULL;
+    t_obj *old_tail = NULL;
+    char *input = NULL;
 
-    new = new_obj(rt, data);
+
+    input = malloc(ft_strlen(data) + 1);
+    ft_strlcpy(input, data, ft_strlen(data) + 1);
+    new = new_obj(rt, input);
+    free(input);
     if(rt->objs_first == NULL)
     {
         rt->objs_first = new;
         rt->objs_last = new;
+        rt->objs_first->prev = NULL;
+        rt->objs_first->next = rt->objs_last;
+        rt->objs_last->prev = rt->objs_first;
         return;
     }
-    old_last = rt->objs_last;
-    new->prev = old_last;
-    rt->objs_last = NULL;
+
+    old_tail = rt->objs_last;
+    new->prev = old_tail;
+    new->next = NULL;
+    old_tail->next = new;
+    old_tail->prev = old_tail->prev->next;
     rt->objs_last = new;
+    rt->objs_last->prev = new->prev;
+/* 
+    printf("obj FIRST AFTER FIRTS LINK: %p\n", rt->objs_first);
+    printf("raw FIRST AFTER FIRTS LINK: %s\n", rt->objs_first->raw);
+    printf("obj FIRST->NEXT AFTER LINK: %p\n", rt->objs_first->next);
+    printf("obj LAST AFTER LINK: %p\n", rt->objs_last);
+    printf("raw LAST AFTER LINK: %s\n", rt->objs_last->raw); */
+   //exit(0);
     return;
 }
 
 void create_sphere(t_obj *obj, char *data)
 {
     char **sphere;
+    static int count;
     sphere = ft_split(data, ' ');
 
-    printf("obj 0:%s\n", sphere[0]);
-    printf("obj 1:%s\n", sphere[1]);
-    printf("obj 2:%s\n", sphere[2]);
-    printf("obj 3:%s\n", sphere[3]);
-
-    obj->id1 = 's';
-    obj->id2 = 'p';
+    obj->id1 = SPHERE;
+    obj->id2 = count;
     obj->obj_coord = ascii_to_vec(sphere[1]);
     obj->diameter = ascii_to_float(sphere[2]);
     obj->obj_color = ascii_to_rgb(sphere[3]);
-
-    printf("r:%d\t\n", obj->obj_color->r);
-    printf("g:%d\t\n", obj->obj_color->g);
-    printf("b:%d\t\n", obj->obj_color->b);
-    printf("hex:%u\t\n", obj->obj_color->hex);
-    //exit(0);
-
-  /*   printf("r:%d\t\n", obj->obj_color->r);
-    printf("g:%d\t\n", obj->obj_color->g);
-    printf("b:%d\t\n", obj->obj_color->b);
-    printf("hex:%d\t\n", obj->obj_color->hex);
-    exit(0); */
-
-/*     printf("objx:%f\n", obj->obj_coord->x);
-    printf("objy:%f\n", obj->obj_coord->y);
-    printf("objz:%f\n", obj->obj_coord->z);
-    printf("objdiameter:%f\n", obj->diameter); */
-    //exit(0);
+    count += 1;
 }
-
 
 /* void create_cylin(t_frame *rt, char *data)
 {

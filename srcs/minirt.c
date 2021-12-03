@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 11:20:09 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/11/29 08:56:36 by user             ###   ########.fr       */
+/*   Updated: 2021/12/03 11:38:22 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,36 @@ int minirt(void)
 {
     t_frame *rt;
     rt = init_frame();
+
     fill_frame(rt);
     write(1, "\tframe\n", 7);
+
     create_scene(rt);
     write(1, "\tscene\n", 7);
+
     window_init(rt);
     write(1, "\twindow\n", 8);
+
     create_objs(rt);
     write(1, "\tobjects\n", 9);
+
     render(rt);
     write(1, "render out\n", 11);
+
     mlx_loop(rt->mlx_ptr);
     return(0);
 }
 
 int main(int ac, char **av)
 {
-    int end = 0;
+    int last= 0;
 
-    end = ft_strlen(av[1]);
+    last= ft_strlen(av[1]);
     if (ac == 2)
     {
-        if (av[1][end - 3] == '.' 
-        && av[1][end - 2] == 'r' 
-        && av[1][end - 1] == 't')
+        if (av[1][last- 3] == '.' 
+        && av[1][last- 2] == 'r' 
+        && av[1][last- 1] == 't')
         minirt();
         return(1);
     }

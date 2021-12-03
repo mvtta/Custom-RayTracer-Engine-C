@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 17:35:32 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/11/29 01:10:02 by user             ###   ########.fr       */
+/*   Updated: 2021/12/03 00:18:54 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,20 @@ t_frame *fill_frame(t_frame *rt)
     char id1;
     char id2;
 
+   
     // fd = open("scene_test.rt", O_RDONLY);
+    printf("hehe\n");
     while ((data = get_next_line(0)))
     {
-        write(1, "line: ", 6);
-        write(1, data, ft_strlen(data));
+        if(data == NULL)
+            break;
         id1 = data[0];
         id2 = data[1];
         if (id1 == 'A')
             rt->ambient = save_raw(data);
         if (id1 == 'C')
             rt->camera = save_raw(data);
-        if (id1 == 'L' || id2 == 'L')
+        if (id1 == 'L')
             rt->light = save_raw(data);
         if (id1 == 's' && id2 == 'p')
             add_new_obj(rt, data);
@@ -50,7 +52,7 @@ t_frame *fill_frame(t_frame *rt)
             add_new_obj(rt, data);
         if (id1 == 'c' && id2 == 'y')
             add_new_obj(rt, data);
-        //free(data);
+        free(data);
     }
     return (rt);
 }

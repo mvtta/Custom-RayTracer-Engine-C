@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 11:20:21 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/11/28 18:51:17 by user             ###   ########.fr       */
+/*   Updated: 2021/12/01 11:49:06 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ char *parse_input(int fd)
 
 char *save_raw(char *input)
 {
-	char *raw = NULL;
+	char *raw;
 	int i = 0;
-	raw = malloc(ft_strlen(input));
+	raw = malloc(ft_strlen(input) + 1);
 	//write(1, "copy_in\n", 8);
 	while(input[i])
 	{

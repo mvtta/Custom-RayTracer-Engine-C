@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 13:21:11 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/11/28 18:26:35 by user             ###   ########.fr       */
+/*   Updated: 2021/12/01 12:10:47 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ t_scene *init_scene(void)
 { 
   t_scene *scene = NULL;
 
-  scene = malloc(sizeof(scene));
+  scene = malloc(sizeof(t_scene));
+
   scene->amb_color = 0;
   scene->ambient = 0;
   scene->brightness = 0;
@@ -26,5 +27,6 @@ t_scene *init_scene(void)
   scene->id = 0;
   scene->light_color = 0;
   scene->light_coord = 0;
+
   return(scene);
 }

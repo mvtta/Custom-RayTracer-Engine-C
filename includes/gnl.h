@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define NO_LINE 0
+#define NO_LINE -33
 #define BUFFER_SIZE 1
 
 char    *get_next_line(int fd);
