@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:18:03 by user              #+#    #+#             */
-/*   Updated: 2021/12/03 11:15:40 by user             ###   ########.fr       */
+/*   Updated: 2021/12/03 12:31:57 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,16 @@ void create_scene(t_frame *rt)
 
 void create_objs(t_frame *rt)
 {
-create_sphere(rt->objs_first, rt->objs_first->raw);
+    int i = 0;
+    t_obj *current;
+    current = rt->objs_first;
+    while(++i <= rt->nbr_objs)
+    {
+        printf("n objs: %d\n", rt->nbr_objs);
+        printf("curr raw: %s\n", current->raw);
+        printf("index : %d\n", i);
+        create_sphere(current, current->raw);
+        current = current->next;
+    }
     return;
 }

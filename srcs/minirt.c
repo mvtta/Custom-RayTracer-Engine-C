@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 11:20:09 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/12/03 11:38:22 by user             ###   ########.fr       */
+/*   Updated: 2021/12/03 12:31:24 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int minirt(void)
     write(1, "\tobjects\n", 9);
 
     render(rt);
-    write(1, "render out\n", 11);
+    write(1, "\trender out\n", 11);
 
     mlx_loop(rt->mlx_ptr);
     return(0);

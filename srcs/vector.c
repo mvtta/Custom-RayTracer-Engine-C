@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:50:22 by user              #+#    #+#             */
-/*   Updated: 2021/12/01 19:33:19 by user             ###   ########.fr       */
+/*   Updated: 2021/12/03 11:55:12 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,6 @@ t_vec v_sub(t_vec *v1, t_vec *v2)
 t_vec v_add(t_vec *v1, t_vec *v2)
 {
     t_vec new;
-
-    printf("v1-> x:%f\ty:%f\tz:%f\n", v1->x, v1->y, v1->z);
-    printf("v2-> x:%f\ty:%f\tz:%f\n", v2->x, v2->y, v2->z);
     //exit(0);
     new.x = v1->x + v2->x;
     new.y = v1->y + v2->y;

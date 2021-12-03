@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/12/03 11:38:13 by user             ###   ########.fr       */
+/*   Updated: 2021/12/03 12:37:09 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,25 @@ void obj_to_window(t_frame *rt)
 
 int render(t_frame *rt)
 {
-    compute_obj(rt->objs_first, rt);
+    int i  = 0;
+    t_obj *current;
+    current = rt->objs_first;
+    while(++i <= rt->nbr_objs)
+    {
+        printf("n objs: %d\n", rt->nbr_objs);
+        printf("index objs: %d\n", i);
+        compute_obj(current, rt);
+  /*       printf("curr raw: %s\n", current->raw);
+        printf("next: %p\n", current->next);
+        printf("current ID: %d\n", current->id2);
+        printf("current x cord: %f\n", current->obj_coord->x);
+        printf("next raw: %s\n", current->next->raw);
+        printf("current->next ID: %d\n", current->next->id2);
+        printf("next x cord: %f\n", current->next->obj_coord->x); */
+        //exit(0);
+        //printf("index objs: %d\n", i);
+        current = current->next;
+    }
     return(0);
 
 }

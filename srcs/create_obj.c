@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 17:32:20 by user              #+#    #+#             */
-/*   Updated: 2021/12/01 18:10:59 by user             ###   ########.fr       */
+/*   Updated: 2021/12/03 12:09:06 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void add_new_obj(t_frame *rt, char *data)
     ft_strlcpy(input, data, ft_strlen(data) + 1);
     new = new_obj(rt, input);
     free(input);
+    
     if(rt->objs_first == NULL)
     {
         rt->objs_first = new;
@@ -61,13 +62,6 @@ void add_new_obj(t_frame *rt, char *data)
     old_tail->prev = old_tail->prev->next;
     rt->objs_last = new;
     rt->objs_last->prev = new->prev;
-/* 
-    printf("obj FIRST AFTER FIRTS LINK: %p\n", rt->objs_first);
-    printf("raw FIRST AFTER FIRTS LINK: %s\n", rt->objs_first->raw);
-    printf("obj FIRST->NEXT AFTER LINK: %p\n", rt->objs_first->next);
-    printf("obj LAST AFTER LINK: %p\n", rt->objs_last);
-    printf("raw LAST AFTER LINK: %s\n", rt->objs_last->raw); */
-   //exit(0);
     return;
 }
 
