@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/12/03 12:37:09 by user             ###   ########.fr       */
+/*   Updated: 2021/12/03 12:44:13 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ void compute_sphere(t_obj *obj, t_frame *rt)
             hit = ray_sphere(&ray, obj, v_add(&world2scene, obj->obj_coord));
             if (hit != NO_HIT && hit <= 0)
             {
-                // colors = compute_light(rt, *obj, &ray, *obj->obj_coord, hit);
                 shade = c_blend(hit, obj->obj_color);
+                //colors = compute_light(rt, *obj, &ray, *obj->obj_coord, hit);
                 //my_mlx_pixel_put(&rt->obj_img, x, y, shade.hex);
                 mlx_pixel_put(rt->mlx_ptr, rt->win_ptr, x, y, (shade.hex));
             }
