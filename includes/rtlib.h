@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtlib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/12/01 19:12:02 by user             ###   ########.fr       */
+/*   Updated: 2021/12/06 17:49:25 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #define BIT(x) (x * 100 / 255)
 #define P(x) (x * 0.01)
 #define BLACK(x) (x * -0.01)
+#define LIGHT(x) (x * 0.1)
 #define DEC(r, g, b) (((r * 65536) + (g * 256) + b))
 #define NO_HIT -33
 #define WHITE 1
@@ -89,6 +90,7 @@ typedef struct s_obj
     t_vec *obj_coord;
     t_color *obj_color;
     t_vec *obj_norm;
+    t_vec *p;
     float diameter;
     float height;
     struct s_obj *next;
@@ -135,6 +137,7 @@ typedef struct s_frame
 /* prototypes */
 
 /* vector.c */
+t_color c_luminance(float alpha, t_color *color);
 t_color c_blend(float alpha, t_color *color);
 t_vec normalize(t_vec *p);
 t_vec v_scale(float scale, t_vec *vec);
@@ -149,7 +152,7 @@ float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord);
 
 /* render.c */
 
-int compute_light(t_frame *rt, t_obj obj, t_ray *ray, t_vec obj_coord, int hit);
+float compute_light(t_frame *rt, t_ray *ray, t_vec obj_coord, t_color volume);
 void my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int render(t_frame *rt);
 void general_img_to_window(t_frame *rt);

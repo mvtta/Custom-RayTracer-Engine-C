@@ -3,59 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/12/03 12:44:13 by user             ###   ########.fr       */
+/*   Updated: 2021/12/06 18:14:47 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtlib.h"
 
-int compute_light(t_frame *rt, t_obj obj, t_ray *ray, t_vec obj_coord, int hit)
+float compute_light(t_frame *rt, t_ray *ray, t_vec obj_coord, t_color volume)
 {
     float albedo = 0.18;
-    t_vec to_surface = v_add(&obj_coord, &obj_coord);
-    uint32_t new_color;
-    t_color shade;
-    t_vec point_hit;
-    t_vec dist;
-    t_vec dir;
-    float blend;
+    float difuse;
+    t_color color;
+    float light_incident;
+    float light_energy;
+    t_vec surface_normal;
+    t_vec p;
+    t_vec light2world;
+    t_vec world2scene;
+    world2scene.x = (rt->window_w / 2);
+    world2scene.y = (rt->window_h / 2);
+    world2scene.z = rt->scene->cam_coord->z * -1;
 
-    to_surface = v_add(rt->scene->light_coord, &point_hit);
-    // t_vec l = normalize(rt->scene->cam_coord);
-    dir = v_scale(hit, &ray->dir);
-    dist = v_sub(rt->scene->cam_coord, &ray->dir);
-    /*     if(hit > 0)
-        {
-           point_hit = v_add(&ray->start, &dir);
-           shade = c_blend(hit, obj.obj_color);
-           new_color = ascii_to_hex(shade.r, shade.g, shade.b);
-        return(new_color);
-        } */
+    light2world = v_add(rt->scene->light_coord, &world2scene);
+    p = v_add(&ray->start, &ray->dir);
+    surface_normal = v_sub(&p, &obj_coord);
+    light_energy = rt->scene->light_color->hex * dot_p(&ray->dir, &ray->dir);
+    t_vec light_ray = v_sub(rt->scene->light_coord, &surface_normal);
+    light_incident = MIN(dot_p(&light_ray, &surface_normal), light_energy);
 
-    point_hit = v_add(&ray->start, &dir);
-    blend = (1 - hit) * 0;
-    float angle = dot_p(&point_hit, &dir);
-    int color = (albedo / M_PI) * rt->scene->brightness * rt->scene->ambient * angle;
-    shade = c_blend(color + hit, obj.obj_color);
-    printf("\t COLOR OF OBJ %u\n", obj.obj_color->hex);
-    new_color = ascii_to_hex(shade.r, shade.g, shade.b);
-    printf("\t COLOR 2 BLEND %u\n", color);
-    printf("\t NEW COLOR %u\n", new_color);
-    return (new_color);
+    difuse = P(light_incident) * albedo;
+    color = c_luminance(difuse, &volume);
+    /* printf("colorx : %u\n", color.hex); */
+    return (difuse);
 }
 void my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
     size_t offset;
 
     offset = y + x;
-    /*     printf("line lenght: %d\n", data->line_length);
-        printf("bpp: %d\n", data->bits_per_pixel);
-        printf("x: %d\n", x);
-        printf("y: %d\n", y);
-        exit(0); */
     *(unsigned int *)(data->data + offset) = color;
 }
 
@@ -84,7 +72,9 @@ void compute_sphere(t_obj *obj, t_frame *rt)
     world2scene.y = (rt->window_h / 2);
     world2scene.z = rt->scene->cam_coord->z * -1;
     ray.start.z = world2scene.z;
-    t_color shade;
+    t_color volume;
+   // t_color shade;
+   float light;
 
     // uint32_t colors = obj->obj_color->hex;
 
@@ -98,10 +88,12 @@ void compute_sphere(t_obj *obj, t_frame *rt)
             hit = ray_sphere(&ray, obj, v_add(&world2scene, obj->obj_coord));
             if (hit != NO_HIT && hit <= 0)
             {
-                shade = c_blend(hit, obj->obj_color);
+                light = compute_light(rt, &ray, v_add(&world2scene, obj->obj_coord), volume);
+                volume = c_blend(hit + light, obj->obj_color);
+                //shade.hex = compute_light(rt, &ray, v_add(&world2scene, obj->obj_coord), volume);
                 //colors = compute_light(rt, *obj, &ray, *obj->obj_coord, hit);
                 //my_mlx_pixel_put(&rt->obj_img, x, y, shade.hex);
-                mlx_pixel_put(rt->mlx_ptr, rt->win_ptr, x, y, (shade.hex));
+                mlx_pixel_put(rt->mlx_ptr, rt->win_ptr, x, y, (volume.hex));
             }
             x++;
         }
