@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 18:59:20 by user              #+#    #+#             */
-/*   Updated: 2021/12/01 15:46:14 by user             ###   ########.fr       */
+/*   Updated: 2021/12/07 22:09:07 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,14 @@ float ascii_to_float(char *data)
     point = 0.0;
 
     if(data[0] == '-')
-        sign = -1;
+    {
+        sign *= -1;
+        i += 1;
+        printf("HERE\n");
+    }
     while(data[i] && data[i] != '.')
     {
-        point = 10.0 * point + (data[i] - '0');
+        point = 10 * point + (data[i] - '0');
         i++;
     }
 
@@ -58,19 +62,13 @@ float ascii_to_float(char *data)
         i++;
         while(data[i])
         {
-            point = 10.0 * point + (data[i] - '0');
-            power *= 10.0;
+            point = 0.01 * point + (data[i] - '0');
+            power *= 0.01;
             i++;
         }
     }
-    return(sign * point / power);
-   // point = ((float)nbr);
-    /*     printf("\n%d\n", nbr);
-    printf("\n%d\n", i);
-    printf("\n%f\n", point);
-    exit(0); */
-    printf("float out:%f\n", point);
-    return (point);
+    printf("float out CHECK HERE:%f\n", (sign * point) / power);
+    return((point * sign) / power);
 }
 
 t_vec *ascii_to_vec(char *data)

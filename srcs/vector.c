@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:50:22 by user              #+#    #+#             */
-/*   Updated: 2021/12/06 17:17:12 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/12/07 18:21:05 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ t_color c_luminance(float alpha, t_color *color)
     
     alpha = LIGHT(alpha);
     printf("alpha : %f\n", alpha);
-    if(alpha == 0)
-        return(*color);
+/*     if(alpha == 0)
+        return(*color); */
     new.r = (alpha) * BIT(color->r);
     new.g = (alpha) * BIT(color->g);
     new.b = (alpha) * BIT(color->b);
@@ -63,6 +63,15 @@ t_vec v_scale(float scale, t_vec *vec)
     new.z = vec->z *scale;
 
     return (new);
+}
+
+float v_mag(t_vec *v1, t_vec *v2)
+{
+    float x = (v1->x - v2->x) * (v1->x - v2->x);
+    float y = (v1->y - v2->y) * (v1->y - v2->y);
+    float z = (v1->z - v2->z) * (v1->z - v2->z);
+    float magnitude = sqrtf(x + y + z);
+    return(magnitude);
 }
 
 t_vec v_sub(t_vec *v1, t_vec *v2)

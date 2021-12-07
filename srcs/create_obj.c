@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 17:32:20 by user              #+#    #+#             */
-/*   Updated: 2021/12/03 12:09:06 by user             ###   ########.fr       */
+/*   Updated: 2021/12/07 21:50:17 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,9 @@ void create_sphere(t_obj *obj, char *data)
     obj->id1 = SPHERE;
     obj->id2 = count;
     obj->obj_coord = ascii_to_vec(sphere[1]);
+    printf("x:%f\n", obj->obj_coord->x);
+    printf("y:%f\n", obj->obj_coord->y);
+    printf("z:%f\n", obj->obj_coord->z);
     obj->diameter = ascii_to_float(sphere[2]);
     obj->obj_color = ascii_to_rgb(sphere[3]);
     count += 1;

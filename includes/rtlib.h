@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtlib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/12/06 17:49:25 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/12/07 19:22:01 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #define BIT(x) (x * 100 / 255)
 #define P(x) (x * 0.01)
 #define BLACK(x) (x * -0.01)
-#define LIGHT(x) (x * 0.1)
+#define LIGHT(x) (x * 0.01)
 #define DEC(r, g, b) (((r * 65536) + (g * 256) + b))
 #define NO_HIT -33
 #define WHITE 1
@@ -136,7 +136,12 @@ typedef struct s_frame
 
 /* prototypes */
 
+/* translations */
+
+t_vec   world2scene(int width, int heigh, t_vec *coordinates);
+
 /* vector.c */
+float v_mag(t_vec *v1, t_vec *v2);
 t_color c_luminance(float alpha, t_color *color);
 t_color c_blend(float alpha, t_color *color);
 t_vec normalize(t_vec *p);
