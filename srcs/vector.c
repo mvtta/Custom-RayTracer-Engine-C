@@ -49,15 +49,15 @@ t_color c_luminance(float alpha, t_color *color)
     t_color final;
 
     printf("ALPHA: %f\n", alpha);
-    printf("ALPHA QUANTIY: %f\n", (255 * (alpha)));
+    printf("ALPHA QUANTIY: %f\n", (PL(alpha)));
 
 /*     if(alpha == 0)
         alpha = 0.2;
  */
     alpha = PL(alpha);
-    final.r = (alpha) * color->r;
-    final.g = (alpha) * color->g;
-    final.b = (alpha) * color->b;
+    final.r = (alpha) * color->r + color->r;
+    final.g = (alpha) * color->g + color->g;
+    final.b = (alpha) * color->b + color->b;
 
     printf("color R: %u\n", color->r);
     printf("color G: %u\n", color->g);
