@@ -12,26 +12,30 @@
 
 #include "rtlib.h"
 
-float compute_light(t_frame *rt, t_ray *ray, t_vec obj_coord, t_color volume)
+float compute_light(t_frame *rt, t_ray *ray, t_vec obj_coord)
 {
-    float albedo = 0.18;
+    //float albedo = 0.18;
     float difuse;
-    t_color color;
-    float light_incident;
+    //float light_incident;
     float light_energy;
     t_vec surface_normal;
     t_vec p;
+    float normal;
     //t_vec light2world;
+
+    //light2world = world2scene(rt->window_w, rt->window_h, rt->scene->light_coord);
 
     p = v_add(&ray->start, &ray->dir);
     surface_normal = v_sub(&p, &obj_coord);
-    light_energy = rt->scene->brightness * ((v_mag(&obj_coord, rt->scene->light_coord)));
-    t_vec light_ray = v_add(rt->scene->light_coord, &surface_normal);
-    light_incident = MIN(dot_p(&light_ray, &surface_normal), light_energy);
-
-    difuse = P(light_incident) * albedo;
-    color = c_luminance(difuse, &volume);
-    /* printf("colorx : %u\n", color.hex); */
+    //surface_normal.x -= 10;
+    light_energy = rt->scene->brightness;
+    t_vec light_ray = v_add(&surface_normal, rt->scene->light_coord);
+    light_ray = normalize(&light_ray);
+    //light_incident = dot_p(&light_ray, &light_ray);
+    normal = MAX(dot_p(&light_ray, &surface_normal), 0);
+    difuse = normal * light_energy * 0.18;
+    printf("DIFUSE SUPOSED TO VE A COOL VAL:\t%f\n", difuse);
+    
     return (difuse);
 }
 
@@ -69,11 +73,11 @@ void compute_sphere(t_obj *obj, t_frame *rt)
     cam_world2scene = world2scene(rt->window_w, rt->window_h, rt->scene->cam_coord);
     ray.start.z = cam_world2scene.z;
     obj_world2scene = world2scene(rt->window_w, rt->window_h, obj->obj_coord);
-    t_color volume;
-   // t_color shade;
+    // t_color shade;
     float light;
 
     // uint32_t colors = obj->obj_color->hex;
+    t_color volume;
 
     while (y < rt->window_h)
     {
@@ -85,13 +89,13 @@ void compute_sphere(t_obj *obj, t_frame *rt)
             hit = ray_sphere(&ray, obj, obj_world2scene);
             if (hit != NO_HIT && hit <= 0)
             {
-                volume = c_blend(hit, obj->obj_color);
-                light = compute_light(rt, &ray, obj_world2scene, volume);
-                volume = c_blend((hit + light * 0.2), obj->obj_color);
+                light = compute_light(rt, &ray, obj_world2scene);
+                volume = c_mix(hit, light, obj->obj_color);
+                //volume = c_blend(light, &volume);
                 //shade.hex = compute_light(rt, &ray, v_add(&world2scene, obj->obj_coord), volume);
                 //colors = compute_light(rt, *obj, &ray, *obj->obj_coord, hit);
                 //my_mlx_pixel_put(&rt->obj_img, x, y, shade.&hex);
-                mlx_pixel_put(rt->mlx_ptr, rt->win_ptr, x, y, (volume.hex));
+                mlx_pixel_put(rt->mlx_ptr, rt->win_ptr, x, y, volume.hex);
             }
             x++;
         }
@@ -117,15 +121,15 @@ void obj_to_window(t_frame *rt)
 
 int render(t_frame *rt)
 {
-    int i  = 0;
+    int i = 0;
     t_obj *current;
     current = rt->objs_first;
-    
-    while(++i <= rt->nbr_objs)
+
+    while (++i <= rt->nbr_objs)
     {
         printf("index objs: %d\n", i);
         compute_obj(current, rt);
-  /*       printf("curr raw: %s\n", current->raw);
+        /*       printf("curr raw: %s\n", current->raw);
         printf("next: %p\n", current->next);
         printf("current ID: %d\n", current->id2);
         printf("current x cord: %f\n", current->obj_coord->x);
@@ -136,6 +140,5 @@ int render(t_frame *rt)
         current = current->next;
     }
     //exit(0);
-    return(0);
-
+    return (0);
 }

@@ -21,6 +21,16 @@ t_vec normalize(t_vec *p)
     return (*p);
 }
 
+t_color c_mix(float volume, float light, t_color *obj_color)
+{
+    t_color model;
+    t_color shaded;
+
+    model = c_blend(volume, obj_color);
+    shaded = c_luminance(light, &model);
+    return(shaded);
+}
+
 t_color c_blend(float alpha, t_color *color)
 {
     t_color new;
@@ -36,22 +46,29 @@ t_color c_blend(float alpha, t_color *color)
 
 t_color c_luminance(float alpha, t_color *color)
 {
-    t_color new;
-    
-    alpha = LIGHT(alpha);
-    printf("alpha : %f\n", alpha);
-/*     if(alpha == 0)
-        return(*color); */
-    new.r = (alpha) * BIT(color->r);
-    new.g = (alpha) * BIT(color->g);
-    new.b = (alpha) * BIT(color->b);
+    t_color final;
 
-    new.hex = DEC(new.r, new.g, new.b);
-    printf("colorr in luminance : %u\n", new.r);
-    printf("colorg in luminance : %u\n", new.g);
-    printf("colorb in luminance : %u\n", new.b);
-    printf("colorx in luminance : %u\n", new.hex);
-    return (new);
+    printf("ALPHA: %f\n", alpha);
+    printf("ALPHA QUANTIY: %f\n", (255 * (alpha)));
+
+/*     if(alpha == 0)
+        alpha = 0.2;
+ */
+    alpha = PL(alpha);
+    final.r = (alpha) * color->r;
+    final.g = (alpha) * color->g;
+    final.b = (alpha) * color->b;
+
+    printf("color R: %u\n", color->r);
+    printf("color G: %u\n", color->g);
+    printf("color B: %u\n", color->b);
+
+    printf("FINAL R: %u\n", final.r);
+    printf("FINAL G: %u\n", final.g);
+    printf("FINAL B: %u\n", final.b);
+
+    final.hex = DEC(AVOID_MAX(final.r), AVOID_MAX(final.g), AVOID_MAX(final.b));
+    return (final);
 }
 
 t_vec v_scale(float scale, t_vec *vec)
@@ -67,9 +84,9 @@ t_vec v_scale(float scale, t_vec *vec)
 
 float v_mag(t_vec *v1, t_vec *v2)
 {
-    float x = (v1->x - v2->x) * (v1->x - v2->x);
-    float y = (v1->y - v2->y) * (v1->y - v2->y);
-    float z = (v1->z - v2->z) * (v1->z - v2->z);
+    float x = (v2->x - v1->x) * (v2->x - v1->x);
+    float y = (v2->y - v1->y) * (v2->y - v1->y);
+    float z = (v2->z - v1->z) * (v2->z - v1->z);
     float magnitude = sqrtf(x + y + z);
     return(magnitude);
 }
