@@ -19,7 +19,7 @@
 unsigned char magic[PNG_MAGIC_SIZE] = {137, 80, 78, 71, 13, 10, 26, 10};
 #define PNG_HDR_SIZE	13
 
-#define	Z_chunk	32768
+#define	Z_CHUNK	32768
 
 #define	ERR_MAGIC_SIZE	1
 #define	ERR_MAGIC_WRONG	2
@@ -167,7 +167,7 @@ int	mipng_data(mlx_img_list_t *img, unsigned char *dat, png_info_t *pi)
   int z_ret;
   unsigned z_have;
   z_stream z_strm;
-  unsigned char z_out[Z_chunk];
+  unsigned char z_out[Z_CHUNK];
 
   b_pos = 0;
   if (!(buffer = malloc((long long)img->width*(long long)img->height*(long long)pi->bpp + img->height)))
@@ -190,7 +190,7 @@ int	mipng_data(mlx_img_list_t *img, unsigned char *dat, png_info_t *pi)
       z_strm.avail_out = 0;
       while (z_strm.avail_out == 0)
 	{
-	  z_strm.avail_out = Z_chunk;
+	  z_strm.avail_out = Z_CHUNK;
 	  z_strm.next_out = z_out;
 	  z_ret = inflate(&z_strm, Z_NO_FLUSH);
 	  //	  printf("inflate ret %d avail_out %d\n", z_ret, z_strm.avail_out);
@@ -199,13 +199,13 @@ int	mipng_data(mlx_img_list_t *img, unsigned char *dat, png_info_t *pi)
 	      inflateEnd(&z_strm);
 	      return (ERR_ZLIB);
 	    }
-	  if (b_pos + Z_chunk - z_strm.avail_out > img->width*img->height*pi->bpp+img->height)
+	  if (b_pos + Z_CHUNK - z_strm.avail_out > img->width*img->height*pi->bpp+img->height)
 	    {
 	      inflateEnd(&z_strm);
 	      return (ERR_DATA_MISMATCH);
 	    }
-	  bcopy(z_out, buffer+b_pos, Z_chunk - z_strm.avail_out);
-	  b_pos += Z_chunk - z_strm.avail_out;
+	  bcopy(z_out, buffer+b_pos, Z_CHUNK - z_strm.avail_out);
+	  b_pos += Z_CHUNK - z_strm.avail_out;
 	}
       dat += len + 4 + 4 + 4;
     } 
