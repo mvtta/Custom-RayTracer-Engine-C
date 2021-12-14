@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:50:22 by user              #+#    #+#             */
-/*   Updated: 2021/12/13 15:56:58 by user             ###   ########.fr       */
+/*   Updated: 2021/12/14 19:02:37 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,37 @@ t_color c_mix(float volume, float light, t_color *obj_color)
     return(shaded);
 }
 
+t_color c_mix_plane(float volume, float light, t_color *obj_color)
+{
+    t_color model;
+    t_color shaded;
+
+    model = c_blend_flat(volume, obj_color);
+    shaded = c_luminance_plane(light, &model);
+    return(shaded);
+}
+
+t_color c_blend_flat(float alpha, t_color *color)
+{
+    t_color new;
+    
+    alpha = 1000 * (alpha);
+    new.r = (alpha) * BIT(color->r);
+    new.g = (alpha) * BIT(color->g);
+    new.b = (alpha) * BIT(color->b);
+/* 
+    printf("in BLEND color R: %u\n", color->r);
+    printf("in BLEND color G: %u\n", color->g);
+    printf("in BLEND color B: %u\n", color->b);
+
+    printf("BLEND R: %u\n", new.r);
+    printf("BLEND G: %u\n", new.g);
+    printf("BLEND B: %u\n", new.b); */
+
+    new.hex = DEC(new.r ,new.g, new.b);
+    return (new);
+}
+
 t_color c_blend(float alpha, t_color *color)
 {
     t_color new;
@@ -39,8 +70,16 @@ t_color c_blend(float alpha, t_color *color)
     new.r = (alpha) * BIT(color->r);
     new.g = (alpha) * BIT(color->g);
     new.b = (alpha) * BIT(color->b);
+/* 
+    printf("in BLEND color R: %u\n", color->r);
+    printf("in BLEND color G: %u\n", color->g);
+    printf("in BLEND color B: %u\n", color->b);
 
-    new.hex = DEC(new.r, new.g, new.b);
+    printf("BLEND R: %u\n", new.r);
+    printf("BLEND G: %u\n", new.g);
+    printf("BLEND B: %u\n", new.b); */
+
+    new.hex = DEC(new.r ,new.g, new.b);
     return (new);
 }
 
@@ -58,16 +97,43 @@ t_color c_luminance(float alpha, t_color *color)
     final.r = (alpha) * color->r + color->r;
     final.g = (alpha) * color->g + color->g;
     final.b = (alpha) * color->b + color->b;
-
-/*     printf("color R: %u\n", color->r);
+/* 
+    printf("color R: %u\n", color->r);
     printf("color G: %u\n", color->g);
-    printf("color B: %u\n", color->b);
+    printf("color B: %u\n", color->b); */
 
-    printf("FINAL R: %u\n", final.r);
-    printf("FINAL G: %u\n", final.g);
-    printf("FINAL B: %u\n", final.b); */
 
     final.hex = DEC(AVOID_MAX(final.r), AVOID_MAX(final.g), AVOID_MAX(final.b));
+/*     printf("FINAL R: %u\n", final.r);
+    printf("FINAL G: %u\n", final.g);
+    printf("FINAL B: %u\n", final.b);  */
+    return (final);
+}
+
+t_color c_luminance_plane(float alpha, t_color *color)
+{
+    t_color final;
+
+    //printf("ALPHA: %f\n", alpha);
+    //printf("ALPHA QUANTIY: %f\n", (PL(alpha)));
+
+/*     if(alpha == 0)
+        alpha = 0.2;
+ */
+    alpha = BLACK(alpha);
+    final.r = (alpha * color->r) + color->r;
+    final.g = (alpha * color->g) + color->g;
+    final.b = (alpha * color->b) + color->b;
+/* 
+    printf("color R: %u\n", color->r);
+    printf("color G: %u\n", color->g);
+    printf("color B: %u\n", color->b); */
+
+
+    final.hex = DEC(AVOID_MAX(final.r), AVOID_MAX(final.g), AVOID_MAX(final.b));
+/*     printf("FINAL R: %u\n", final.r);
+    printf("FINAL G: %u\n", final.g);
+    printf("FINAL B: %u\n", final.b);  */
     return (final);
 }
 

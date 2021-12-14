@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersections.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:45:46 by user              #+#    #+#             */
-/*   Updated: 2021/12/13 19:19:23 by user             ###   ########.fr       */
+/*   Updated: 2021/12/14 17:24:25 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,37 @@ float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord)
 		return((-b - sqrt(discr) ) / (2.0*a));
 }
 
-
 float ray_plane(t_ray *r, t_obj *p, t_vec obj_coord)
 {
 
-	float	denom;
-	float	t = 0;
-	t_vec	p0l0;
+	float denom;
+	t_vec plane_norm;
+	plane_norm = normalize(&obj_coord);
+	t_vec point_minus_origin = v_sub(&obj_coord, &r->start);
+	float divide = dot_p(&r->dir, &plane_norm);
+	t_vec dist = v_sub(&r->start, &obj_coord);
+	denom = dot_p(p->obj_norm, &obj_coord);
+	float a = dot_p(&r->dir, &r->dir);
+	float b = dot_p(&r->dir, &dist);
+	float c = dot_p(&dist, &dist) - denom;
+	float	d;
+	//t_vec	plane = obj_coord;
+	t_vec	abc;
+	abc.x = a;
+	abc.y = b;
+	abc.z = c;
+	float nonsense;
 
-	denom = dot_p(p->obj_norm, &r->dir);
-	if (fabs(denom) > 1e-6)
+	
+	nonsense = dot_p(p->obj_coord, &plane_norm);
+	//t_vec	where = v_mult(&abc, &plane);
+	d = dot_p(&point_minus_origin, &plane_norm) / divide;
+	
+	if(d >= 0)
 	{
-		p0l0 = v_sub(&obj_coord, &r->start);
-		t = dot_p(&p0l0, p->obj_norm) / denom;
+		printf("\t SIMPLE D : %f\n", d);
+		return ((d));
 	}
-	if(t >= 0)
-		return (t);
 	else
 		return(NO_HIT);
 }

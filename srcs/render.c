@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/12/13 19:20:36 by user             ###   ########.fr       */
+/*   Updated: 2021/12/14 19:04:50 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void compute_plane(t_obj *obj, t_frame *rt)
     float aspect_ratio;
     aspect_ratio = rt->window_w / rt->window_h;
     t_vec obj_world2scene = world2scene(rt->window_w, rt->window_h, obj->obj_coord);
+    //t_vec cam_world2scene = world2scene(rt->window_w, rt->window_h, rt->scene->cam_coord);
 
     printf("IN COMPUTE PLANE\n");
     x = 0;
@@ -114,6 +115,8 @@ void compute_plane(t_obj *obj, t_frame *rt)
 
     float light;
     t_color volume;
+    ray.dir.z = 1;
+    ray.start.z = rt->scene->cam_coord->z;
     while (y < rt->window_h)
     {
         x = 0;
@@ -123,11 +126,14 @@ void compute_plane(t_obj *obj, t_frame *rt)
         {
             ray.start.x = rt->scene->cam_coord->x;
             ray.dir.x = x;
-            hit = ray_plane(&ray, obj, obj_world2scene);
-            if (hit >= 0)
+            hit = ray_plane(&ray, obj, *obj->obj_coord);
+            if (hit < 0.1 && hit > 0.001)
             {
-                light = compute_light(rt, &ray, *obj->obj_coord);
-                volume = c_mix(hit, light, obj->obj_color);
+                printf("hit plane: %f\n", hit);
+                light = compute_light(rt, &ray, obj_world2scene);
+                volume = c_mix_plane(hit, (light), obj->obj_color);
+                printf("color: %u\n", volume.hex);
+                printf("light: %f\n", light);
                 mlx_pixel_put(rt->mlx_ptr, rt->win_ptr, x, y, volume.hex);
             }
             x++;
@@ -139,10 +145,10 @@ void compute_plane(t_obj *obj, t_frame *rt)
 void compute_obj(t_obj *obj, t_frame *rt)
 {
     // compute_sphere(obj, rt);
-    if(obj->id1 == SPHERE)
-        compute_sphere(obj, rt);
     if(obj->id1 == PLANE)
         compute_plane(obj, rt);
+    if(obj->id1 == SPHERE)
+        compute_sphere(obj, rt);
 }
 
 void background_to_window(t_frame *rt)
@@ -165,6 +171,8 @@ int render(t_frame *rt)
     {
         printf("index objs: %d\n", i);
         compute_obj(current, rt);
+        printf("curr raw: %s\n", current->raw);
+        printf("curr id1: %c\n", current->id1);
         /*       printf("curr raw: %s\n", current->raw);
         printf("next: %p\n", current->next);
         printf("current ID: %d\n", current->id2);

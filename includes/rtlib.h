@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtlib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/12/13 15:55:10 by user             ###   ########.fr       */
+/*   Updated: 2021/12/14 18:10:39 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,9 +172,12 @@ typedef struct s_frame
 t_vec   world2scene(int width, int heigh, t_vec *coordinates);
 
 /* vector.c */
+t_color c_mix_plane(float volume, float light, t_color *obj_color);
+t_color c_luminance_plane(float alpha, t_color *color);
 t_color c_mix(float volume, float light, t_color *obj_color);
 float v_mag(t_vec *v1, t_vec *v2);
 t_color c_luminance(float alpha, t_color *color);
+t_color c_blend_flat(float alpha, t_color *color);
 t_color c_blend(float alpha, t_color *color);
 t_vec normalize(t_vec *p);
 t_vec v_scale(float scale, t_vec *vec);
@@ -217,6 +220,7 @@ t_color *ascii_to_rgb(char *data);
 /* create_obj.c */
 t_obj *new_obj(t_frame *rt, char *data);
 void add_new_obj(t_frame *rt, char *data);
+void create_plane(t_obj *obj, char *data);
 void create_sphere(t_obj *obj, char *data);
 
 /* create_scene.c */
