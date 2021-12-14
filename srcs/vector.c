@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:50:22 by user              #+#    #+#             */
-/*   Updated: 2021/12/07 18:21:05 by user             ###   ########.fr       */
+/*   Updated: 2021/12/13 15:56:58 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ t_color c_luminance(float alpha, t_color *color)
 {
     t_color final;
 
-    printf("ALPHA: %f\n", alpha);
-    printf("ALPHA QUANTIY: %f\n", (PL(alpha)));
+    //printf("ALPHA: %f\n", alpha);
+    //printf("ALPHA QUANTIY: %f\n", (PL(alpha)));
 
 /*     if(alpha == 0)
         alpha = 0.2;
@@ -59,13 +59,13 @@ t_color c_luminance(float alpha, t_color *color)
     final.g = (alpha) * color->g + color->g;
     final.b = (alpha) * color->b + color->b;
 
-    printf("color R: %u\n", color->r);
+/*     printf("color R: %u\n", color->r);
     printf("color G: %u\n", color->g);
     printf("color B: %u\n", color->b);
 
     printf("FINAL R: %u\n", final.r);
     printf("FINAL G: %u\n", final.g);
-    printf("FINAL B: %u\n", final.b);
+    printf("FINAL B: %u\n", final.b); */
 
     final.hex = DEC(AVOID_MAX(final.r), AVOID_MAX(final.g), AVOID_MAX(final.b));
     return (final);

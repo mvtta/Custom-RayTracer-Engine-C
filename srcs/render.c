@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/12/07 20:41:39 by user             ###   ########.fr       */
+/*   Updated: 2021/12/13 19:20:36 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ float compute_light(t_frame *rt, t_ray *ray, t_vec obj_coord)
     //light_incident = dot_p(&light_ray, &light_ray);
     normal = MAX(dot_p(&light_ray, &surface_normal), 0);
     difuse = normal * light_energy * 0.18;
-    printf("DIFUSE SUPOSED TO VE A COOL VAL:\t%f\n", difuse);
+    //printf("DIFUSE SUPOSED TO VE A COOL VAL:\t%f\n", difuse);
     
     return (difuse);
 }
@@ -73,10 +73,8 @@ void compute_sphere(t_obj *obj, t_frame *rt)
     cam_world2scene = world2scene(rt->window_w, rt->window_h, rt->scene->cam_coord);
     ray.start.z = cam_world2scene.z;
     obj_world2scene = world2scene(rt->window_w, rt->window_h, obj->obj_coord);
-    // t_color shade;
     float light;
 
-    // uint32_t colors = obj->obj_color->hex;
     t_color volume;
 
     while (y < rt->window_h)
@@ -91,10 +89,45 @@ void compute_sphere(t_obj *obj, t_frame *rt)
             {
                 light = compute_light(rt, &ray, obj_world2scene);
                 volume = c_mix(hit, light, obj->obj_color);
-                //volume = c_blend(light, &volume);
-                //shade.hex = compute_light(rt, &ray, v_add(&world2scene, obj->obj_coord), volume);
-                //colors = compute_light(rt, *obj, &ray, *obj->obj_coord, hit);
-                //my_mlx_pixel_put(&rt->obj_img, x, y, shade.&hex);
+                mlx_pixel_put(rt->mlx_ptr, rt->win_ptr, x, y, volume.hex);
+            }
+            x++;
+        }
+        y++;
+    }
+}
+
+void compute_plane(t_obj *obj, t_frame *rt)
+{
+    t_ray ray;
+    float hit;
+    int x;
+    int y;
+
+    float aspect_ratio;
+    aspect_ratio = rt->window_w / rt->window_h;
+    t_vec obj_world2scene = world2scene(rt->window_w, rt->window_h, obj->obj_coord);
+
+    printf("IN COMPUTE PLANE\n");
+    x = 0;
+    y = 0;
+
+    float light;
+    t_color volume;
+    while (y < rt->window_h)
+    {
+        x = 0;
+        ray.start.y = rt->scene->cam_coord->y;
+        ray.dir.y = y;
+        while (x < rt->window_w)
+        {
+            ray.start.x = rt->scene->cam_coord->x;
+            ray.dir.x = x;
+            hit = ray_plane(&ray, obj, obj_world2scene);
+            if (hit >= 0)
+            {
+                light = compute_light(rt, &ray, *obj->obj_coord);
+                volume = c_mix(hit, light, obj->obj_color);
                 mlx_pixel_put(rt->mlx_ptr, rt->win_ptr, x, y, volume.hex);
             }
             x++;
@@ -106,7 +139,10 @@ void compute_sphere(t_obj *obj, t_frame *rt)
 void compute_obj(t_obj *obj, t_frame *rt)
 {
     // compute_sphere(obj, rt);
-    compute_sphere(obj, rt);
+    if(obj->id1 == SPHERE)
+        compute_sphere(obj, rt);
+    if(obj->id1 == PLANE)
+        compute_plane(obj, rt);
 }
 
 void background_to_window(t_frame *rt)

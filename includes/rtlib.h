@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/12/07 19:22:01 by user             ###   ########.fr       */
+/*   Updated: 2021/12/13 15:55:10 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,38 @@
 #include "gnl.h"
 #include "libft.h"
 
+typedef struct s_point
+{
+    float x;
+    float y;
+    float z;
+} t_point;
+
+typedef struct s_matrix
+{
+    float p_x;
+    float p_y;
+    float n_x;
+    float n_y;
+} t_matrix;
+
 typedef struct s_vec
 {
     float x;
     float y;
     float z;
 } t_vec;
+
+typedef struct s_trans
+{
+    float aspect_ratio;
+    float dof;
+    t_matrix cam_matrix;
+    t_vec cam_in_3dworld;
+    t_vec anything_to_screen;
+    t_vec clipping_area;
+} t_trans;
+
 
 typedef struct s_ray
 {
@@ -91,6 +117,7 @@ typedef struct s_obj
     char id1;
     int id2;
     t_vec *obj_coord;
+    t_trans *obj_trans;
     t_color *obj_color;
     t_vec *obj_norm;
     t_vec *p;
@@ -109,6 +136,7 @@ typedef struct s_scene
     /* C */
     t_vec *cam_coord;
     t_vec *cam_norm;
+    t_trans *cam_trans;
     int fov;
     /* L */
     t_vec *light_coord;
@@ -158,7 +186,7 @@ float dot_p(t_vec *v1, t_vec *v2);
 /* intersection.c */
 
 float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord);
-
+float ray_plane(t_ray *r, t_obj *p, t_vec obj_coord);
 /* render.c */
 
 float compute_light(t_frame *rt, t_ray *ray, t_vec obj_coord);
