@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtlib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/12/14 18:10:39 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/12/15 19:01:25 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,7 @@ typedef struct s_frame
 t_vec   world2scene(int width, int heigh, t_vec *coordinates);
 
 /* vector.c */
+t_vec  cross_p(t_vec a, t_vec b);
 t_color c_mix_plane(float volume, float light, t_color *obj_color);
 t_color c_luminance_plane(float alpha, t_color *color);
 t_color c_mix(float volume, float light, t_color *obj_color);
@@ -192,6 +193,7 @@ float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord);
 float ray_plane(t_ray *r, t_obj *p, t_vec obj_coord);
 /* render.c */
 
+float compute_light_plane(t_frame *rt, t_ray *ray, t_vec obj_coord);
 float compute_light(t_frame *rt, t_ray *ray, t_vec obj_coord);
 void my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int render(t_frame *rt);

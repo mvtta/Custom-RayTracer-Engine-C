@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:50:22 by user              #+#    #+#             */
-/*   Updated: 2021/12/14 19:02:37 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/12/15 19:00:34 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,19 @@ t_color c_blend_flat(float alpha, t_color *color)
 {
     t_color new;
     
-    alpha = 1000 * (alpha);
+    printf("\t ALPHA IN FLAT BLEND %f\n", alpha);
+    alpha = -10000 * (alpha);
     new.r = (alpha) * BIT(color->r);
     new.g = (alpha) * BIT(color->g);
     new.b = (alpha) * BIT(color->b);
-/* 
+
     printf("in BLEND color R: %u\n", color->r);
     printf("in BLEND color G: %u\n", color->g);
     printf("in BLEND color B: %u\n", color->b);
 
-    printf("BLEND R: %u\n", new.r);
-    printf("BLEND G: %u\n", new.g);
-    printf("BLEND B: %u\n", new.b); */
+    printf("NEW BLEND R: %u\n", new.r);
+    printf("NEW BLEND G: %u\n", new.g);
+    printf("NEW BLEND B: %u\n", new.b);
 
     new.hex = DEC(new.r ,new.g, new.b);
     return (new);
@@ -115,12 +116,13 @@ t_color c_luminance_plane(float alpha, t_color *color)
     t_color final;
 
     //printf("ALPHA: %f\n", alpha);
-    //printf("ALPHA QUANTIY: %f\n", (PL(alpha)));
+    //printf("ALPHA QUANTIY: %f\n", (PL2(alpha)));
 
 /*     if(alpha == 0)
         alpha = 0.2;
  */
-    alpha = BLACK(alpha);
+    //alpha = P(alpha);
+    printf("\t ALPHA IN FLAT LUM %f\n", alpha);
     final.r = (alpha * color->r) + color->r;
     final.g = (alpha * color->g) + color->g;
     final.b = (alpha * color->b) + color->b;
@@ -131,9 +133,9 @@ t_color c_luminance_plane(float alpha, t_color *color)
 
 
     final.hex = DEC(AVOID_MAX(final.r), AVOID_MAX(final.g), AVOID_MAX(final.b));
-/*     printf("FINAL R: %u\n", final.r);
-    printf("FINAL G: %u\n", final.g);
-    printf("FINAL B: %u\n", final.b);  */
+    printf("LUM FINAL R: %u\n", final.r);
+    printf("LUM FINAL G: %u\n", final.g);
+    printf("LUM FINAL B: %u\n", final.b);
     return (final);
 }
 
@@ -156,6 +158,18 @@ float v_mag(t_vec *v1, t_vec *v2)
     float magnitude = sqrtf(x + y + z);
     return(magnitude);
 }
+
+t_vec  cross_p(t_vec a, t_vec b)
+{
+    t_vec cross;
+    
+    cross.x = a.x * b.z - a.z * b.y; 
+    cross.y = a.z * b.x - a.x * b.z;
+    cross.z = a.x * b.y - a.y * b.x;
+
+	return (cross);
+}
+
 
 t_vec v_sub(t_vec *v1, t_vec *v2)
 {
