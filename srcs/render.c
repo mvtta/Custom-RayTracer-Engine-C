@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/12/15 20:49:13 by user             ###   ########.fr       */
+/*   Updated: 2021/12/15 23:38:50 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,14 @@ float compute_light_plane(t_frame *rt, t_ray *ray, t_vec obj_coord)
 {
     float difuse;
     float light_energy;
-    t_vec surface_normal;
-    float p;
     float normal;
-
-    p = dot_p(&ray->start, &ray->dir);
-    t_vec plane_norm;
-	plane_norm = normalize(&obj_coord);
-    light_energy = rt->scene->brightness;
-    t_vec light_ray = v_mult(&plane_norm, rt->scene->light_coord);
-    light_ray = normalize(&light_ray);
-    // light_incident = dot_p(&light_ray, &light_ray);
-    normal = MAX(dot_p(&light_ray, &surface_normal), 0);
+    t_vec plane_norm = {0,0,1};
+    t_vec norm_dir = normalize(&ray->dir);
+	t_vec norm_start = normalize(&ray->start);
+    float denom = dot_p(&obj_coord, &norm_dir); 
+    light_energy = rt->scene->brightness * denom;
+    t_vec light_ray = v_sub(&plane_norm, &norm_start);
+    normal = MAX(dot_p(&light_ray, &plane_norm), 0);
     difuse = (normal * light_energy * 0.18);
     //printf("DIFUSE SUPOSED TO VE A COOL VAL:\t%f\n", difuse);
 
@@ -36,27 +32,18 @@ float compute_light_plane(t_frame *rt, t_ray *ray, t_vec obj_coord)
 
 float compute_light(t_frame *rt, t_ray *ray, t_vec obj_coord)
 {
-    // float albedo = 0.18;
     float difuse;
-    // float light_incident;
     float light_energy;
-    t_vec surface_normal;
-    t_vec p;
     float normal;
-    // t_vec light2world;
-
-    // light2world = world2scene(rt->window_w, rt->window_h, rt->scene->light_coord);
-
-    p = v_add(&ray->start, &ray->dir);
-    surface_normal = v_sub(&p, &obj_coord);
-    // surface_normal.x -= 10;
-    light_energy = rt->scene->brightness;
-    t_vec light_ray = v_add(&surface_normal, rt->scene->light_coord);
-    light_ray = normalize(&light_ray);
-    // light_incident = dot_p(&light_ray, &light_ray);
-    normal = MAX(dot_p(&light_ray, &surface_normal), 0);
+    t_vec norm_dir = normalize(&ray->dir);
+	//t_vec norm_start = normalize(&ray->start);
+	t_vec sp_norm1 = normalize(&obj_coord);
+    float denom = dot_p(&obj_coord, &norm_dir); 
+    t_vec light = normalize(rt->scene->light_coord);
+	t_vec sp_norm2 = cross_p(sp_norm1, light);
+    light_energy = rt->scene->brightness * denom;
+    normal = MAX(dot_p(&light, &sp_norm2), 0);
     difuse = normal * light_energy * 0.18;
-    // printf("DIFUSE SUPOSED TO VE A COOL VAL:\t%f\n", difuse);
 
     return (difuse);
 }
