@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/12/15 23:38:50 by user             ###   ########.fr       */
+/*   Updated: 2021/12/16 17:06:57 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,29 @@ float compute_light(t_frame *rt, t_ray *ray, t_vec obj_coord)
 {
     float difuse;
     float light_energy;
+    t_vec surface_normal;
+    t_vec p;
+    float normal;
+
+    p = v_add(&ray->start, &ray->dir);
+    surface_normal = v_sub(&p, &obj_coord);
+    light_energy = rt->scene->brightness;
+    t_vec light_ray = v_add(&surface_normal, rt->scene->light_coord);
+    light_ray = normalize(&light_ray);
+    normal = MAX(dot_p(&light_ray, &surface_normal), 0);
+    difuse = normal * light_energy * 0.18;
+/*     float difuse;
+    float light_energy;
     float normal;
     t_vec norm_dir = normalize(&ray->dir);
-	//t_vec norm_start = normalize(&ray->start);
 	t_vec sp_norm1 = normalize(&obj_coord);
-    float denom = dot_p(&obj_coord, &norm_dir); 
+    float denom = dot_p(&sp_norm1, &norm_dir); 
     t_vec light = normalize(rt->scene->light_coord);
 	t_vec sp_norm2 = cross_p(sp_norm1, light);
     light_energy = rt->scene->brightness * denom;
     normal = MAX(dot_p(&light, &sp_norm2), 0);
     difuse = normal * light_energy * 0.18;
-
+ */
     return (difuse);
 }
 
@@ -76,7 +88,7 @@ void compute_sphere(t_obj *obj, t_frame *rt)
     // cam_world2scene = world2scene(rt->window_w, rt->window_h, rt->scene->cam_coord);
     ray.start.z = rt->scene->cam_coord->z;
     obj_world2scene = world2scene(rt->window_w, rt->window_h, obj->obj_coord);
-    float light;
+    //float light = 0;
 
     t_color volume;
 
@@ -93,9 +105,11 @@ void compute_sphere(t_obj *obj, t_frame *rt)
             // printf("\thit sphere: %f\n", hit);
             if (hit != NO_HIT)
             {
-                //printf("\thit sphere: %f\n", hit);
-                light = compute_light(rt, &ray, *obj->obj_coord);
-                volume = c_mix(hit, light, obj->obj_color);
+                printf("\thit sphere: %f\n", hit);
+                t_vec norm_ray = normalize(&ray.dir);
+                t_vec obj_nlight = v_sub(rt->scene->light_coord, obj->obj_coord);
+                t_vec obj_norm = normalize(&obj_nlight);
+                volume = c_blend(MAX(hit * dot_p(&obj_norm, &norm_ray), 0) * 0.3 * 0.18, obj->obj_color);
                 mlx_pixel_put(rt->mlx_ptr, rt->win_ptr, x, y, volume.hex);
             }
             x++;
