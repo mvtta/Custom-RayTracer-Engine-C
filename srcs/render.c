@@ -6,7 +6,7 @@
 /*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/12/16 17:06:57 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/12/16 18:33:12 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,12 @@ void compute_sphere(t_obj *obj, t_frame *rt)
             // printf("\thit sphere: %f\n", hit);
             if (hit != NO_HIT)
             {
-                printf("\thit sphere: %f\n", hit);
-                t_vec norm_ray = normalize(&ray.dir);
-                t_vec obj_nlight = v_sub(rt->scene->light_coord, obj->obj_coord);
+                //printf("\thit sphere: %f\n", hit);
+                t_vec obj_nlight = v_add(rt->scene->light_coord, obj->obj_coord);
+                t_vec cam_nobj = v_add(&ray.start, obj->obj_coord);
+                t_vec norm_ray = normalize(&cam_nobj);
                 t_vec obj_norm = normalize(&obj_nlight);
-                volume = c_blend(MAX(hit * dot_p(&obj_norm, &norm_ray), 0) * 0.3 * 0.18, obj->obj_color);
+                volume = c_blend(MAX(dot_p(&obj_norm, &norm_ray), 0) * 0.3 * 0.18 * -hit, obj->obj_color);
                 mlx_pixel_put(rt->mlx_ptr, rt->win_ptr, x, y, volume.hex);
             }
             x++;
@@ -134,7 +135,7 @@ void compute_plane(t_obj *obj, t_frame *rt)
     x = 0;
     y = 0;
 
-    float light;
+  //  float light;
     t_color volume;
     ray.dir.z = 1;
     ray.start.z = rt->scene->cam_coord->z;
@@ -151,9 +152,12 @@ void compute_plane(t_obj *obj, t_frame *rt)
             hit = ray_plane(&ray, obj, *obj->obj_coord);
             if (hit != NO_HIT)
             {
-                printf("hit plane: %f\n", hit);
-                light = compute_light_plane(rt, &ray, *obj->obj_coord);
-                volume = c_mix_plane(hit, light, obj->obj_color);
+               printf("\thit plane: %f\n", hit);
+                t_vec obj_nlight = v_add(rt->scene->light_coord, obj->obj_norm);
+                t_vec cam_nobj = v_add(&ray.start, obj->obj_norm);
+                t_vec norm_ray = normalize(&cam_nobj);
+                t_vec obj_norm = normalize(&obj_nlight);
+                volume = c_blend_flat(MAX(dot_p(&obj_norm, &norm_ray), 0) * 0.3 * 0.18 * hit, obj->obj_color);
                 mlx_pixel_put(rt->mlx_ptr, rt->win_ptr, x, y, volume.hex);
                 // printf("color: %u\n", volume.hex);
                 // printf("light: %f\n", light);

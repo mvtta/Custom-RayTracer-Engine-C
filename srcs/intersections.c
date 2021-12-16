@@ -6,7 +6,7 @@
 /*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:45:46 by user              #+#    #+#             */
-/*   Updated: 2021/12/16 15:26:39 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/12/16 18:16:38 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ float ray_plane(t_ray *r, t_obj *p, t_vec obj_coord)
 	t_vec norm_start = normalize(&r->start);
 	float denom = dot_p(&obj_coord, &norm_dir); 
 	float t;
-    if (denom > 1e-6) 
+    if (denom > 1e-4) 
 	{ 
         t_vec p0l0 = v_sub(p->obj_norm , &norm_start); 
-		//p0l0 = normalize(&p0l0);
+		//	p0l0 = normalize(&p0l0);
         t = dot_p(&p0l0, p->obj_norm) / denom; 
 		if(t >= 0)
-        	return (t); 
+        	return (t * 10.1); 
 	}
 	return(NO_HIT);
 }

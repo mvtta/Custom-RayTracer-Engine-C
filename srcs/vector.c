@@ -6,7 +6,7 @@
 /*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:50:22 by user              #+#    #+#             */
-/*   Updated: 2021/12/16 16:58:42 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/12/16 18:34:27 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ t_color c_blend_flat(float alpha, t_color *color)
 {
     t_color new;
     
-    //printf("\t ALPHA IN FLAT BLEND %f\n", alpha);
-    new.r = (alpha) * BIT(color->r);
-    new.g = (alpha) * BIT(color->g);
-    new.b = (alpha) * BIT(color->b);
+    alpha = BIT(alpha);
+    printf("\t ALPHA IN FLAT BLEND %f\n", alpha);
+    new.r = (alpha) * color->r;
+    new.g = (alpha) * color->g;
+    new.b = (alpha) * color->b;
 /* 
     printf("in BLEND color R: %u\n", color->r);
     printf("in BLEND color G: %u\n", color->g);
@@ -67,10 +68,10 @@ t_color c_blend(float alpha, t_color *color)
     t_color new;
     
     printf("ALPHA: %f\n", alpha);
-   // alpha = PL(alpha);
-    new.r = (alpha) * BIT(color->r);
-    new.g = (alpha) * BIT(color->g);
-    new.b = (alpha) * BIT(color->b);
+    alpha = PL(alpha);
+    new.r = (alpha) * color->r;
+    new.g = (alpha) * color->g;
+    new.b = (alpha) * color->b;
 /* 
     printf("in BLEND color R: %u\n", color->r);
     printf("in BLEND color G: %u\n", color->g);
