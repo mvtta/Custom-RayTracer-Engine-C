@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/12/15 19:01:25 by user             ###   ########.fr       */
+/*   Updated: 2021/12/20 19:48:17 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ typedef struct s_obj
     float diameter;
     float height;
     struct s_obj *next;
+    float spec_r;
+    float shine;
 
 } t_obj;
 
@@ -166,6 +168,9 @@ typedef struct s_frame
 } t_frame;
 
 /* prototypes */
+
+/* rendering eq */
+t_color standard_re(t_frame *rt, t_ray *ray, float t, t_obj *obj);
 
 /* translations */
 

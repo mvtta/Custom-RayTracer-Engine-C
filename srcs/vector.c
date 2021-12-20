@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:50:22 by user              #+#    #+#             */
-/*   Updated: 2021/12/16 19:19:52 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/12/20 21:38:24 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,13 @@ t_color c_blend_flat(float alpha, t_color *color)
 {
     t_color new;
     
+    printf("\t BEFORE 10000 ALPHA IN FLAT BLEND %f\n", alpha);
     alpha *= 10000;
     printf("\t ALPHA IN FLAT BLEND %f\n", PL(alpha));
-    new.r = MIN(1 - PL(alpha), 1) * color->r;
-    new.g = MIN(1 - PL(alpha), 1) * color->g;
-    new.b = MIN(1 - PL(alpha), 1) * color->b;
+    printf("\t NO PERCENT ALPHA IN FLAT BLEND %f\n", alpha);
+    new.r = 1 - PL(alpha) * color->r;
+    new.g = 1 - PL(alpha) * color->g;
+    new.b = 1 - PL(alpha) * color->b;
 /* 
     printf("in BLEND color R: %u\n", color->r);
     printf("in BLEND color G: %u\n", color->g);
@@ -67,8 +69,8 @@ t_color c_blend(float alpha, t_color *color)
 {
     t_color new;
     
-    //printf("ALPHA: %f\n", alpha);
-    alpha = PL(alpha);
+    printf("ALPHA: %f\n", alpha);
+    alpha = BLACK(alpha);
     new.r = (alpha) * color->r;
     new.g = (alpha) * color->g;
     new.b = (alpha) * color->b;
@@ -124,9 +126,9 @@ t_color c_luminance_plane(float alpha, t_color *color)
  */
     //alpha = P(alpha);
     alpha = PL(alpha);
-    final.r = (alpha) * color->r;
-    final.g = (alpha) * color->g;
-    final.b = (alpha) * color->b;
+    final.r = (alpha * color->r) / 3.14;
+    final.g = (alpha * color->g) / 3.14;
+    final.b = (alpha * color->b) / 3.14;
     //printf("\t PERCENTAGE - ALPHA IN FLAT LUM %f\n", alpha);
 /* 
     printf("color R: %u\n", color->r);
