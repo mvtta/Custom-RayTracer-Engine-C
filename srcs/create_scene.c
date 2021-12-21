@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_scene.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:18:03 by user              #+#    #+#             */
-/*   Updated: 2021/12/14 13:47:59 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/12/20 23:43:17 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,11 @@ void create_objs(t_frame *rt)
     int i = 0;
     t_obj *current;
     current = rt->objs_first;
-    while(++i <= rt->nbr_objs)
+    while (++i <= rt->nbr_objs)
     {
-        printf("NUMBER OF OBJS: %d\n", rt->nbr_objs);
-        printf("CURR raw: %s\n", current->raw);
-        printf("I : %d\n", i);
-        if(current->id1 == SPHERE)
+        if (current->id1 == SPHERE)
             create_sphere(current, current->raw);
-        if(current->id1 == PLANE)
+        if (current->id1 == PLANE)
             create_plane(current, current->raw);
         current = current->next;
     }

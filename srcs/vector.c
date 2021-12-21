@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:50:22 by user              #+#    #+#             */
-/*   Updated: 2021/12/20 21:38:24 by user             ###   ########.fr       */
+/*   Updated: 2021/12/21 03:26:22 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,9 @@ t_color c_blend_flat(float alpha, t_color *color)
 {
     t_color new;
     
-    printf("\t BEFORE 10000 ALPHA IN FLAT BLEND %f\n", alpha);
-    alpha *= 10000;
-    printf("\t ALPHA IN FLAT BLEND %f\n", PL(alpha));
-    printf("\t NO PERCENT ALPHA IN FLAT BLEND %f\n", alpha);
-    new.r = 1 - PL(alpha) * color->r;
-    new.g = 1 - PL(alpha) * color->g;
-    new.b = 1 - PL(alpha) * color->b;
+    new.r = MIN(PL(alpha), 0.99) * color->r;
+    new.g = MIN(PL(alpha), 0.99) * color->g;
+    new.b = MIN(PL(alpha), 0.99) * color->b;
 /* 
     printf("in BLEND color R: %u\n", color->r);
     printf("in BLEND color G: %u\n", color->g);
@@ -69,11 +65,12 @@ t_color c_blend(float alpha, t_color *color)
 {
     t_color new;
     
+    //printf("ALPHA: %f\n", alpha);
+    alpha = BLACK(BIT(alpha));
     printf("ALPHA: %f\n", alpha);
-    alpha = BLACK(alpha);
-    new.r = (alpha) * color->r;
-    new.g = (alpha) * color->g;
-    new.b = (alpha) * color->b;
+    new.r = MIN(alpha, 0.9) * color->r;
+    new.g = MIN(alpha, 0.9) * color->g;
+    new.b = MIN(alpha, 0.9) * color->b;
 /* 
     printf("in BLEND color R: %u\n", color->r);
     printf("in BLEND color G: %u\n", color->g);
@@ -124,11 +121,14 @@ t_color c_luminance_plane(float alpha, t_color *color)
 /*     if(alpha == 0)
         alpha = 0.2;
  */
-    //alpha = P(alpha);
-    alpha = PL(alpha);
-    final.r = (alpha * color->r) / 3.14;
-    final.g = (alpha * color->g) / 3.14;
-    final.b = (alpha * color->b) / 3.14;
+    alpha = P(BIT(alpha));
+    printf("ALPHA: %f\n", alpha);
+    final.r = MIN(alpha, 0.9) * color->r;
+    final.g = MIN(alpha, 0.9) * color->g;
+    final.b = MIN(alpha, 0.9) * color->b;
+    printf("color R: %u\n", final.r);
+    printf("color G: %u\n", final.g);
+    printf("color B: %u\n", final.b);
     //printf("\t PERCENTAGE - ALPHA IN FLAT LUM %f\n", alpha);
 /* 
     printf("color R: %u\n", color->r);
@@ -136,7 +136,8 @@ t_color c_luminance_plane(float alpha, t_color *color)
     printf("color B: %u\n", color->b); */
 
 
-    final.hex = DEC(AVOID_MAX(final.r), AVOID_MAX(final.g), AVOID_MAX(final.b));
+    final.hex = DEC(final.r, final.g ,final.b);
+    printf("HEX: %u\n", final.hex);
     return (final);
 }
 

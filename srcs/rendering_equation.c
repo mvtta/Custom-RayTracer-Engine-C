@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2021/12/20 21:33:55 by user             ###   ########.fr       */
+/*   Updated: 2021/12/21 03:11:38 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,12 @@ t_color standard_re(t_frame *rt, t_ray *ray, float t, t_obj *obj)
     t_vec n = normalize(&wo);
     //t_vec wi = v_sub(&wo, &n);
     t_vec v = v_add(&ray->start, obj->obj_coord);
+    if(obj->id1 == PLANE)
+    {
+        wo = v_add(rt->scene->light_coord, obj->obj_coord);
+        v = v_add(&ray->start, obj->obj_coord);
+        n = wo;
+    }
     v = normalize(&v);
     //float brdf = obj->spec_r * pow(dot_p(&wi, &v), obj->shine);
     float lambert = MAX(dot_p(&n, &v), 0);
@@ -76,11 +82,17 @@ t_color standard_re(t_frame *rt, t_ray *ray, float t, t_obj *obj)
 
     /* Lo = MIN(Le + Lr, MAX(monte_carlo, 1)); */
     Lo = Le + Lr;
-    //printf("\t Lo: %f\n", Lo);
+    printf("\t Lo: %f\n", Lo);
+    printf("\t ID: %c\n", obj->id1);
+    if(obj->id1 == PLANE)
+    {
+        //printf("\tright place\n");
+        return (c_luminance_plane(Lo, obj->obj_color));
+    }
     return (c_blend(Lo, obj->obj_color));
 
 /*     if (Lo == monte_carlo)
-        return (black);
+        return (black);s
     else
     {
         monte_carlo = Lo;

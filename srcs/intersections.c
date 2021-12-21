@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersections.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:45:46 by user              #+#    #+#             */
-/*   Updated: 2021/12/16 19:06:07 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2021/12/21 02:50:20 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,32 @@ float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord)
 	float c = dot_p(&dist, &dist) - (radius * radius);
 	float discr = b * b - 4 * a * c;
 	if(discr > s->diameter)
+	{
+		printf("t: %f\n", sqrt(s->diameter) - discr);
 		return(sqrt(s->diameter) - discr);
+	}
 	else
 		return(NO_HIT);
 }
 
 float ray_plane(t_ray *r, t_obj *p, t_vec obj_coord)
 {
-	t_vec norm_dir = normalize(&r->dir);
+	//t_vec norm_dir = normalize(&r->dir);
 	t_vec norm_start = normalize(&r->start);
-	float denom = dot_p(&obj_coord, &norm_dir); 
+	t_vec norm_obj_coord = normalize(&obj_coord); 
+	float denom = dot_p(&norm_obj_coord , &r->dir); 
 	float t;
     if (denom > 1e-9) 
 	{ 
         t_vec p0l0 = v_sub(p->obj_norm , &norm_start); 
 			p0l0 = normalize(&p0l0);
         t = dot_p(&p0l0, p->obj_norm) / denom; 
+		t = sqrtf(t);
 		if(t >= 0)
+		{
+			printf("t: %f\n", t);
         	return (t); 
+		}
 	}
 	return(NO_HIT);
 }

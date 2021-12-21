@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/12/20 21:49:33 by user             ###   ########.fr       */
+/*   Updated: 2021/12/21 03:00:14 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,10 @@
 float compute_obj(t_ray *ray, t_obj *obj)
 {
     float t;
-    // compute_sphere(obj, rt);
     if (obj->id1 == PLANE)
         t = ray_plane(ray, obj, *obj->obj_coord);
     if (obj->id1 == SPHERE)
         t =  ray_sphere(ray, obj, *obj->obj_coord);
-   // printf("\t t: %f\n", t);
-    //printf("\t id1: %c\n", obj->id1);
     return(t);
 }
 
@@ -32,6 +29,7 @@ int render(t_frame *rt)
     t_obj *current;
     t_ray ray;
     float hit;
+    int i;
     int x;
     int y = 0;
 
@@ -46,23 +44,27 @@ int render(t_frame *rt)
         {
             ray.start.x = rt->scene->cam_coord->x;
             ray.dir.x = (2 * (x + 0.5) / (float)rt->window_w - 1) * tan(rt->scene->fov / 2) * rt->window_w / (float)rt->window_h;
-            int i = 0;
+            i = 0;
             current = rt->objs_first;
-            //printf("\t nbr of objs: %d\n", rt->nbr_objs);
             while (++i <= rt->nbr_objs)
             {
                 hit = compute_obj(&ray, current);
                 if(hit != NO_HIT)
                 {
+                    //printf("hit: %f\n", hit);
                     volume = standard_re(rt, &ray, hit, current);
-                    mlx_pixel_put(rt->mlx_ptr, rt->win_ptr, x, y, volume.hex);
+                    printf("\tvolume hex in loop: %u\n", volume.hex);
+                    //mlx_pixel_put(rt->mlx_ptr, rt->win_ptr, x, y, volume.hex);
+                    my_mlx_pixel_put(&rt->obj_img, x, y, volume.hex);
                 }
                 current = current->next;
-                printf("\ti: %d\n", i);
             }
         x++;
         }
     y++;
     }
+    //printf("here\n");
+    mlx_put_image_to_window(rt->mlx_ptr, rt->win_ptr, rt->obj_img.img_ptr, 0, 0);
+
     return (0);
 }

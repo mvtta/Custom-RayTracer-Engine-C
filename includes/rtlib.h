@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/12/20 19:48:17 by user             ###   ########.fr       */
+/*   Updated: 2021/12/20 22:01:58 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ typedef struct s_obj
     struct s_obj *next;
     float spec_r;
     float shine;
+    t_data *img;
 
 } t_obj;
 
@@ -200,7 +201,7 @@ float ray_plane(t_ray *r, t_obj *p, t_vec obj_coord);
 
 float compute_light_plane(t_frame *rt, t_ray *ray, t_vec obj_coord);
 float compute_light(t_frame *rt, t_ray *ray, t_vec obj_coord);
-void my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void my_mlx_pixel_put(t_data *data, int x, int y, unsigned int color);
 int render(t_frame *rt);
 void general_img_to_window(t_frame *rt);
 void obj_to_window(t_frame *rt);

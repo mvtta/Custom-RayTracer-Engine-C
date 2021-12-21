@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 17:53:53 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/12/20 19:50:57 by user             ###   ########.fr       */
+/*   Updated: 2021/12/21 02:49:15 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ void obj_to_window(t_frame *rt)
     mlx_put_image_to_window(rt->mlx_ptr, rt->win_ptr, rt->obj_img.img_ptr, 0, 0);
 }
 
-void my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void my_mlx_pixel_put(t_data *data, int x, int y, unsigned int color)
 {
     size_t offset;
 
-    offset = y + x;
-    *(unsigned int *)(data->data + offset) = color;
+    offset = ((y * 4000 + x * data->bits_per_pixel / 8) / 4);
+    data->data[offset] = 0;
+    data->data[offset] = color;
 }
