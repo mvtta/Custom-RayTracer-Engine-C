@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:50:22 by user              #+#    #+#             */
-/*   Updated: 2021/12/21 11:43:53 by user             ###   ########.fr       */
+/*   Updated: 2021/12/21 17:28:42 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ t_color c_blend(float alpha, t_color *color)
     t_color new;
     
     //printf("ALPHA: %f\n", alpha);
-    alpha = PL(alpha);
+    alpha = P(alpha);
     printf("ALPHA: %f\n", alpha);
-    new.r = MIN(alpha, 0.9) * color->r;
-    new.g = MIN(alpha, 0.9) * color->g;
-    new.b = MIN(alpha, 0.9) * color->b;
+    new.r = MIN(alpha, 0.9) * 255 + BIT(color->r);
+    new.g = MIN(alpha, 0.9) * 255 + BIT(color->g);
+    new.b = MIN(alpha, 0.9) * 255 + BIT(color->b);
 /* 
     printf("in BLEND color R: %u\n", color->r);
     printf("in BLEND color G: %u\n", color->g);
@@ -80,7 +80,15 @@ t_color c_blend(float alpha, t_color *color)
     printf("BLEND G: %u\n", new.g);
     printf("BLEND B: %u\n", new.b); */
 
-    new.hex = DEC(new.r ,new.g, new.b);
+    printf("in BLEND color R: %u\n", color->r);
+    printf("in BLEND color G: %u\n", color->g);
+    printf("in BLEND color B: %u\n", color->b);
+
+    printf("BLEND R: %u\n", new.r);
+    printf("BLEND G: %u\n", new.g);
+    printf("BLEND B: %u\n", new.b);
+    
+    new.hex = DEC(MIN(new.r, 255) ,MIN(new.g, 255), MIN(new.b, 255));
     return (new);
 }
 
@@ -98,7 +106,7 @@ t_color c_luminance(float alpha, t_color *color)
     final.r = (alpha) * color->r + color->r;
     final.g = (alpha) * color->g + color->g;
     final.b = (alpha) * color->b + color->b;
-/* 
+/* ""
     printf("color R: %u\n", color->r);
     printf("color G: %u\n", color->g);
     printf("color B: %u\n", color->b); */

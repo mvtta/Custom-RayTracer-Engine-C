@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2021/12/21 12:40:09 by user             ###   ########.fr       */
+/*   Updated: 2021/12/21 17:23:18 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,20 @@ the incident ray reflects
 
 t_color standard_re(t_frame *rt, t_ray *ray, float t, t_obj *obj)
 {
-    t_vec ldir = v_sub(rt->scene->light_coord, obj->obj_coord);
-    float r2 = length(ldir);
-    float lintensity = MAX(dot_p(&ldir, &ray->dir), 0) - t / (4 * M_PI * r2);
+        float lintensity;
+        float distance;
+        float cam_distance;
+        t_vec ldir;
+        t_vec camdir;
+
+        //t_vec scale = v_scale(t, &ray->dir);
+        ldir = v_sub(rt->scene->light_coord, &ray->dir);
+        camdir = v_sub(obj->obj_coord, &ray->dir);
+        distance = length(ldir);
+        cam_distance = length(camdir);
+        printf("\tcam dist : %f\n", cam_distance);
+        printf("\tli dist : %f\n", distance);
+        lintensity = -t * 0.2 * 0.3 * 0.18 * MAX(dot_p(&ldir, &camdir), 0) * atan(dot_p(&ldir, &camdir)) / 100;
+        printf("\tlintensity : %f\n", lintensity);
     return(c_blend(lintensity, obj->obj_color));
 }

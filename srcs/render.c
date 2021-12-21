@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/12/21 03:00:14 by user             ###   ########.fr       */
+/*   Updated: 2021/12/21 17:40:09 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ int render(t_frame *rt)
     {
         x = 0;
         ray.start.y = rt->scene->cam_coord->y;
-        ray.dir.y = -(2 * (y + 0.5) / (float)rt->window_h - 1) * tan(rt->scene->fov / 2);
+        ray.dir.y = (2 * (y + 0.5) / (float)rt->window_h - 1) * tan(rt->scene->fov / 2);
         while (x < rt->window_w)
         {
             ray.start.x = rt->scene->cam_coord->x;
-            ray.dir.x = (2 * (x + 0.5) / (float)rt->window_w - 1) * tan(rt->scene->fov / 2) * rt->window_w / (float)rt->window_h;
+            ray.dir.x = -(2 * (x + 0.5) / (float)rt->window_w - 1) * tan(rt->scene->fov / 2) * rt->window_w / (float)rt->window_h;
             i = 0;
             current = rt->objs_first;
             while (++i <= rt->nbr_objs)
@@ -55,7 +55,7 @@ int render(t_frame *rt)
                     volume = standard_re(rt, &ray, hit, current);
                     printf("\tvolume hex in loop: %u\n", volume.hex);
                     //mlx_pixel_put(rt->mlx_ptr, rt->win_ptr, x, y, volume.hex);
-                    my_mlx_pixel_put(&rt->obj_img, x, y, volume.hex);
+                        my_mlx_pixel_put(&rt->obj_img, x, y, volume.hex);
                 }
                 current = current->next;
             }
