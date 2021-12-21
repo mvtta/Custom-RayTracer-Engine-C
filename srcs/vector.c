@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:50:22 by user              #+#    #+#             */
-/*   Updated: 2021/12/21 03:26:22 by user             ###   ########.fr       */
+/*   Updated: 2021/12/21 11:43:53 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_color c_blend(float alpha, t_color *color)
     t_color new;
     
     //printf("ALPHA: %f\n", alpha);
-    alpha = BLACK(BIT(alpha));
+    alpha = PL(alpha);
     printf("ALPHA: %f\n", alpha);
     new.r = MIN(alpha, 0.9) * color->r;
     new.g = MIN(alpha, 0.9) * color->g;
@@ -238,4 +238,19 @@ float dot_p(t_vec *v1, t_vec *v2)
     dot = a + b + c;
     // printf("dot:%f\n", dot);
     return (dot);
+}
+
+static double	sqr(double n)
+{
+	return (n * n);
+}
+
+double			length_squared(t_vec v)
+{
+	return (sqr(v.x) + sqr(v.y) + sqr(v.z));
+}
+
+double			length(t_vec v)
+{
+	return (sqrt(length_squared(v)));
 }

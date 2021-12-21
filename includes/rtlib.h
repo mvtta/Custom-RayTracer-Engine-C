@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/12/20 22:01:58 by user             ###   ########.fr       */
+/*   Updated: 2021/12/21 10:24:40 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,8 @@ t_vec v_sub(t_vec *v1, t_vec *v2);
 t_vec v_add(t_vec *v1, t_vec *v2);
 t_vec v_mult(t_vec *v1, t_vec *v2);
 float dot_p(t_vec *v1, t_vec *v2);
+double			length_squared(t_vec v);
+double			length(t_vec v);
 
 /* intersection.c */
 
