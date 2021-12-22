@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:45:46 by user              #+#    #+#             */
-/*   Updated: 2021/12/21 02:50:20 by user             ###   ########.fr       */
+/*   Updated: 2021/12/22 21:34:25 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,10 @@ float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord)
 {
 
 	t_vec dist = v_sub(&r->start, &obj_coord);
-	
-	float scale = 1; 
-	float radius = (s->diameter * scale) / 2;
+	 
+	float radius = (s->diameter) / 2;
 	float a = dot_p(&r->dir, &r->dir);
-	float b = 2 * dot_p(&r->dir, &dist);
+	float b = 2.0 * dot_p(&r->dir, &dist);
 	float c = dot_p(&dist, &dist) - (radius * radius);
 	float discr = b * b - 4 * a * c;
 	if(discr > s->diameter)
@@ -60,7 +59,7 @@ float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord)
 float ray_plane(t_ray *r, t_obj *p, t_vec obj_coord)
 {
 	//t_vec norm_dir = normalize(&r->dir);
-	t_vec norm_start = normalize(&r->start);
+	t_vec norm_start = normalize(&r->dir);
 	t_vec norm_obj_coord = normalize(&obj_coord); 
 	float denom = dot_p(&norm_obj_coord , &r->dir); 
 	float t;
@@ -72,7 +71,7 @@ float ray_plane(t_ray *r, t_obj *p, t_vec obj_coord)
 		t = sqrtf(t);
 		if(t >= 0)
 		{
-			printf("t: %f\n", t);
+			//printf("t: %f\n", t);
         	return (t); 
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 17:53:53 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/12/21 02:49:15 by user             ###   ########.fr       */
+/*   Updated: 2021/12/22 21:33:38 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void my_mlx_pixel_put(t_data *data, int x, int y, unsigned int color)
 {
     size_t offset;
 
-    offset = ((y * 4000 + x * data->bits_per_pixel / 8) / 4);
-    data->data[offset] = 0;
+    offset = ((y * data->line_length + x * data->bits_per_pixel / 8) / 4);
     data->data[offset] = color;
 }

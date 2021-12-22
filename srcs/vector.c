@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:50:22 by user              #+#    #+#             */
-/*   Updated: 2021/12/21 17:28:42 by user             ###   ########.fr       */
+/*   Updated: 2021/12/22 21:38:32 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ t_color c_blend(float alpha, t_color *color)
     printf("BLEND G: %u\n", new.g);
     printf("BLEND B: %u\n", new.b); */
 
-    printf("in BLEND color R: %u\n", color->r);
+/*     printf("in BLEND color R: %u\n", color->r);
     printf("in BLEND color G: %u\n", color->g);
-    printf("in BLEND color B: %u\n", color->b);
+    printf("in BLEND color B: %u\n", color->b); */
 
-    printf("BLEND R: %u\n", new.r);
+/*     printf("BLEND R: %u\n", new.r);
     printf("BLEND G: %u\n", new.g);
-    printf("BLEND B: %u\n", new.b);
+    printf("BLEND B: %u\n", new.b); */
     
     new.hex = DEC(MIN(new.r, 255) ,MIN(new.g, 255), MIN(new.b, 255));
     return (new);

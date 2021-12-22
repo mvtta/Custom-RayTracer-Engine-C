@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2021/12/21 17:23:18 by user             ###   ########.fr       */
+/*   Updated: 2021/12/22 21:38:41 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_color standard_re(t_frame *rt, t_ray *ray, float t, t_obj *obj)
         cam_distance = length(camdir);
         printf("\tcam dist : %f\n", cam_distance);
         printf("\tli dist : %f\n", distance);
-        lintensity = -t * 0.2 * 0.3 * 0.18 * MAX(dot_p(&ldir, &camdir), 0) * atan(dot_p(&ldir, &camdir)) / 100;
+        lintensity = -t * 0.2 * 0.3 * 0.18 * MAX(dot_p(&ldir, &camdir), 0) * atan(dot_p(&ldir, &camdir)) / distance;
         printf("\tlintensity : %f\n", lintensity);
     return(c_blend(lintensity, obj->obj_color));
 }
