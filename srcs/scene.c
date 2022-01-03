@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 13:21:11 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/12/01 12:10:47 by user             ###   ########.fr       */
+/*   Updated: 2022/01/02 22:46:49 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_scene *init_scene(void)
   scene->brightness = 0;
   scene->cam_coord = 0;
   scene->cam_norm = 0;
-  scene->fov = 0;
+  scene->fov = 0.0;
   scene->id = 0;
   scene->light_color = 0;
   scene->light_coord = 0;

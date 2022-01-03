@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2021/12/22 21:38:41 by user             ###   ########.fr       */
+/*   Updated: 2022/01/03 02:11:40 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,23 @@ the incident ray reflects
 
 */
 
-t_color standard_re(t_frame *rt, t_ray *ray, float t, t_obj *obj)
+t_color standard_re(t_ray *ray, t_obj *obj, float t)
 {
-        float lintensity;
-        float distance;
-        float cam_distance;
-        t_vec ldir;
-        t_vec camdir;
-
-        //t_vec scale = v_scale(t, &ray->dir);
-        ldir = v_sub(rt->scene->light_coord, &ray->dir);
-        camdir = v_sub(obj->obj_coord, &ray->dir);
-        distance = length(ldir);
-        cam_distance = length(camdir);
-        printf("\tcam dist : %f\n", cam_distance);
-        printf("\tli dist : %f\n", distance);
-        lintensity = -t * 0.2 * 0.3 * 0.18 * MAX(dot_p(&ldir, &camdir), 0) * atan(dot_p(&ldir, &camdir)) / distance;
-        printf("\tlintensity : %f\n", lintensity);
-    return(c_blend(lintensity, obj->obj_color));
+        float g_lintensity = 0.0;
+        t_vec obj_hit;
+        t_vec cam_dist;
+        float ob_dist;
+        float ca_dist;
+  
+        obj_hit = v_scale(t, &ray->start);
+        cam_dist = v_from_2p(ray->start, obj_hit);
+        ob_dist = length(obj_hit); /* hit is here */
+        ca_dist = length(cam_dist); /* hit is here */
+        
+        printf("dist_n: %f\n", ob_dist);
+        printf("cam dist: %f\n", ca_dist);
+        printf("t: %f\n", t);
+        g_lintensity = t * 0.2;
+        printf(" lintensity problem: %f\n", g_lintensity);
+        return(c_blend(g_lintensity, obj->obj_color));
 }

@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 12:42:42 by user              #+#    #+#             */
-/*   Updated: 2021/12/22 21:39:34 by user             ###   ########.fr       */
+/*   Updated: 2022/01/03 02:01:02 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,23 @@
 
 float  ndc(t_frame *rt, float coord, char id)
 {
-    float aspect_ratio = rt->window_w / rt->window_h;
+    float aspect_ratio = 1.3;
+    float vertical_fov = rt->scene->fov / aspect_ratio;
+    float mag = rt->scene->fov / 35;
+/*     printf("tanfov: %f\n, hfov %f\n vfov: %f\n mag:%f\n ar:%f\n",tan(rt->scene->fov), rt->scene->fov, vertical_fov, mag, aspect_ratio);
+    printf("taanfov / 2: %f\n, ahfov / 2 %f\n",atan(rt->scene->fov), atan(vertical_fov));
+    printf("tanfov / 2: %f\n, hfov / 2 %f\n",tan(rt->scene->fov / 2), tan(vertical_fov / 2));
+    exit(0); */
     if(id == 'x')
-        coord = (2 * ((coord + 0.5) / rt->window_w) -1) * tan(rt->scene->fov / 2 * M_PI / 360) * aspect_ratio * 0.5;
+        coord = (2 * ((coord + 0.5) / rt->window_w) -1) * atan((rt->scene->fov * (M_PI / 180))) * mag;
     if(id == 'y')
-       coord = (1 - 2 * (coord + 0.5) / rt->window_h) * tan(rt->scene->fov / 2 * M_PI / 360) * 0.5;
+       coord = (1 - 2 * (coord + 0.5) / rt->window_h) * atan((vertical_fov) * (M_PI / 180)) * mag;
     if(id == 'z')
         coord = 1;
     return(coord);
 }
+
+/* t_vec ray(t_vec coord1, t_vec coord2)
+{
+    
+} */

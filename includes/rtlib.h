@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2021/12/22 20:01:40 by user             ###   ########.fr       */
+/*   Updated: 2022/01/03 01:39:01 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 
 #define PI 3.14159265358979323846
-#define MAX(x, y) (((x) > (y)) ? (x) : (y))
-#define MIN(x, y) (((x) < (y)) ? (x) : (y))
+#define MAX(x, y) (((x) >= (y)) ? (x) : (y))
+#define MIN(x, y) (((x) <= (y)) ? (x) : (y))
 #define BIT(x) (x * 100 / 255)
+#define CPN(x) (x * 0.1 / 255)
 #define PER_TO_COLOR(x) (255 * x)
 #define P(x) (x * 0.01)
 #define PL(x) (x * 0.1)
@@ -140,7 +141,7 @@ typedef struct s_scene
     t_vec *cam_coord;
     t_vec *cam_norm;
     t_trans *cam_trans;
-    int fov;
+    float fov;
     /* L */
     t_vec *light_coord;
     float brightness;
@@ -171,13 +172,14 @@ typedef struct s_frame
 /* prototypes */
 
 /* rendering eq */
-t_color standard_re(t_frame *rt, t_ray *ray, float t, t_obj *obj);
+t_color standard_re(t_ray *ray, t_obj *obj, float t);
 
 /* translations */
 float  ndc(t_frame *rt, float coord, char id);
 t_vec   world2scene(int width, int heigh, t_vec *coordinates);
 
 /* vector.c */
+double          angle_bet_vs(t_vec *v1, t_vec *v2);
 t_vec  cross_p(t_vec a, t_vec b);
 t_color c_mix_plane(float volume, float light, t_color *obj_color);
 t_color c_luminance_plane(float alpha, t_color *color);
@@ -189,6 +191,7 @@ t_color c_blend(float alpha, t_color *color);
 t_vec normalize(t_vec *p);
 t_vec v_scale(float scale, t_vec *vec);
 t_vec v_sub(t_vec *v1, t_vec *v2);
+t_vec v_from_2p(t_vec v1, t_vec v2);
 t_vec v_add(t_vec *v1, t_vec *v2);
 t_vec v_mult(t_vec *v1, t_vec *v2);
 float dot_p(t_vec *v1, t_vec *v2);

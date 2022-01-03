@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:50:22 by user              #+#    #+#             */
-/*   Updated: 2021/12/22 21:38:32 by user             ###   ########.fr       */
+/*   Updated: 2022/01/03 01:36:16 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,34 +61,40 @@ t_color c_blend_flat(float alpha, t_color *color)
     return (new);
 }
 
+/* t_color c_blend(float alpha, t_color *color)
+{
+    t_color new;
+    
+    printf("ALPHA: %f\n", alpha);
+    printf("ALPHA: %f\n", alpha);
+    if(alpha < 0)
+        alpha  = 1;
+    new.r = MIN(alpha + CPN(color->r), 1) * 255;
+    new.g = MIN(alpha + CPN(color->g), 1) * 255;
+    new.b = MIN(alpha + CPN(color->b), 1) * 255;
+
+    printf("BLEND R: %u\n", new.r);
+    printf("BLEND G: %u\n", new.g);
+    printf("BLEND B: %u\n", new.b);
+    
+    new.hex = DEC(new.r, new.g, new.b);
+    return (new);
+} */
+
 t_color c_blend(float alpha, t_color *color)
 {
     t_color new;
     
-    //printf("ALPHA: %f\n", alpha);
-    alpha = P(alpha);
-    printf("ALPHA: %f\n", alpha);
-    new.r = MIN(alpha, 0.9) * 255 + BIT(color->r);
-    new.g = MIN(alpha, 0.9) * 255 + BIT(color->g);
-    new.b = MIN(alpha, 0.9) * 255 + BIT(color->b);
-/* 
-    printf("in BLEND color R: %u\n", color->r);
-    printf("in BLEND color G: %u\n", color->g);
-    printf("in BLEND color B: %u\n", color->b);
+    new.r = MAX((CPN(color->r) + P(alpha)) * color->r, 0);
+    new.g = MAX((CPN(color->g) + P(alpha)) * color->g, 0);
+    new.b = MAX((CPN(color->b) + P(alpha)) * color->b, 0);
 
-    printf("BLEND R: %u\n", new.r);
-    printf("BLEND G: %u\n", new.g);
-    printf("BLEND B: %u\n", new.b); */
-
-/*     printf("in BLEND color R: %u\n", color->r);
-    printf("in BLEND color G: %u\n", color->g);
-    printf("in BLEND color B: %u\n", color->b); */
-
-/*     printf("BLEND R: %u\n", new.r);
-    printf("BLEND G: %u\n", new.g);
-    printf("BLEND B: %u\n", new.b); */
+/*     printf("PR: %f\n", CPN(color->r));
+    printf("PG: %f\n", CPN(color->g));
+    printf("PB: %f\n", CPN(color->b));
+    exit(0); */
     
-    new.hex = DEC(MIN(new.r, 255) ,MIN(new.g, 255), MIN(new.b, 255));
+    new.hex = DEC(new.r, new.g, new.b);
     return (new);
 }
 
@@ -101,7 +107,7 @@ t_color c_luminance(float alpha, t_color *color)
 /*     if(alpha == 0)
         alpha = 0.2;
  */
-    alpha = PL(alpha);
+
     //printf("ALPHA QUANTIY: %f\n", (PL(alpha)));
     final.r = (alpha) * color->r + color->r;
     final.g = (alpha) * color->g + color->g;
@@ -188,17 +194,17 @@ t_vec v_sub(t_vec *v1, t_vec *v2)
     new.x = v1->x - v2->x;
     new.y = v1->y - v2->y;
     new.z = v1->z - v2->z;
-
-    /*     printf("**********SUBTRACTION********\n");
-        printf("v1x:%f\n", v1->x);
-        printf("v1y:%f\n", v1->y);
-        printf("v1z:%f\n", v1->z);
-        printf("v2z:%f\n", v2->z);
-
-        printf("new_x:%f\n", new.x);
-        printf("new_y:%f\n", new.y);
-        printf("new_z:%f\n", new.z); */
     return (new);
+}
+
+t_vec v_from_2p(t_vec start, t_vec end)
+{
+    t_vec vector;
+    vector = v_sub(&end, &start);
+    vector.x = sqrtf(vector.x * vector.x);
+    vector.y = sqrtf(vector.y * vector.y);
+    vector.z = sqrtf(vector.z * vector.z);
+    return(vector);
 }
 
 t_vec v_add(t_vec *v1, t_vec *v2)
@@ -262,3 +268,14 @@ double			length(t_vec v)
 {
 	return (sqrt(length_squared(v)));
 }
+
+double          angle_bet_vs(t_vec *v1, t_vec *v2)
+{
+    float scalar = dot_p(v1, v2);
+    float mag1 = length(*v1);
+    float mag2 = length(*v2);
+    float angle = scalar / (mag1 * mag2);
+    printf("angle should be between 0 & 180: %f\n", acos(angle));
+    return(acos(angle));
+}
+         

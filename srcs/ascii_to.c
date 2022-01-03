@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 18:59:20 by user              #+#    #+#             */
-/*   Updated: 2021/12/07 22:09:07 by user             ###   ########.fr       */
+/*   Updated: 2022/01/02 22:48:49 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,16 @@ float ascii_to_float(char *data)
     power = 1.0;    
     point = 0.0;
 
-    if(data[0] == '-')
+    if(data[i] == '-')
     {
         sign *= -1;
         i += 1;
-        printf("HERE\n");
     }
     while(data[i] && data[i] != '.')
     {
         point = 10 * point + (data[i] - '0');
         i++;
     }
-
     if(data[i] == '.')
     {
         i++;

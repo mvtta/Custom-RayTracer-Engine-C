@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 17:35:32 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/12/22 21:38:37 by user             ###   ########.fr       */
+/*   Updated: 2022/01/02 22:40:36 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ t_frame *init_frame(void)
     rt->objs_first = NULL;
     rt->objs_last = NULL;
     rt->nbr_objs = 0;
-    rt->window_w = 800;
-    rt->window_h = 600;
+    rt->window_w = 1440;
+    rt->window_h = 1080;
     return(rt);
 }
 
