@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:45:46 by user              #+#    #+#             */
-/*   Updated: 2022/01/03 20:01:49 by user             ###   ########.fr       */
+/*   Updated: 2022/01/03 22:31:15 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,36 +58,21 @@ float ray_plane(t_ray *r, t_obj *p, t_vec obj_coord)
 	t_vec d = v_add(&r->start, &r->dir);
 	float len = length(d);
 	d = v_scale(len, &d);
-	t_vec p1 = normalize(&obj_coord);
+	//t_vec p1 = normalize(&obj_coord); can substitute in second param of point
 	float denom = dot_p(&d, p->obj_norm);
-	float point = dot_p(&d, &p1);
-	float t = denom / point;
-	if(t > 0.001 && t < 200)
+	float point = dot_p(&d, &obj_coord);
+	float t = denom  / point ;
+	if(t > 0.001 && t < 100)
 	{
 /* 		printf("t:%f\n", t);
 		printf("denom:%f\n", denom);
 		printf("point:%f\n", point); */
-		return(t);
+		return(len - t);
 	}
 	return (NO_HIT);
 }
 
-/* 	t_vec plane_norm;
-	plane_norm = cross_p(p->obj_coord, );
-	t_vec dist = v_mult(&r->dir, &obj_coord);
-	float divide = dot_p(&dist, &obj_coord);
-	float	d;
-	//divide /= 10;
-	d = dot_p(&dist, &plane_norm) * divide;
-	if(d >= 0 && d < 0.01)
-	{
-		//printf("\t SIMPLE D : %f\n", d);
-		return ((d));
-	}
-	else
-		return(NO_HIT); */
-
-/* var d = Vector3.Dot(planeP, -planeN);
-   var t = -(d + rayP.z * planeN.z + rayP.y * planeN.y + rayP.x * planeN.x) / (rayD.z * planeN.z + rayD.y * planeN.y + rayD.x * planeN.x);
-   return rayP + t * rayD; */
-// return((-b - sqrt(discr) ) / (2.0*a));
+/* float ray_cy(t_ray *r, t_obj *p, t_vec obj_coord)
+{
+	
+} */
