@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/01/03 01:39:01 by user             ###   ########.fr       */
+/*   Updated: 2022/01/03 19:59:42 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ typedef struct s_scene
     t_vec *light_coord;
     float brightness;
     t_color *light_color;
+    float far;
 
 } t_scene;
 

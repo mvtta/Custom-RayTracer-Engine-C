@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/01/03 02:11:40 by user             ###   ########.fr       */
+/*   Updated: 2022/01/03 17:19:10 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ t_color standard_re(t_ray *ray, t_obj *obj, float t)
         ob_dist = length(obj_hit); /* hit is here */
         ca_dist = length(cam_dist); /* hit is here */
         
-        printf("dist_n: %f\n", ob_dist);
+/*         printf("dist_n: %f\n", ob_dist);
         printf("cam dist: %f\n", ca_dist);
-        printf("t: %f\n", t);
+        printf("t: %f\n", t); */
         g_lintensity = t * 0.2;
-        printf(" lintensity problem: %f\n", g_lintensity);
+       // printf(" lintensity problem: %f\n", g_lintensity);
         return(c_blend(g_lintensity, obj->obj_color));
 }

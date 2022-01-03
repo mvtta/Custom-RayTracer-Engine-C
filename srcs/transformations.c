@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 12:42:42 by user              #+#    #+#             */
-/*   Updated: 2022/01/03 02:01:02 by user             ###   ########.fr       */
+/*   Updated: 2022/01/03 19:57:31 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ float  ndc(t_frame *rt, float coord, char id)
     float aspect_ratio = 1.3;
     float vertical_fov = rt->scene->fov / aspect_ratio;
     float mag = rt->scene->fov / 35;
+    rt->scene->far = 1000; 
 /*     printf("tanfov: %f\n, hfov %f\n vfov: %f\n mag:%f\n ar:%f\n",tan(rt->scene->fov), rt->scene->fov, vertical_fov, mag, aspect_ratio);
     printf("taanfov / 2: %f\n, ahfov / 2 %f\n",atan(rt->scene->fov), atan(vertical_fov));
     printf("tanfov / 2: %f\n, hfov / 2 %f\n",tan(rt->scene->fov / 2), tan(vertical_fov / 2));

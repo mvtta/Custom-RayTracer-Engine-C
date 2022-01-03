@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:45:46 by user              #+#    #+#             */
-/*   Updated: 2022/01/02 19:03:28 by user             ###   ########.fr       */
+/*   Updated: 2022/01/03 20:01:49 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,22 @@ float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord)
 
 float ray_plane(t_ray *r, t_obj *p, t_vec obj_coord)
 {
-	// t_vec norm_dir = normalize(&r->dir);
-	t_vec norm_start = normalize(&r->dir);
-	t_vec norm_obj_coord = normalize(&obj_coord);
-	float denom = dot_p(&norm_obj_coord, &r->dir);
-	float t;
-	printf("\tplanes\n");
-	if (denom > 1e-6)
+
+	//t_vec norm_dir = normalize(&r->dir);
+	//t_vec norm_coord = normalize(&obj_coord);
+	t_vec d = v_add(&r->start, &r->dir);
+	float len = length(d);
+	d = v_scale(len, &d);
+	t_vec p1 = normalize(&obj_coord);
+	float denom = dot_p(&d, p->obj_norm);
+	float point = dot_p(&d, &p1);
+	float t = denom / point;
+	if(t > 0.001 && t < 200)
 	{
-		t_vec p0l0 = v_sub(&norm_obj_coord, &norm_start);
-		p0l0 = normalize(&p0l0);
-		t = dot_p(&p0l0, p->obj_norm);
-		if (t <= 0)
-		{
-			return (t *= -1);
-		}
+/* 		printf("t:%f\n", t);
+		printf("denom:%f\n", denom);
+		printf("point:%f\n", point); */
+		return(t);
 	}
 	return (NO_HIT);
 }
