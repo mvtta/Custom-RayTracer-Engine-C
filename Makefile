@@ -6,7 +6,7 @@
 #    By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/07 12:36:54 by mvaldeta          #+#    #+#              #
-#    Updated: 2021/12/03 09:55:40 by user             ###   ########.fr        #
+#    Updated: 2021/12/07 17:32:14 by user             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ CC = gcc
 
 #-fsanitize=address
 
-CFLAGS = -g -Imlx -Werror -Wall -Wextra
+CFLAGS = -g -fsanitize=address -Imlx -Werror -Wall -Wextra
 
 MLX_DIR = libs/minilibx_opengl_20191021
 

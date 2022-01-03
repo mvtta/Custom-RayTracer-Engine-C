@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 17:32:20 by user              #+#    #+#             */
-/*   Updated: 2021/12/01 18:10:59 by user             ###   ########.fr       */
+/*   Updated: 2021/12/20 22:21:34 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_obj *new_obj(t_frame *rt, char *data)
     printf("data in <raw> new obj: %s\n", new->raw);
     new->prev = NULL;
     new->next = NULL;
+    new->id1 = new->raw[0];
     new->obj_coord = NULL;
     new->obj_color = NULL;
     new->obj_norm = NULL;
@@ -44,6 +45,7 @@ void add_new_obj(t_frame *rt, char *data)
     ft_strlcpy(input, data, ft_strlen(data) + 1);
     new = new_obj(rt, input);
     free(input);
+    
     if(rt->objs_first == NULL)
     {
         rt->objs_first = new;
@@ -61,14 +63,30 @@ void add_new_obj(t_frame *rt, char *data)
     old_tail->prev = old_tail->prev->next;
     rt->objs_last = new;
     rt->objs_last->prev = new->prev;
-/* 
-    printf("obj FIRST AFTER FIRTS LINK: %p\n", rt->objs_first);
-    printf("raw FIRST AFTER FIRTS LINK: %s\n", rt->objs_first->raw);
-    printf("obj FIRST->NEXT AFTER LINK: %p\n", rt->objs_first->next);
-    printf("obj LAST AFTER LINK: %p\n", rt->objs_last);
-    printf("raw LAST AFTER LINK: %s\n", rt->objs_last->raw); */
-   //exit(0);
     return;
+}
+
+void create_plane(t_obj *obj, char *data)
+{
+    char **plane;
+    static int count;
+    plane = ft_split(data, ' ');
+
+    /* pl 0,100,0 0,0,1 255,255,255; */
+    obj->id1 = 'p';
+    obj->id2 = count;
+    obj->obj_coord = ascii_to_vec(plane[1]);
+    obj->obj_norm = ascii_to_vec(plane[2]);
+    printf("x:%f\n", obj->obj_coord->x);
+    printf("y:%f\n", obj->obj_coord->y);
+    printf("z:%f\n", obj->obj_coord->z);
+    printf("\trgb data[3]:%s\n", plane[3]);
+    obj->obj_color = ascii_to_rgb(plane[3]);
+    printf("r:%d\n", obj->obj_color->r);
+    printf("g:%d\n", obj->obj_color->g);
+    printf("b:%d\n", obj->obj_color->b);
+    count += 1;
+    
 }
 
 void create_sphere(t_obj *obj, char *data)
@@ -77,9 +95,12 @@ void create_sphere(t_obj *obj, char *data)
     static int count;
     sphere = ft_split(data, ' ');
 
-    obj->id1 = SPHERE;
+    obj->id1 = 's';
     obj->id2 = count;
     obj->obj_coord = ascii_to_vec(sphere[1]);
+    printf("x:%f\n", obj->obj_coord->x);
+    printf("y:%f\n", obj->obj_coord->y);
+    printf("z:%f\n", obj->obj_coord->z);
     obj->diameter = ascii_to_float(sphere[2]);
     obj->obj_color = ascii_to_rgb(sphere[3]);
     count += 1;
@@ -90,7 +111,5 @@ void create_sphere(t_obj *obj, char *data)
     char **cylin;
     cylin = ft_split(data, ' ');
 }
-void create_plane(t_frame *rt)
-{
+*/
 
-} */

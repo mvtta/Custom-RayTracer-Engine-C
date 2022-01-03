@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 18:06:51 by user              #+#    #+#             */
-/*   Updated: 2021/12/01 12:08:34 by user             ###   ########.fr       */
+/*   Updated: 2022/01/02 22:51:41 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,13 @@ t_scene *att_camera(t_scene *scene, char **data)
 {
     scene->cam_coord = ascii_to_vec(data[1]);
     scene->cam_norm = ascii_to_vec(data[2]);
-    scene->fov = ascii_to_int(data[3]);
+    scene->fov = 50;
+/*     printf("fov parsed: %f\n", scene->fov);
+    printf("data0:%s\n", data[0]);
+    printf("data1:%s\n", data[1]);
+    printf("data2:%s\n", data[2]);
+    printf("data3:%s\n", data[3]);
+    exit(0); */
     return(scene);
 }
 
