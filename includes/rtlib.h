@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/01/03 19:59:42 by user             ###   ########.fr       */
+/*   Updated: 2022/01/09 20:58:27 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 
 #define PI 3.14159265358979323846
-#define MAX(x, y) (((x) >= (y)) ? (x) : (y))
-#define MIN(x, y) (((x) <= (y)) ? (x) : (y))
-#define BIT(x) (x * 100 / 255)
-#define CPN(x) (x * 0.1 / 255)
+#define MAX(x, y) (x >= y ? x : y)
+#define MIN(x, y) (x <= y ? x : y)
+#define BIT(x) (x / 255)
+#define CPN(x) (x / 255.00)
 #define PER_TO_COLOR(x) (255 * x)
 #define P(x) (x * 0.01)
 #define PL(x) (x * 0.1)
@@ -33,7 +33,8 @@
 #define SPHERE 's'
 #define CYLINDER 'c'
 #define PLANE 'p'
-#define AVOID_MAX(x) (x < 255 ? x : 255)
+#define AVOID_MAX(x) (x > 255 ? x : 255)
+#define AVOID_MIN(x) (x < 0 ? x : 0)
 
 #include <fcntl.h>
 #include <math.h>
@@ -47,6 +48,8 @@
 #include "mlx.h"
 #include "gnl.h"
 #include "libft.h"
+
+
 
 typedef struct s_point
 {
@@ -172,14 +175,18 @@ typedef struct s_frame
 
 /* prototypes */
 
+/* control */
+int	key_kill(int keycode, t_frame *rt);
+
 /* rendering eq */
-t_color standard_re(t_ray *ray, t_obj *obj, float t);
+t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj);
 
 /* translations */
 float  ndc(t_frame *rt, float coord, char id);
 t_vec   world2scene(int width, int heigh, t_vec *coordinates);
 
 /* vector.c */
+float   degree_to_percentage(float degree);
 double          angle_bet_vs(t_vec *v1, t_vec *v2);
 t_vec  cross_p(t_vec a, t_vec b);
 t_color c_mix_plane(float volume, float light, t_color *obj_color);

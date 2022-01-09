@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:50:22 by user              #+#    #+#             */
-/*   Updated: 2022/01/03 01:36:16 by user             ###   ########.fr       */
+/*   Updated: 2022/01/09 23:35:50 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_vec normalize(t_vec *p)
 {
-    float w = sqrt(p->x * p->x + p->y * p->y + p->z * p->z);
+    float w = sqrtf(p->x * p->x + p->y * p->y + p->z * p->z);
     p->x /= w;
     p->y /= w;
     p->z /= w;
@@ -81,13 +81,21 @@ t_color c_blend_flat(float alpha, t_color *color)
     return (new);
 } */
 
+float   degree_to_percentage(float degree)
+{
+    float percentage = (degree);
+    return(percentage);
+}
+
 t_color c_blend(float alpha, t_color *color)
 {
     t_color new;
+    alpha = P(alpha);
+    printf("ALPHA IN BLEND: %f\n", alpha);
     
-    new.r = MAX((CPN(color->r) + P(alpha)) * color->r, 0);
-    new.g = MAX((CPN(color->g) + P(alpha)) * color->g, 0);
-    new.b = MAX((CPN(color->b) + P(alpha)) * color->b, 0);
+    new.r = MIN(alpha + CPN(color->r), 1) * 255;
+    new.g = MIN(alpha + CPN(color->g), 1) * 255;
+    new.b = MIN(alpha + CPN(color->b), 1) * 255;
 
 /*     printf("PR: %f\n", CPN(color->r));
     printf("PG: %f\n", CPN(color->g));
@@ -100,29 +108,18 @@ t_color c_blend(float alpha, t_color *color)
 
 t_color c_luminance(float alpha, t_color *color)
 {
-    t_color final;
+    t_color new;
+    new.r = (alpha) * color->r;
+    new.g = (alpha) * color->g;
+    new.b = (alpha) * color->b;
 
-    //printf("ALPHA: %f\n", alpha);
-
-/*     if(alpha == 0)
-        alpha = 0.2;
- */
-
-    //printf("ALPHA QUANTIY: %f\n", (PL(alpha)));
-    final.r = (alpha) * color->r + color->r;
-    final.g = (alpha) * color->g + color->g;
-    final.b = (alpha) * color->b + color->b;
-/* ""
-    printf("color R: %u\n", color->r);
-    printf("color G: %u\n", color->g);
-    printf("color B: %u\n", color->b); */
-
-
-    final.hex = DEC(AVOID_MAX(final.r), AVOID_MAX(final.g), AVOID_MAX(final.b));
-/*     printf("FINAL R: %u\n", final.r);
-    printf("FINAL G: %u\n", final.g);
-    printf("FINAL B: %u\n", final.b);  */
-    return (final);
+/*     printf("PR: %f\n", CPN(color->r));
+    printf("PG: %f\n", CPN(color->g));
+    printf("PB: %f\n", CPN(color->b));
+    exit(0); */
+    
+    new.hex = DEC(new.r, new.g, new.b);
+    return (new);
 }
 
 t_color c_luminance_plane(float alpha, t_color *color)
@@ -275,7 +272,7 @@ double          angle_bet_vs(t_vec *v1, t_vec *v2)
     float mag1 = length(*v1);
     float mag2 = length(*v2);
     float angle = scalar / (mag1 * mag2);
-    printf("angle should be between 0 & 180: %f\n", acos(angle));
+    //printf("angle should be between 0 & 180: %f\n", acos(angle));
     return(acos(angle));
 }
          

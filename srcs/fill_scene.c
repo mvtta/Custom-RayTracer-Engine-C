@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 18:06:51 by user              #+#    #+#             */
-/*   Updated: 2022/01/02 22:51:41 by user             ###   ########.fr       */
+/*   Updated: 2022/01/05 20:37:22 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ t_frame *attribute(t_frame *rt, t_scene *scene, char id, char *data)
     printf("input on att:%s\n", data);
     printf("id on att:%c\n", id);
     split_data = ft_split(data, ' ');
-    printf("split1 on att:%s\n", split_data[0]);
-    printf("split2 on att:%s\n", split_data[1]);
 
     if (id == 'A')
         rt->scene = att_ambient(scene, split_data);
@@ -56,5 +54,6 @@ t_frame *attribute(t_frame *rt, t_scene *scene, char id, char *data)
         rt->scene = att_camera(scene, split_data);
     if (id == 'L')
         rt->scene = att_light(scene, split_data);
+
     return(rt);
 }

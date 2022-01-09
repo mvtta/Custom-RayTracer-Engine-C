@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/01/03 21:02:05 by user             ###   ########.fr       */
+/*   Updated: 2022/01/09 23:51:28 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,23 +58,26 @@ the incident ray reflects
 
 */
 
-t_color standard_re(t_ray *ray, t_obj *obj, float t)
+t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj)
 {
-        float g_lintensity = 0.0;
-        t_vec obj_hit;
-        t_vec cam_dist;
-        float ob_dist;
-        float ca_dist;
-  
-        obj_hit = v_scale(t, &ray->start);
-        cam_dist = v_from_2p(ray->dir, obj_hit);
-        ob_dist = length(obj_hit); /* hit is here */
-        ca_dist = length(cam_dist); /* hit is here */
-        
-/*         printf("dist_n: %f\n", ob_dist);
-        printf("cam dist: %f\n", ca_dist);
-        printf("t: %f\n", t); */
-        g_lintensity = (t); //* 0.2;
-       // printf(" lintensity problem: %f\n", g_lintensity);
-        return(c_blend(g_lintensity, obj->obj_color));
+        float l_lintensity = 0.0;
+        float angle;
+        t_color volume;
+
+        t_vec hit = v_add(&ray->start, &ray->dir);
+        t_vec light = v_add(&hit, rt->scene->light_coord);
+        t_vec surface_norm = v_sub(&hit, obj->obj_coord);
+        //float shade = (length(hit));
+        float bright = (length(light));
+        //float bright = length(light);
+       // t_vec nd = normalize(&hit);
+        angle = MIN(tan(dot_p(&surface_norm, &light)),0);
+        l_lintensity = (angle * -1) / (0.2 * bright);
+/*         printf("\tANGLE:%f\n", l_lintensity);
+        printf("\tBRIGHT:%f\n", bright); */
+        //printf("\tANGLE:%f\n \tLINT: %f\n \tLIGHTDIST:%f\n \tSHADE:%f\n", angle, l_lintensity, bright, shade);
+        //printf("\tANGLE: %f\n \tLIGHTDIST:%f\n", l_lintensity, bright);
+
+        volume = c_luminance(l_lintensity, obj->obj_color); //* 0.2;
+        return(volume);
 }

@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/01/03 20:30:55 by user             ###   ########.fr       */
+/*   Updated: 2022/01/09 18:11:56 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int render(t_frame *rt)
                 if (hit != NO_HIT)
                 {
                     //printf("hit é impossivel ser nega: %f\n", hit);
-                    volume = standard_re(&ray,current, hit);
+                    volume = standard_re(rt, &ray,current);
                     //volume = *current->obj_color;
                     my_mlx_pixel_put(&rt->obj_img, x, (rt->window_h -1) - y, volume.hex);
                 }
