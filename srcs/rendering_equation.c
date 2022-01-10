@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/01/09 23:51:28 by user             ###   ########.fr       */
+/*   Updated: 2022/01/10 01:15:47 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,26 @@ t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj)
         float l_lintensity = 0.0;
         float angle;
         t_color volume;
+        t_vec *coord;
+        t_vec surface_norm;
 
+        if(obj->id1 == SPHERE)
+            coord = obj->obj_coord;
+        if(obj->id1 == PLANE)
+            coord = obj->obj_coord;
         t_vec hit = v_add(&ray->start, &ray->dir);
         t_vec light = v_add(&hit, rt->scene->light_coord);
-        t_vec surface_norm = v_sub(&hit, obj->obj_coord);
-        //float shade = (length(hit));
+        if(obj->id1 == SPHERE)
+            surface_norm = v_sub(coord, &hit);
+        if(obj->id1 == PLANE)
+            surface_norm = normalize(&hit);
+         //float shade = (length(hit));
         float bright = (length(light));
         //float bright = length(light);
        // t_vec nd = normalize(&hit);
-        angle = MIN(tan(dot_p(&surface_norm, &light)),0);
-        l_lintensity = (angle * -1) / (0.2 * bright);
+        angle = tan(dot_p(&surface_norm, &light));
+        l_lintensity = ((angle) / (bright));
+        //printf("\tANGLE:%f\n", l_lintensity);
 /*         printf("\tANGLE:%f\n", l_lintensity);
         printf("\tBRIGHT:%f\n", bright); */
         //printf("\tANGLE:%f\n \tLINT: %f\n \tLIGHTDIST:%f\n \tSHADE:%f\n", angle, l_lintensity, bright, shade);
