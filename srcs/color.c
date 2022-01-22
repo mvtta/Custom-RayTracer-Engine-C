@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:19:06 by user              #+#    #+#             */
-/*   Updated: 2022/01/22 17:02:50 by user             ###   ########.fr       */
+/*   Updated: 2022/01/22 22:33:37 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ int c_hue(t_color *check)
 t_color c_mix(t_color *source, t_color *obj, double ratio)
 {
     t_color mixed;
-    mixed.r = (source->r) * 0.0 + ((ratio * obj->r));
-    mixed.g = (source->g) * 0.0 + ((ratio * obj->g));
-    mixed.b = (source->b) * 0.0 + ((ratio * obj->b));
+    mixed.r = (source->r * 0) + ((ratio * obj->r));
+    mixed.g = (source->g * 0) + ((ratio * obj->g));
+    mixed.b = (source->b * 0) + ((ratio * obj->b));
     return (mixed);
 }
 

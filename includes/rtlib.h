@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/01/22 14:03:56 by user             ###   ########.fr       */
+/*   Updated: 2022/01/22 20:06:23 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,7 @@ int c_channel_increase();
 int	key_kill(int keycode, t_frame *rt);
 
 /* rendering eq */
+double clamp(double d, double min, double max);
 double   blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj);
 t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj);
 
