@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 18:59:20 by user              #+#    #+#             */
-/*   Updated: 2022/01/02 22:48:49 by user             ###   ########.fr       */
+/*   Updated: 2022/01/11 23:32:16 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,6 @@ t_color *ascii_to_rgb(char *data)
     color = malloc(sizeof(t_color));
        
     colors = ft_split(data, ',');
-
-    printf("data0:%s\n", colors[0]);
-    printf("data1:%s\n", colors[1]);
-    printf("data2:%s\n", colors[2]);
-
 
     color->r = ascii_to_int(colors[0]);
     color->g = ascii_to_int(colors[1]);

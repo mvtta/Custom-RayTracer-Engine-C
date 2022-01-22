@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 16:42:12 by mavaldeta         #+#    #+#             */
-/*   Updated: 2021/12/01 15:04:33 by user             ###   ########.fr       */
+/*   Updated: 2022/01/11 22:14:56 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static	size_t	ft_word_count(const char *s, char c)
 
 	count = 0;
 	if(!s)
-		return(NULL);
+		return(0);
 	while (*s)
 	{
 		if (*s++ == c)

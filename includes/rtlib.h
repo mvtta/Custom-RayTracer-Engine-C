@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/01/09 20:58:27 by user             ###   ########.fr       */
+/*   Updated: 2022/01/22 14:03:56 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 
 #define PI 3.14159265358979323846
-#define MAX(x, y) (x >= y ? x : y)
-#define MIN(x, y) (x <= y ? x : y)
+#define MAX(x, y) ((x >= y)?x:y)
+#define MIN(x, y) ((x <= y)?x:y)
 #define BIT(x) (x / 255)
 #define CPN(x) (x / 255.00)
 #define PER_TO_COLOR(x) (255 * x)
@@ -48,8 +48,7 @@
 #include "mlx.h"
 #include "gnl.h"
 #include "libft.h"
-
-
+#include "color.h"
 
 typedef struct s_point
 {
@@ -175,10 +174,19 @@ typedef struct s_frame
 
 /* prototypes */
 
+/* color */
+int c_increase(int max);
+float c_percentage(int color);
+int c_hue(t_color *check);
+t_color c_mix(t_color *source, t_color *obj, double ratio);
+t_color c_grade(t_color *source, double alpha, t_color *color);
+int c_channel_increase();
+
 /* control */
 int	key_kill(int keycode, t_frame *rt);
 
 /* rendering eq */
+double   blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj);
 t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj);
 
 /* translations */
@@ -191,7 +199,7 @@ double          angle_bet_vs(t_vec *v1, t_vec *v2);
 t_vec  cross_p(t_vec a, t_vec b);
 t_color c_mix_plane(float volume, float light, t_color *obj_color);
 t_color c_luminance_plane(float alpha, t_color *color);
-t_color c_mix(float volume, float light, t_color *obj_color);
+
 float v_mag(t_vec *v1, t_vec *v2);
 t_color c_luminance(float alpha, t_color *color);
 t_color c_blend_flat(float alpha, t_color *color);

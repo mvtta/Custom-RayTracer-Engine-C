@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/01/10 01:15:47 by user             ###   ########.fr       */
+/*   Updated: 2022/01/22 19:06:17 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,36 +58,47 @@ the incident ray reflects
 
 */
 
+double   blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
+{
+    const double shine = 13;
+    const double energy_conservation = ((8.0) + shine) / (8.0 * M_PI);
+    
+    t_vec frag_pos;
+    t_vec frag_norm;
+    t_vec v;
+    t_vec l;
+    t_vec h;
+    double spec;
+    double difuse;
+    double attenuation;
+
+    frag_pos = v_add(&ray->start, &ray->dir);
+    frag_pos = v_sub(&frag_pos, obj->obj_coord);
+    v = v_sub(&ray->start, &frag_pos);
+    //v = v_scale(-1, &v);
+    frag_norm = normalize(&frag_pos);
+    v = normalize(&v);
+    l = v_sub(rt->scene->light_coord, &frag_pos);
+    //l = v_scale(-1, &l);
+    attenuation = 1 / length(l);
+    l = normalize(&l);
+    h = v_add(&v, &l);
+    h = normalize(&h);
+    
+    spec = energy_conservation * pow(MAX(dot_p(&frag_norm, &h), 0.0), shine);
+    difuse = MAX((dot_p(&l, &frag_norm)),0.0) / attenuation;
+    printf("blinn spec = %f\n", (spec * 100 + difuse * 80));
+/*     printf("attenuation = %f\n", attenuation);
+    printf("lamber difuse = %f\n", difuse);
+    printf("energy conservation = %f\n", energy_conservation);
+    printf("return = %f\n", ((spec))); */
+    return(((spec * 100 + difuse * 8)));
+}
+
 t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj)
 {
-        float l_lintensity = 0.0;
-        float angle;
         t_color volume;
-        t_vec *coord;
-        t_vec surface_norm;
-
-        if(obj->id1 == SPHERE)
-            coord = obj->obj_coord;
-        if(obj->id1 == PLANE)
-            coord = obj->obj_coord;
-        t_vec hit = v_add(&ray->start, &ray->dir);
-        t_vec light = v_add(&hit, rt->scene->light_coord);
-        if(obj->id1 == SPHERE)
-            surface_norm = v_sub(coord, &hit);
-        if(obj->id1 == PLANE)
-            surface_norm = normalize(&hit);
-         //float shade = (length(hit));
-        float bright = (length(light));
-        //float bright = length(light);
-       // t_vec nd = normalize(&hit);
-        angle = tan(dot_p(&surface_norm, &light));
-        l_lintensity = ((angle) / (bright));
-        //printf("\tANGLE:%f\n", l_lintensity);
-/*         printf("\tANGLE:%f\n", l_lintensity);
-        printf("\tBRIGHT:%f\n", bright); */
-        //printf("\tANGLE:%f\n \tLINT: %f\n \tLIGHTDIST:%f\n \tSHADE:%f\n", angle, l_lintensity, bright, shade);
-        //printf("\tANGLE: %f\n \tLIGHTDIST:%f\n", l_lintensity, bright);
-
-        volume = c_luminance(l_lintensity, obj->obj_color); //* 0.2;
+        double spec = blinn_phong(rt, ray, obj);
+        volume = c_grade(rt->scene->light_color, spec, obj->obj_color);
         return(volume);
 }
