@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:19:06 by user              #+#    #+#             */
-/*   Updated: 2022/01/22 22:33:37 by user             ###   ########.fr       */
+/*   Updated: 2022/01/23 12:20:07 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,21 @@ int c_hue(t_color *check)
     return (index);
 }
 
-t_color c_mix(t_color *source, t_color *obj, double ratio)
+t_color c_mix(t_color *source, t_color *obj, double spec, double difuse)
 {
     t_color mixed;
-    mixed.r = (source->r * 0) + ((ratio * obj->r));
-    mixed.g = (source->g * 0) + ((ratio * obj->g));
-    mixed.b = (source->b * 0) + ((ratio * obj->b));
+    difuse = 0;
+    mixed.r = (source->r * spec) + (c_percentage(obj->r) * difuse);
+    mixed.g = (source->g * spec) + (c_percentage(obj->g) * difuse);
+    mixed.b = (source->b * spec) + (c_percentage(obj->b) * difuse);
     return (mixed);
 }
 
-t_color c_grade(t_color *source, double alpha, t_color *color)
+t_color c_grade(t_color *source, t_color *color, double spec, double difuse)
 {
     t_color new;
     /* light side */
-    new = c_mix(source, color, alpha);
+    new = c_mix(source, color, spec, difuse);
     new.hex = DEC(new.r, new.g, new.b);
     return (new);
 }

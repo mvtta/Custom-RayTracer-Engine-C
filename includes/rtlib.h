@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/01/22 20:06:23 by user             ###   ########.fr       */
+/*   Updated: 2022/01/23 12:15:00 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,8 +178,8 @@ typedef struct s_frame
 int c_increase(int max);
 float c_percentage(int color);
 int c_hue(t_color *check);
-t_color c_mix(t_color *source, t_color *obj, double ratio);
-t_color c_grade(t_color *source, double alpha, t_color *color);
+t_color c_mix(t_color *source, t_color *obj, double spec, double difuse);
+t_color c_grade(t_color *source, t_color *color, double spec, double difuse);
 int c_channel_increase();
 
 /* control */
@@ -187,6 +187,7 @@ int	key_kill(int keycode, t_frame *rt);
 
 /* rendering eq */
 double clamp(double d, double min, double max);
+double lambert(t_frame *rt, t_ray *ray, t_obj *obj);
 double   blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj);
 t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj);
 

@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/01/22 22:49:06 by user             ###   ########.fr       */
+/*   Updated: 2022/01/23 12:21:54 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,35 @@ the incident ray reflects
 */
 double clamp(double d, double min, double max)
 {
-  const double t = d < min ? min : d;
-  return (t > max ? max : t);
+    const double t = d < min ? min : d;
+    return (t > max ? max : t);
 }
 
-double   blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
+double lambert(t_frame *rt, t_ray *ray, t_obj *obj)
+{
+    double difuse;
+    double camera;
+    float attenuation;
+    t_vec hit;
+    t_vec hit_norm;
+    t_vec l;
+    t_vec lmin;
+    t_vec v;
+
+
+    hit = v_add(&ray->start, &ray->dir);
+    hit_norm = v_sub(&hit, obj->obj_coord);
+    hit_norm = normalize(&hit_norm);
+    v = v_sub(&ray->start, &hit);
+    camera = 1 / length(v);
+    l = v_sub(rt->scene->light_coord, &hit);
+    attenuation = 0.3;
+    lmin = v_scale(-1.0, &l);
+    difuse = MAX(dot_p(&hit_norm, &lmin), 0.0) / camera;
+    return (difuse);
+}
+
+double blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
 {
     const double shine = 100;
     const double energy_conservation = ((8.0) + shine) / (8.0 * M_PI);
@@ -71,14 +95,15 @@ double   blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
     double difuse;
     double attenuation;
     double camera;
-    //double intensity;
+    // double intensity;
     double ratio;
-    
+
     t_vec hit;
     t_vec hit_norm;
     t_vec v;
     t_vec l;
     t_vec lmin;
+    t_vec vmin;
     t_vec h;
 
     hit = v_add(&ray->start, &ray->dir);
@@ -86,6 +111,7 @@ double   blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
     hit_norm = normalize(&hit_norm);
 
     v = v_sub(&ray->start, &hit);
+    vmin = v_scale(1.0, &v);
     camera = 1 / length(v);
     v = normalize(&v);
 
@@ -93,23 +119,27 @@ double   blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
     lmin = v_scale(-1.0, &l);
     attenuation = 1 / length(lmin);
     difuse = energy_conservation / MAX(dot_p(&hit_norm, &lmin), 0.0) * camera;
-    l = normalize(&l);
+    l = normalize(&lmin);
+    v = normalize(&vmin);
 
-    h = v_add(&v, &l);
+    h = v_add(&vmin, &lmin);
     h = normalize(&h);
 
-    spec = energy_conservation * (MAX(dot_p(&h, &hit_norm), 0.0));
-    ratio = (difuse) + (spec * 0.5 * shine * attenuation);
+    spec = (MAX(dot_p(&h, &hit_norm), 0.0));
+    ratio = /* (difuse) +  */ (spec * shine * attenuation) * energy_conservation;
 
-    printf("spec : %f\n", ratio);
-    
-    return((ratio));
+    /*     printf("ratio : %f\n", ratio);
+        printf("spec : %f\n", spec);
+        printf("difuse : %f\n", difuse); */
+
+    return ((ratio));
 }
 
 t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj)
 {
-        t_color volume;
-        double spec = blinn_phong(rt, ray, obj);
-        volume = c_grade(rt->scene->light_color, spec, obj->obj_color);
-        return(volume);
+    t_color volume;
+    double spec = blinn_phong(rt, ray, obj);
+    double difuse = lambert(rt, ray, obj);
+    volume = c_grade(rt->scene->light_color, obj->obj_color, spec, difuse);
+    return (volume);
 }
