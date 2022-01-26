@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 12:42:42 by user              #+#    #+#             */
-/*   Updated: 2022/01/03 19:57:31 by user             ###   ########.fr       */
+/*   Updated: 2022/01/26 17:17:12 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ float  ndc(t_frame *rt, float coord, char id)
     if(id == 'y')
        coord = (1 - 2 * (coord + 0.5) / rt->window_h) * atan((vertical_fov) * (M_PI / 180)) * mag;
     if(id == 'z')
-        coord = 1;
+        return(coord);
     return(coord);
 }
 

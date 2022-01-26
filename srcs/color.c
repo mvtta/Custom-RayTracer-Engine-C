@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:19:06 by user              #+#    #+#             */
-/*   Updated: 2022/01/23 12:20:07 by user             ###   ########.fr       */
+/*   Updated: 2022/01/26 16:56:44 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,11 @@ int c_hue(t_color *check)
 t_color c_mix(t_color *source, t_color *obj, double spec, double difuse)
 {
     t_color mixed;
-    difuse = 0;
-    mixed.r = (source->r * spec) + (c_percentage(obj->r) * difuse);
-    mixed.g = (source->g * spec) + (c_percentage(obj->g) * difuse);
-    mixed.b = (source->b * spec) + (c_percentage(obj->b) * difuse);
+/*     printf("spec%f\n", spec);
+    printf("source%d\n", source->b); */
+    mixed.r = (source->r * spec) + (obj->r * difuse);
+    mixed.g = (source->g * spec) + (obj->g * difuse);
+    mixed.b = (source->b * spec) + (obj->b * difuse);
     return (mixed);
 }
 

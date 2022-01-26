@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:45:46 by user              #+#    #+#             */
-/*   Updated: 2022/01/07 21:28:52 by user             ###   ########.fr       */
+/*   Updated: 2022/01/24 20:34:33 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord)
 
 	t_vec d = v_add(&r->start, &r->dir);
 	//float len = length(d);
-	t_vec dist = v_sub(&d, &obj_coord);
+	t_vec dist = v_sub(&obj_coord, &d);
 	//dist = normalize(&dist);
 
 	float radius = (s->diameter) / 2;

@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/01/23 12:21:54 by user             ###   ########.fr       */
+/*   Updated: 2022/01/26 23:57:26 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ the incident ray reflects
     use random sample to make average estimation
 
 */
-double clamp(double d, double min, double max)
+double c_clamp(double d, double min, double max)
 {
     const double t = d < min ? min : d;
     return (t > max ? max : t);
@@ -66,31 +66,48 @@ double clamp(double d, double min, double max)
 double lambert(t_frame *rt, t_ray *ray, t_obj *obj)
 {
     double difuse;
-    double camera;
-    float attenuation;
+    double att;
     t_vec hit;
     t_vec hit_norm;
     t_vec l;
-    t_vec lmin;
-    t_vec v;
 
-
-    hit = v_add(&ray->start, &ray->dir);
+    hit = v_scale(rt->record.latest_t, &ray->dir);
+    //hit = v_add(&hit, &ray->start);
+    //hit = v_add(&ray->dir, &hit);
+  /*   printf("ray.start:%f\n ray.dir:%f\n", ray->start.x, ray->dir.x);
+    exit(0); */
+    //hit = v_add(rt->record.latest_t, &hit);
     hit_norm = v_sub(&hit, obj->obj_coord);
+    //hit_norm = v_sub(&hit_norm, &hit);
+    //hit_norm = v_sub(&hit_norm, &hit);
+    //hit_norm = v_add(&hit_norm, &hit_norm);
+    //hit_norm = v_sub(&hit_norm, &hit_norm);
+    //hit_norm = cross_p(hit_norm, hit);
+    l = v_sub(&hit, rt->scene->light_coord);
+    l = v_scale(1.0, &l);
+    //l = v_add(&l, &hit);
+    att = length(l);
+    l = normalize(&l);
     hit_norm = normalize(&hit_norm);
-    v = v_sub(&ray->start, &hit);
-    camera = 1 / length(v);
-    l = v_sub(rt->scene->light_coord, &hit);
-    attenuation = 0.3;
-    lmin = v_scale(-1.0, &l);
-    difuse = MAX(dot_p(&hit_norm, &lmin), 0.0) / camera;
+    printf("\t\nt:%f\n", rt->record.latest_t);
+    printf("\t\nh.x:%f\nh.y:%f\nh.z:%f\n", hit.x, hit.y, hit.z);
+    printf("\t\nl.x:%f\nl.y:%f\nl.z:%f\n", l.x, l.y, l.z);
+    printf("\t\nn.x:%f\nn.y:%f\nn.z:%f\n", hit_norm.x, hit_norm.y, hit_norm.z);
+
+    difuse = dot_p(&hit_norm, &l) * 0.3 * att * 0.5;
+    printf("difuse:%f\n", difuse);
+    //exit(0);
+    //exit(0);
+    //exit(0);
+   // exit(0);
+
     return (difuse);
 }
 
-double blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
+/* double blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
 {
-    const double shine = 100;
-    const double energy_conservation = ((8.0) + shine) / (8.0 * M_PI);
+    const double shine = 0.3;
+    //const double energy_conservation = ((8.0) + shine) / (8.0 * M_PI);
     double spec;
     double difuse;
     double attenuation;
@@ -102,44 +119,16 @@ double blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
     t_vec hit_norm;
     t_vec v;
     t_vec l;
-    t_vec lmin;
-    t_vec vmin;
     t_vec h;
-
-    hit = v_add(&ray->start, &ray->dir);
-    hit_norm = v_sub(&hit, obj->obj_coord);
-    hit_norm = normalize(&hit_norm);
-
-    v = v_sub(&ray->start, &hit);
-    vmin = v_scale(1.0, &v);
-    camera = 1 / length(v);
-    v = normalize(&v);
-
-    l = v_sub(rt->scene->light_coord, &hit);
-    lmin = v_scale(-1.0, &l);
-    attenuation = 1 / length(lmin);
-    difuse = energy_conservation / MAX(dot_p(&hit_norm, &lmin), 0.0) * camera;
-    l = normalize(&lmin);
-    v = normalize(&vmin);
-
-    h = v_add(&vmin, &lmin);
-    h = normalize(&h);
-
-    spec = (MAX(dot_p(&h, &hit_norm), 0.0));
-    ratio = /* (difuse) +  */ (spec * shine * attenuation) * energy_conservation;
-
-    /*     printf("ratio : %f\n", ratio);
-        printf("spec : %f\n", spec);
-        printf("difuse : %f\n", difuse); */
-
+ 
     return ((ratio));
-}
+} */
 
 t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj)
 {
     t_color volume;
-    double spec = blinn_phong(rt, ray, obj);
+    //double spec = blinn_phong(rt, ray, obj);
     double difuse = lambert(rt, ray, obj);
-    volume = c_grade(rt->scene->light_color, obj->obj_color, spec, difuse);
+    volume = c_grade(rt->scene->light_color, obj->obj_color, 0, difuse);
     return (volume);
 }

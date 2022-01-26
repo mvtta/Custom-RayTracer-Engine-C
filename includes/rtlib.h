@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/01/23 12:15:00 by user             ###   ########.fr       */
+/*   Updated: 2022/01/26 21:25:20 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ typedef struct s_ray
 {
     t_vec start;
     t_vec dir;
+    t_vec norm;
+    float len;
 } t_ray;
 
 typedef struct s_color
@@ -152,6 +154,12 @@ typedef struct s_scene
 
 } t_scene;
 
+typedef struct s_time
+{
+    float latest_t;
+    float closest_t;
+}t_time;
+
 typedef struct s_frame
 {
     char *ambient;
@@ -169,10 +177,18 @@ typedef struct s_frame
     void *win_ptr;
     t_data bkg_img;
     t_data obj_img;
+    t_time record;
+    t_ray cam_ray;
+    t_ray light_ray;
+    t_ray shadow_ray;
+    t_ray reflection_ray;
 
 } t_frame;
 
 /* prototypes */
+
+/* ray */
+t_ray ray_from_to(t_vec *point_origin, t_vec *point_direction);
 
 /* color */
 int c_increase(int max);
@@ -186,7 +202,7 @@ int c_channel_increase();
 int	key_kill(int keycode, t_frame *rt);
 
 /* rendering eq */
-double clamp(double d, double min, double max);
+double c_clamp(double d, double min, double max);
 double lambert(t_frame *rt, t_ray *ray, t_obj *obj);
 double   blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj);
 t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj);

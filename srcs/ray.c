@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   space_translation.c                                :+:      :+:    :+:   */
+/*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/07 14:45:49 by user              #+#    #+#             */
-/*   Updated: 2022/01/24 20:42:23 by user             ###   ########.fr       */
+/*   Created: 2022/01/24 20:02:38 by user              #+#    #+#             */
+/*   Updated: 2022/01/24 20:16:32 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtlib.h"
 
-t_vec   world2scene(int width, int heigh, t_vec *coordinates)
+t_ray ray_from_to(t_vec *point_origin, t_vec *point_direction)
 {
-    t_vec transform;
-;
-    transform.x = coordinates->x + (width / 2);
-    transform.y = coordinates->y + (heigh / 2);
-    transform.z = coordinates->z;
-
-    return(transform);
+    t_ray new;
+    new.start = *point_origin;
+    new.dir = v_sub(point_origin, point_direction);
+    new.len = length(new.dir);
+    new.norm = normalize(&new.dir);
+    return(new);
 }
+
+/* t_vec ray_time(t_vec point_origin, t_vec point_direction)
+{
+
+}
+
+t_vec ray_invert_direction(t_vec point_origin, t_vec point_direction)
+{
+
+} */

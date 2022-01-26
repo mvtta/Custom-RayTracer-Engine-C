@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/01/09 18:11:56 by user             ###   ########.fr       */
+/*   Updated: 2022/01/26 20:57:13 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,14 @@ int render(t_frame *rt)
     float x;
     float y = 0;
 
-    ray.dir.z = ndc(rt, ray.dir.z, 'z');
+  /*   ray.start.z = ndc(rt, ray.start.z, 'x');
+    ray.start.y = ndc(rt, ray.start.y, 'y');
+    ray.start.z = ndc(rt, ray.start.z, 'z');
+
+    printf("start.x:%f\n start.y:%f\n start.z:%f\n", ray.start.x, ray.start.y, ray.start.z);
+    exit(0); */
     ray.start.z = rt->scene->cam_coord->z;
+    ray.dir.z = ndc(rt, rt->scene->cam_norm->z, 'z');
     while (y < (float)rt->window_h - 1)
     {
         x = 0;
@@ -54,6 +60,7 @@ int render(t_frame *rt)
                 if (hit != NO_HIT)
                 {
                     //printf("hit é impossivel ser nega: %f\n", hit);
+                    rt->record.latest_t = hit;
                     volume = standard_re(rt, &ray,current);
                     //volume = *current->obj_color;
                     my_mlx_pixel_put(&rt->obj_img, x, (rt->window_h -1) - y, volume.hex);
