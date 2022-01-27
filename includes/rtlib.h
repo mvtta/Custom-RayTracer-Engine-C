@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/01/27 07:36:50 by user             ###   ########.fr       */
+/*   Updated: 2022/01/27 12:40:53 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,11 @@ typedef struct s_frame
 } t_frame;
 
 /* prototypes */
+
+/* equations */
+
+
+float get_time_pl(t_ray *ray, t_vec *point, t_vec *normal);
 
 /* print_info */
 

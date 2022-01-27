@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:45:46 by user              #+#    #+#             */
-/*   Updated: 2022/01/27 09:58:13 by user             ###   ########.fr       */
+/*   Updated: 2022/01/27 14:02:16 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,25 +139,9 @@ float ray_cy(t_ray *r, t_obj *p, t_vec obj_coord)
 float ray_plane(t_ray *r, t_obj *p, t_vec obj_coord)
 {
 
-	// t_vec norm_dir = normalize(&r->dir);
-	// t_vec norm_coord = normalize(&obj_coord);
-	t_vec l = v_add(&r->start, &r->dir);
-	t_vec point = v_sub(&l, &obj_coord);
-	l = normalize(&l);
-	point = normalize(&point);
-	float denom = dot_p(p->obj_norm, &point);
-	
-	//printf("denom:%f\n", denom);
-	if(denom > 1e-9)
-	{
-		t_vec p1 = v_sub(&point, p->obj_norm);
-		p1 = normalize(&p1);
-		float time = dot_p(&p1, &l) /  denom;
-		if(time > 0)
-		{
-		//printf("time:%f\n", time);
-		return(time * 100);
-		}
-	}
-	return (NO_HIT);
+	float time;
+
+	time = get_time_pl(r, &obj_coord, p->obj_norm);
+	//printf("TIME:%f\n", time);
+	return (time);
 }

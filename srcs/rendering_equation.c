@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/01/27 10:16:16 by user             ###   ########.fr       */
+/*   Updated: 2022/01/27 14:06:12 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ double lambert(t_frame *rt, t_ray *ray, t_obj *obj)
 
 double blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
 {
-    const double shine = 100;
+    const double shine = 1000;
     //const double energy_conservation = ((shine * 0.5) + shine) / (shine * 0.5  * M_PI);
     double spec;
     double attenuation;
@@ -134,7 +134,7 @@ double blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
     print_vector(l, "\nldir");
     print_vector(hit_norm, "\nhit_norm");
     print_vector(h, "\nhalfway"); */
-    camera = 1 / length(hit);
+    camera = 1 / length(l);
     attenuation = camera;
     l = normalize(&l);
     hit_norm = normalize(&hit_norm);
