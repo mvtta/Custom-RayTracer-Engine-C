@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/01/26 21:25:20 by user             ###   ########.fr       */
+/*   Updated: 2022/01/27 00:30:06 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,10 +187,15 @@ typedef struct s_frame
 
 /* prototypes */
 
+/* print_info */
+
+void  print_vector(t_vec v, char *info);
+
 /* ray */
 t_ray ray_from_to(t_vec *point_origin, t_vec *point_direction);
 
 /* color */
+int c_range(int d, int min, int max);
 int c_increase(int max);
 float c_percentage(int color);
 int c_hue(t_color *check);
