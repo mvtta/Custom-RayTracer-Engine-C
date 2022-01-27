@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/01/26 23:57:26 by user             ###   ########.fr       */
+/*   Updated: 2022/01/27 00:01:35 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ double lambert(t_frame *rt, t_ray *ray, t_obj *obj)
     //hit_norm = v_sub(&hit_norm, &hit_norm);
     //hit_norm = cross_p(hit_norm, hit);
     l = v_sub(&hit, rt->scene->light_coord);
-    l = v_scale(1.0, &l);
+    //l = v_scale(-1.0, &l);
     //l = v_add(&l, &hit);
     att = length(l);
     l = normalize(&l);
