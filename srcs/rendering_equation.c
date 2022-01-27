@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/01/27 01:09:36 by user             ###   ########.fr       */
+/*   Updated: 2022/01/27 04:57:41 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,13 @@ double lambert(t_frame *rt, t_ray *ray, t_obj *obj)
     hit = v_scale(rt->record.latest_t, &ray->dir);
     hit_norm = v_sub(&hit, obj->obj_coord);
     l = v_sub(&hit, rt->scene->light_coord);
-    att = length(l);
     l = normalize(&l);
+    att = 1 / length(l) * 0.9;
+    //printf("att:%f\n", att);
     hit_norm = normalize(&hit_norm);
-    difuse = dot_p(&hit_norm, &l) * 0.3 * att;
+    difuse = c_clamp(dot_p(&hit_norm, &l), 0.0, 1.0) * att;
+    
+    //exit(0);
    // printf("difuse:%f\n", difuse);
     return (difuse);
 }
@@ -101,11 +104,11 @@ double lambert(t_frame *rt, t_ray *ray, t_obj *obj)
 double blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
 {
     const double shine = 100;
-    const double energy_conservation = ((shine / 2.0) + shine) / (shine / 2.0 * M_PI);
+    //const double energy_conservation = ((shine * 0.5) + shine) / (shine * 0.5  * M_PI);
     double spec;
     double attenuation;
     double total;
-    //double camera;
+    double camera;
     double ratio;
 
     t_vec hit;
@@ -115,33 +118,46 @@ double blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
     t_vec h;
     
     hit = v_scale(rt->record.latest_t, &ray->dir);
-    hit_norm = v_sub(&hit, obj->obj_coord);
+    hit = v_add(&hit, &ray->start);
     l = v_sub(&hit, rt->scene->light_coord);
-    attenuation = length(l);
+    if(obj->id1 == PLANE)
+        hit_norm = *obj->obj_norm;
+    hit_norm = v_sub(&hit, obj->obj_coord);
     //l = normalize(&l);
     //hit_norm = normalize(&hit_norm);
-    v = hit;
-    h = v_add(&l, &v);
+    v = v_scale(1.0, &hit);
+    l = v_scale(1.0, &l);
+    h = v_add(&v, &l);
     h = normalize(&h);
-
-    print_vector(l, "\nview");
+/* 
+    print_vector(v, "\nview");
     print_vector(l, "\nldir");
-    print_vector(h, "\nhalfway");
+    print_vector(hit_norm, "\nhit_norm");
+    print_vector(h, "\nhalfway"); */
+    camera = 1 / length(v);
+    attenuation = camera;
     l = normalize(&l);
     hit_norm = normalize(&hit_norm);
     spec = pow(shine, dot_p(&h, &hit_norm));
-    ratio = 0.3 * attenuation * energy_conservation;
+    ratio = attenuation * 0.3;
+/*     printf("\nenergy:\t%f\n", energy_conservation);
     printf("\nspec:\t%f\n", spec);
-    printf("\nratio:\t%f\n", ratio);
-    total = ratio * spec;
+    printf("\nratio:\t%f\n", ratio); */
+    //exit(0);
+ /*    printf("\nspec:\t%f\n", spec);
+    printf("\nratio:\t%f\n", ratio); */
+    total = c_clamp(spec * ratio, 0.0, 1.0);
+    //printf("\ntotal:\t%f\n", total);
     //total = c_clamp(ratio * spec, 0.0, 1.0);
-    printf("\ntotal:\t%f\n", total);
+    //exit(0);
     return (total);
 }
 
 t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj)
 {
     t_color volume;
+/*     if(obj->id1 == PLANE)
+        return(*obj->obj_color); */
     double difuse = lambert(rt, ray, obj);
     double spec = blinn_phong(rt, ray, obj);
     volume = c_grade(rt->scene->light_color, obj->obj_color, spec, difuse);

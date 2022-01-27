@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:18:03 by user              #+#    #+#             */
-/*   Updated: 2021/12/20 23:43:17 by user             ###   ########.fr       */
+/*   Updated: 2022/01/27 05:40:44 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void create_objs(t_frame *rt)
             create_sphere(current, current->raw);
         if (current->id1 == PLANE)
             create_plane(current, current->raw);
+        if (current->id1 == 'c')
+            create_cylin(current, current->raw);
         current = current->next;
     }
     return;

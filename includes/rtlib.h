@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/01/27 00:30:06 by user             ###   ########.fr       */
+/*   Updated: 2022/01/27 05:40:32 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,6 +274,7 @@ t_obj *new_obj(t_frame *rt, char *data);
 void add_new_obj(t_frame *rt, char *data);
 void create_plane(t_obj *obj, char *data);
 void create_sphere(t_obj *obj, char *data);
+void create_cylin(t_obj *obj, char *data);
 
 /* create_scene.c */
 void create_scene(t_frame *rt);

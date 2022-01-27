@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 17:32:20 by user              #+#    #+#             */
-/*   Updated: 2021/12/20 22:21:34 by user             ###   ########.fr       */
+/*   Updated: 2022/01/27 05:38:16 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,22 @@ void create_sphere(t_obj *obj, char *data)
     count += 1;
 }
 
-/* void create_cylin(t_frame *rt, char *data)
+void create_cylin(t_obj *obj, char *data)
 {
     char **cylin;
+    static int count;
     cylin = ft_split(data, ' ');
+
+    obj->id1 = 'c';
+    obj->id2 = count;
+    obj->obj_coord = ascii_to_vec(cylin[1]);
+    obj->obj_norm = ascii_to_vec(cylin[2]);
+    printf("x:%f\n", obj->obj_coord->x);
+    printf("y:%f\n", obj->obj_coord->y);
+    printf("z:%f\n", obj->obj_coord->z);
+    obj->diameter = ascii_to_float(cylin[3]);
+    obj->height = ascii_to_float(cylin[4]);
+    obj->obj_color = ascii_to_rgb(cylin[5]);
+    count += 1;
 }
-*/
 
