@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/01/26 20:57:13 by user             ###   ########.fr       */
+/*   Updated: 2022/01/27 07:36:23 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ float compute_obj(t_ray *ray, t_obj *obj)
         t = ray_plane(ray, obj, *obj->obj_coord);
     if (obj->id1 == SPHERE)
         t = ray_sphere(ray, obj, *obj->obj_coord);
+    if (obj->id1 == 'c')
+        t = ray_cy(ray, obj, *obj->obj_coord);
     return (t);
 }
 /* 		screen.viewport_width = tan(DEG_TO_RAD(c->fov / 2)) * 2;

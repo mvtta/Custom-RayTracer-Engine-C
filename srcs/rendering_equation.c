@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/01/27 04:57:41 by user             ###   ########.fr       */
+/*   Updated: 2022/01/27 10:16:16 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ double lambert(t_frame *rt, t_ray *ray, t_obj *obj)
     hit_norm = v_sub(&hit, obj->obj_coord);
     l = v_sub(&hit, rt->scene->light_coord);
     l = normalize(&l);
-    att = 1 / length(l) * 0.9;
+    att = 1 / length(l) * 0.5;
     //printf("att:%f\n", att);
     hit_norm = normalize(&hit_norm);
     difuse = c_clamp(dot_p(&hit_norm, &l), 0.0, 1.0) * att;
@@ -134,12 +134,12 @@ double blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
     print_vector(l, "\nldir");
     print_vector(hit_norm, "\nhit_norm");
     print_vector(h, "\nhalfway"); */
-    camera = 1 / length(v);
+    camera = 1 / length(hit);
     attenuation = camera;
     l = normalize(&l);
     hit_norm = normalize(&hit_norm);
     spec = pow(shine, dot_p(&h, &hit_norm));
-    ratio = attenuation * 0.3;
+    ratio = attenuation * 0.9;
 /*     printf("\nenergy:\t%f\n", energy_conservation);
     printf("\nspec:\t%f\n", spec);
     printf("\nratio:\t%f\n", ratio); */

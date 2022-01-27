@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:45:46 by user              #+#    #+#             */
-/*   Updated: 2022/01/27 06:55:47 by user             ###   ########.fr       */
+/*   Updated: 2022/01/27 09:58:13 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,23 +78,59 @@ float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord)
 float ray_cy(t_ray *r, t_obj *p, t_vec obj_coord)
 {
 	t_vec dist;
-	t_vec d = v_add(&r->start, &r->dir);
-	dist= v_sub(&d, &obj_coord);
+	t_vec orig;
+	t_vec eye;
+	t_vec rot;
+	t_vec c_to_rot;
+	dist = v_sub(&r->dir, &obj_coord);
+	orig = v_sub(&r->start, &obj_coord);
+	eye = cross_p(orig, dist);
+	rot = cross_p(r->dir, dist);
+	c_to_rot = cross_p(orig, *p->obj_norm);
+	eye = normalize(&eye);
+	rot = normalize(&rot);
+	c_to_rot = normalize(&c_to_rot);
 	//t_vec rot = cross_p(c_to_o, *p->obj_norm);
 
-	float radius = (p->diameter) / 2;
-	float a = dot_p(&r->dir, &r->dir);
-	float b = 2.0 * dot_p(&r->dir, &dist);
-	float c = dot_p(&dist, &dist) - (radius * radius);
-	float discr = sqrtf(b * b - 4 * a * c);
-	if (discr > 0)
+	float a = dot_p(&rot, &rot);
+	//printf("A:%f\n", a);
+	float b = 2.0 * dot_p(&rot, &eye);
+	//printf("B:%f\n", b);
+	float c = dot_p(&c_to_rot, &c_to_rot) - (3.0 / 2);
+	//printf("C:%f\n", c);
+	float discr = sqrt((b * b) - (4.0 * a * c));
+	//exit(0);
+	if (discr >= 0)
 	{
+		//printf("discr:%f\n", discr);
 		float t1 = (-b -sqrtf(discr)) / (2 * a);
 		float t2 = (-b +sqrtf(discr)) / (2 * a);
-		if(t1 > t2)
-			return(t2);
-		if(t1 > 0)
-			return(t1);
+		float t = t1;
+		double max = (sqrtf(3) * sqrtf(5));
+		t_vec point = v_add(&r->start, &r->dir);
+		point = v_scale(t, &point);
+		t_vec len = v_sub(&point, p->obj_coord);
+		float nlen = length(len);
+		//printf("nlen%f\n", nlen);
+		//printf("t%f\n", t);
+		if(nlen > max)
+			t = t2; 
+		point = v_add(&r->start, &r->dir);
+		point = v_scale(t, &point);
+		len = v_sub(&point, p->obj_coord);
+		nlen = length(len);
+		if(nlen > max)
+			return(NO_HIT);
+		else
+		{
+			if(t>0)
+			{
+			//printf("t%f\n", t);
+			return(t);
+			}
+
+		}
+		
 	}
 	return (NO_HIT);
 }
@@ -106,17 +142,22 @@ float ray_plane(t_ray *r, t_obj *p, t_vec obj_coord)
 	// t_vec norm_dir = normalize(&r->dir);
 	// t_vec norm_coord = normalize(&obj_coord);
 	t_vec l = v_add(&r->start, &r->dir);
+	t_vec point = v_sub(&l, &obj_coord);
 	l = normalize(&l);
-	float denom = dot_p(&l, p->obj_norm);
+	point = normalize(&point);
+	float denom = dot_p(p->obj_norm, &point);
+	
 	//printf("denom:%f\n", denom);
-	if(denom > 0)
+	if(denom > 1e-9)
 	{
-		t_vec p1 = v_sub(&l, &r->dir);
+		t_vec p1 = v_sub(&point, p->obj_norm);
 		p1 = normalize(&p1);
-		float time = (denom ) / dot_p(&p1, &obj_coord) * 1.0;
-		printf("time:%f\n", time);
-		if(time > 0.001)
-			return(time * 1000);
+		float time = dot_p(&p1, &l) /  denom;
+		if(time > 0)
+		{
+		//printf("time:%f\n", time);
+		return(time * 100);
+		}
 	}
 	return (NO_HIT);
 }

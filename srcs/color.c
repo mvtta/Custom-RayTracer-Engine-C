@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:19:06 by user              #+#    #+#             */
-/*   Updated: 2022/01/27 05:24:20 by user             ###   ########.fr       */
+/*   Updated: 2022/01/27 10:12:46 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ t_color c_mix(t_color *source, t_color *obj, double spec, double difuse)
     //spec = 0;
 /*     if (spec < 1)
         spec = 0; */
-    mixed.r = c_range((source->r * 0.3) * spec + (obj->r * difuse), 0, 255);
-    mixed.g = c_range((source->g * 0.3) * spec + (obj->g * difuse), 0, 255);
-    mixed.b = c_range((source->b * 0.3) * spec + (obj->b * difuse), 0, 255);
+    mixed.r = c_range((source->r) * spec + (obj->r * difuse), 0, 255);
+    mixed.g = c_range((source->g) * spec + (obj->g * difuse), 0, 255);
+    mixed.b = c_range((source->b) * spec + (obj->b * difuse), 0, 255);
     return (mixed);
 }
 

@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/01/27 05:40:32 by user             ###   ########.fr       */
+/*   Updated: 2022/01/27 07:36:50 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,6 +240,7 @@ double			length(t_vec v);
 /* intersection.c */
 
 float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord);
+float ray_cy(t_ray *r, t_obj *p, t_vec obj_coord);
 float ray_plane(t_ray *r, t_obj *p, t_vec obj_coord);
 /* render.c */
 
