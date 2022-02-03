@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 00:11:38 by user              #+#    #+#             */
-/*   Updated: 2022/01/27 00:15:54 by user             ###   ########.fr       */
+/*   Updated: 2022/02/01 17:39:23 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void  print_vector(t_vec v,  char *info)
 {
-    printf("%s:\n", info);
-    printf("\t\nv.x:%f\nv.y:%f\nv.z:%f\n", v.x, v.y, v.z);
+    printf("\t%s:\n", info);
+    printf("v.x:%f\nv.y:%f\nv.z:%f\n\n", v.x, v.y, v.z);
 }

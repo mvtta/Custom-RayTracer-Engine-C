@@ -3,5 +3,12 @@
         "__locale": "c",
         "rtlib.h": "c",
         "mlx.h": "c"
-    }
+    },
+    "cSpell.words": [
+        "xmax",
+        "xmin",
+        "ymax",
+        "ymin",
+        "zmin"
+    ]
 }

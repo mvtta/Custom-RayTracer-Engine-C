@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 17:32:20 by user              #+#    #+#             */
-/*   Updated: 2022/01/27 05:38:16 by user             ###   ########.fr       */
+/*   Updated: 2022/02/01 18:15:13 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,14 +114,28 @@ void create_cylin(t_obj *obj, char *data)
 
     obj->id1 = 'c';
     obj->id2 = count;
+    //printf("data0:%s\n", cylin[0]);
+/*     printf("data0:%s\n", cylin[1]);
+    printf("data0:%s\n", cylin[2]);
+    printf("data0:%s\n", cylin[3]);
+    printf("data0:%s\n", cylin[4]);
+    printf("data0:%s\n", cylin[5]);
+    exit(0); */
     obj->obj_coord = ascii_to_vec(cylin[1]);
     obj->obj_norm = ascii_to_vec(cylin[2]);
     printf("x:%f\n", obj->obj_coord->x);
     printf("y:%f\n", obj->obj_coord->y);
     printf("z:%f\n", obj->obj_coord->z);
+    printf("xnorm:%f\n", obj->obj_norm->x);
+    printf("ynorm:%f\n", obj->obj_norm->y);
+    printf("znorm:%f\n", obj->obj_norm->z);
     obj->diameter = ascii_to_float(cylin[3]);
     obj->height = ascii_to_float(cylin[4]);
     obj->obj_color = ascii_to_rgb(cylin[5]);
+    printf("dia:%f\n", obj->diameter);
+    printf("h:%f\n", obj->height);
+    printf("col:%d\n", obj->obj_color->r);
+    //exit(0);
     count += 1;
 }
 

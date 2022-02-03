@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 18:59:20 by user              #+#    #+#             */
-/*   Updated: 2022/01/11 23:32:16 by user             ###   ########.fr       */
+/*   Updated: 2022/02/02 22:31:41 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,12 @@ float ascii_to_float(char *data)
         sign *= -1;
         i += 1;
     }
-    while(data[i] && data[i] != '.')
+    while(data[i] && data[i] != '\n' && data[i] != '.')
     {
         point = 10 * point + (data[i] - '0');
         i++;
     }
+
     if(data[i] == '.')
     {
         i++;
@@ -65,7 +66,6 @@ float ascii_to_float(char *data)
             i++;
         }
     }
-    printf("float out CHECK HERE:%f\n", (sign * point) / power);
     return((point * sign) / power);
 }
 
@@ -78,14 +78,9 @@ t_vec *ascii_to_vec(char *data)
 
     vectorial = ft_split(data, ',');
     
- /*    printf("vectx%s\n", vectorial[0]);
-    printf("vecy%s\n", vectorial[1]);
-    printf("vecz%s\n", vectorial[2]); */
-    
     vec->x = ascii_to_float(vectorial[0]);
     vec->y = ascii_to_float(vectorial[1]);
     vec->z = ascii_to_float(vectorial[2]);
-    //free(vectorial);
     return (vec);
 }
 

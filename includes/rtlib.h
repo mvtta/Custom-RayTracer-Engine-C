@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/01/27 12:40:53 by user             ###   ########.fr       */
+/*   Updated: 2022/01/31 20:48:19 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_trans
 } t_trans;
 
 
+
 typedef struct s_ray
 {
     t_vec start;
@@ -90,6 +91,18 @@ typedef struct s_ray
     t_vec norm;
     float len;
 } t_ray;
+
+typedef struct s_axis
+{
+    t_ray up;
+    t_ray side;
+    t_ray rot;
+    t_vec center;
+    t_vec bot;
+    t_vec top;
+    t_vec edge;
+    
+}t_axis;
 
 typedef struct s_color
 {
@@ -187,6 +200,14 @@ typedef struct s_frame
 
 /* prototypes */
 
+/* shapes */
+
+t_axis gen_axis(t_obj *shape, t_ray ray);
+
+/* quadratics */
+
+float solve_q(float a, float b, float c, float t);
+
 /* equations */
 
 
@@ -222,11 +243,13 @@ float  ndc(t_frame *rt, float coord, char id);
 t_vec   world2scene(int width, int heigh, t_vec *coordinates);
 
 /* vector.c */
+t_vec v_normcy(t_vec *v1);
 float   degree_to_percentage(float degree);
 double          angle_bet_vs(t_vec *v1, t_vec *v2);
 t_vec  cross_p(t_vec a, t_vec b);
 t_color c_mix_plane(float volume, float light, t_color *obj_color);
 t_color c_luminance_plane(float alpha, t_color *color);
+t_vec v_3(float x, float y, float z);
 
 float v_mag(t_vec *v1, t_vec *v2);
 t_color c_luminance(float alpha, t_color *color);

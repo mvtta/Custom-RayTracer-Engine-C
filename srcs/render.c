@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/01/27 07:36:23 by user             ###   ########.fr       */
+/*   Updated: 2022/01/27 14:52:25 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ float compute_obj(t_ray *ray, t_obj *obj)
         t = ray_cy(ray, obj, *obj->obj_coord);
     return (t);
 }
-/* 		screen.viewport_width = tan(DEG_TO_RAD(c->fov / 2)) * 2;
-        screen.viewport_height = screen.viewport_width * \
-        RATIO((double)info->all->r->y, (double)info->all->r->x); */
 
 int render(t_frame *rt)
 {
@@ -37,12 +34,6 @@ int render(t_frame *rt)
     float x;
     float y = 0;
 
-  /*   ray.start.z = ndc(rt, ray.start.z, 'x');
-    ray.start.y = ndc(rt, ray.start.y, 'y');
-    ray.start.z = ndc(rt, ray.start.z, 'z');
-
-    printf("start.x:%f\n start.y:%f\n start.z:%f\n", ray.start.x, ray.start.y, ray.start.z);
-    exit(0); */
     ray.start.z = rt->scene->cam_coord->z;
     ray.dir.z = ndc(rt, rt->scene->cam_norm->z, 'z');
     while (y < (float)rt->window_h - 1)
