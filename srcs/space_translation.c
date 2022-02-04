@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   space_translation.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 14:45:49 by user              #+#    #+#             */
-/*   Updated: 2021/12/14 18:59:34 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2022/01/24 20:42:23 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_vec   world2scene(int width, int heigh, t_vec *coordinates)
 ;
     transform.x = coordinates->x + (width / 2);
     transform.y = coordinates->y + (heigh / 2);
-    transform.z = coordinates->z * -1;
+    transform.z = coordinates->z;
 
     return(transform);
 }

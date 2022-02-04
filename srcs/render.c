@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/01/09 18:11:56 by user             ###   ########.fr       */
+/*   Updated: 2022/01/27 14:52:25 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,10 @@ float compute_obj(t_ray *ray, t_obj *obj)
         t = ray_plane(ray, obj, *obj->obj_coord);
     if (obj->id1 == SPHERE)
         t = ray_sphere(ray, obj, *obj->obj_coord);
+    if (obj->id1 == 'c')
+        t = ray_cy(ray, obj, *obj->obj_coord);
     return (t);
 }
-/* 		screen.viewport_width = tan(DEG_TO_RAD(c->fov / 2)) * 2;
-        screen.viewport_height = screen.viewport_width * \
-        RATIO((double)info->all->r->y, (double)info->all->r->x); */
 
 int render(t_frame *rt)
 {
@@ -35,8 +34,8 @@ int render(t_frame *rt)
     float x;
     float y = 0;
 
-    ray.dir.z = ndc(rt, ray.dir.z, 'z');
     ray.start.z = rt->scene->cam_coord->z;
+    ray.dir.z = ndc(rt, rt->scene->cam_norm->z, 'z');
     while (y < (float)rt->window_h - 1)
     {
         x = 0;
@@ -54,6 +53,7 @@ int render(t_frame *rt)
                 if (hit != NO_HIT)
                 {
                     //printf("hit é impossivel ser nega: %f\n", hit);
+                    rt->record.latest_t = hit;
                     volume = standard_re(rt, &ray,current);
                     //volume = *current->obj_color;
                     my_mlx_pixel_put(&rt->obj_img, x, (rt->window_h -1) - y, volume.hex);

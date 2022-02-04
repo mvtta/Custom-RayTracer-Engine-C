@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/01/22 14:03:56 by user             ###   ########.fr       */
+/*   Updated: 2022/01/31 20:48:19 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,26 @@ typedef struct s_trans
 } t_trans;
 
 
+
 typedef struct s_ray
 {
     t_vec start;
     t_vec dir;
+    t_vec norm;
+    float len;
 } t_ray;
+
+typedef struct s_axis
+{
+    t_ray up;
+    t_ray side;
+    t_ray rot;
+    t_vec center;
+    t_vec bot;
+    t_vec top;
+    t_vec edge;
+    
+}t_axis;
 
 typedef struct s_color
 {
@@ -152,6 +167,12 @@ typedef struct s_scene
 
 } t_scene;
 
+typedef struct s_time
+{
+    float latest_t;
+    float closest_t;
+}t_time;
+
 typedef struct s_frame
 {
     char *ambient;
@@ -169,23 +190,51 @@ typedef struct s_frame
     void *win_ptr;
     t_data bkg_img;
     t_data obj_img;
+    t_time record;
+    t_ray cam_ray;
+    t_ray light_ray;
+    t_ray shadow_ray;
+    t_ray reflection_ray;
 
 } t_frame;
 
 /* prototypes */
 
+/* shapes */
+
+t_axis gen_axis(t_obj *shape, t_ray ray);
+
+/* quadratics */
+
+float solve_q(float a, float b, float c, float t);
+
+/* equations */
+
+
+float get_time_pl(t_ray *ray, t_vec *point, t_vec *normal);
+
+/* print_info */
+
+void  print_vector(t_vec v, char *info);
+
+/* ray */
+t_ray ray_from_to(t_vec *point_origin, t_vec *point_direction);
+
 /* color */
+int c_range(int d, int min, int max);
 int c_increase(int max);
 float c_percentage(int color);
 int c_hue(t_color *check);
-t_color c_mix(t_color *source, t_color *obj, double ratio);
-t_color c_grade(t_color *source, double alpha, t_color *color);
+t_color c_mix(t_color *source, t_color *obj, double spec, double difuse);
+t_color c_grade(t_color *source, t_color *color, double spec, double difuse);
 int c_channel_increase();
 
 /* control */
 int	key_kill(int keycode, t_frame *rt);
 
 /* rendering eq */
+double c_clamp(double d, double min, double max);
+double lambert(t_frame *rt, t_ray *ray, t_obj *obj);
 double   blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj);
 t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj);
 
@@ -194,11 +243,13 @@ float  ndc(t_frame *rt, float coord, char id);
 t_vec   world2scene(int width, int heigh, t_vec *coordinates);
 
 /* vector.c */
+t_vec v_normcy(t_vec *v1);
 float   degree_to_percentage(float degree);
 double          angle_bet_vs(t_vec *v1, t_vec *v2);
 t_vec  cross_p(t_vec a, t_vec b);
 t_color c_mix_plane(float volume, float light, t_color *obj_color);
 t_color c_luminance_plane(float alpha, t_color *color);
+t_vec v_3(float x, float y, float z);
 
 float v_mag(t_vec *v1, t_vec *v2);
 t_color c_luminance(float alpha, t_color *color);
@@ -217,6 +268,7 @@ double			length(t_vec v);
 /* intersection.c */
 
 float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord);
+float ray_cy(t_ray *r, t_obj *p, t_vec obj_coord);
 float ray_plane(t_ray *r, t_obj *p, t_vec obj_coord);
 /* render.c */
 
@@ -251,6 +303,7 @@ t_obj *new_obj(t_frame *rt, char *data);
 void add_new_obj(t_frame *rt, char *data);
 void create_plane(t_obj *obj, char *data);
 void create_sphere(t_obj *obj, char *data);
+void create_cylin(t_obj *obj, char *data);
 
 /* create_scene.c */
 void create_scene(t_frame *rt);

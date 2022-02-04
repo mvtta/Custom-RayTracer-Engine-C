@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:45:46 by user              #+#    #+#             */
-/*   Updated: 2022/01/07 21:28:52 by user             ###   ########.fr       */
+/*   Updated: 2022/02/01 21:23:45 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,70 +39,100 @@ float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord)
 {
 
 	t_vec d = v_add(&r->start, &r->dir);
-	//float len = length(d);
-	t_vec dist = v_sub(&d, &obj_coord);
-	//dist = normalize(&dist);
+	t_vec dist = v_sub(&obj_coord, &d);
 
 	float radius = (s->diameter) / 2;
 	float a = dot_p(&r->dir, &r->dir);
 	float b = 2.0 * dot_p(&r->dir, &dist);
 	float c = dot_p(&dist, &dist) - (radius * radius);
-	float discr = b * b - 4 * a * c;	
+	float discr = b * b - 4 * a * c;
 	if (discr >= 0)
-	{	
-		if(discr == 0)
+	{
+		if (discr == 0)
 		{
 			float t0 = -0.5 * b / a;
 			printf("\tprintf t0: %f\n", t0);
-			return(t0);
+			return (t0);
 		}
 		float q = MAX(-0.5 * (b + sqrtf(discr)), -0.5 * (b - sqrtf(discr)));
 		float t1 = q / 2 * a;
 		float t2 = c / q;
-		if(t1 > t2)
+		if (t1 > t2)
 		{
 			float tmp = t1;
 			t1 = t2;
 			t2 = tmp;
 		}
-		if(t1 < 0)
+		if (t1 < 0)
 			t1 = t2;
-		if(t1 > 0)
+		if (t1 > 0)
 		{
-			//printf("\t printf t1: %f\n", t1);
-	/* 		printf("\t LEN: %f\n", len); */
-			return(t1);
+			//printf("\tT1: %f\n", t1);
+			return (t1);
 		}
 	}
 	return (NO_HIT);
 }
 
+float ray_cy(t_ray *r, t_obj *s, t_vec obj_coord)
+{
+	t_vec dir = r->dir;
+	t_vec pos = r->start;
+	t_vec center = obj_coord;
+	float height = s->height;
+	float radius = s->diameter / 2;
+	
+	t_vec bot = v_3(center.x, center.y - (height / 2), center.z);
+	t_vec top = v_3(center.x, center.y + (height / 2), center.z);
+	//t_vec top = v_3(obj_coord.x, obj_coord.y + (height / 2), obj_coord.z);
+	float a = (dir.x * dir.x) + (dir.z * dir.z);
+	float b = 2 * (dir.x * (pos.x - bot.x)) + (2 * dir.z) * (pos.z - bot.z);
+	float c = (pos.x - bot.x) * (pos.x - bot.x) + (pos.z - bot.z) * (pos.z - bot.z) - (radius * radius);
+
+	float delta = b * b - 4 * (a * c);
+	if (fabs(delta) < 0.001)
+		return (NO_HIT);
+	if (delta < 0.0)
+		return (NO_HIT);
+
+	float t1 = (-b - sqrt(delta)) / (2 * a);
+	float t2 = (-b + sqrt(delta)) / (2 * a);
+	float t;
+
+	if (t1 > t2)
+		t = t2;
+	else
+		t = t1;
+
+	float rd = pos.y + (t * dir.y);
+	t_vec p = v_scale(t, &r->dir);
+	p = v_add(&r->start, &p);
+	float cap = (p.x * p.x) + (p.z * p.z);
+	//print_vector(p, "lol");
+	cap = sqrtf(cap);
+/* 	printf("cap%f\n", cap);
+	printf("radius%f\n", radius);
+	exit(0); */
+	if(fabs(cap) <= radius)
+	{
+		printf("inside%f\n", t);
+		exit(0);
+		return (t);
+	}
+	//exit(0);
+	if ((rd >= bot.y) && (rd <= top.y))
+	{
+		return (t);
+	}
+	else
+		return (NO_HIT);
+}
+
 float ray_plane(t_ray *r, t_obj *p, t_vec obj_coord)
 {
 
-	//t_vec norm_dir = normalize(&r->dir);
-	//t_vec norm_coord = normalize(&obj_coord);
-	t_vec d = v_add(&r->start, &r->dir);
-	float len = length(d);
-	d = v_scale(len, &d);
-	d = normalize(&d);
-	//t_vec p1 = normalize(&obj_coord); can substitute in second param of point
-	float denom = dot_p(&d, p->obj_norm);
-	float point = dot_p(&d, &obj_coord);
-	float t = (denom / point);
-	if(t > 0.0001 && t < 1)
-	{
-/* 		printf("t:%f\n", t);
-		printf("denom:%f\n", denom);
-		printf("point:%f\n", point); */
-		//printf("t:%f\n", t);
-		//return(t * 255);
-		return(t * 1000);
-	}
-	return (NO_HIT);
-}
+	float time;
 
-/* float ray_cy(t_ray *r, t_obj *p, t_vec obj_coord)
-{
-	
-} */
+	time = get_time_pl(r, &obj_coord, p->obj_norm);
+	return (time);
+}

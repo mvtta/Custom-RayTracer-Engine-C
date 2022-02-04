@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:19:06 by user              #+#    #+#             */
-/*   Updated: 2022/01/22 17:02:50 by user             ###   ########.fr       */
+/*   Updated: 2022/02/03 17:54:36 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /* declaring black */
 const t_color black = {0, 0, 0, 0};
-const t_color yellow = {255, 255, 0, 0};
+const t_color yellow = {0, 0, 155, 0};
 /* declaring primaries */
 const t_color red = {1, 0, 0, 0};
 const t_color green = {0, 1, 0, 0};
@@ -53,20 +53,20 @@ int c_hue(t_color *check)
     return (index);
 }
 
-t_color c_mix(t_color *source, t_color *obj, double ratio)
+t_color c_mix(t_color *source, t_color *obj, double spec, double difuse)
 {
     t_color mixed;
-    mixed.r = (source->r) * 0.0 + ((ratio * obj->r));
-    mixed.g = (source->g) * 0.0 + ((ratio * obj->g));
-    mixed.b = (source->b) * 0.0 + ((ratio * obj->b));
+    *source = yellow;
+    mixed.r = c_range((source->r) * spec + (obj->r * difuse), 0, 255);
+    mixed.g = c_range((source->g) * spec + (obj->g * difuse), 0, 255);
+    mixed.b = c_range((source->b) * spec + (obj->b * difuse), 0, 255);
     return (mixed);
 }
 
-t_color c_grade(t_color *source, double alpha, t_color *color)
+t_color c_grade(t_color *source, t_color *color, double spec, double difuse)
 {
     t_color new;
-    /* light side */
-    new = c_mix(source, color, alpha);
+    new = c_mix(source, color, spec, difuse);
     new.hex = DEC(new.r, new.g, new.b);
     return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 18:06:51 by user              #+#    #+#             */
-/*   Updated: 2022/01/05 20:37:22 by user             ###   ########.fr       */
+/*   Updated: 2022/02/02 22:29:27 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,7 @@ t_scene *att_camera(t_scene *scene, char **data)
 {
     scene->cam_coord = ascii_to_vec(data[1]);
     scene->cam_norm = ascii_to_vec(data[2]);
-    scene->fov = 50;
-/*     printf("fov parsed: %f\n", scene->fov);
-    printf("data0:%s\n", data[0]);
-    printf("data1:%s\n", data[1]);
-    printf("data2:%s\n", data[2]);
-    printf("data3:%s\n", data[3]);
-    exit(0); */
+    scene->fov = ascii_to_float(data[3]);
     return(scene);
 }
 
@@ -44,8 +38,6 @@ t_frame *attribute(t_frame *rt, t_scene *scene, char id, char *data)
 {
     char **split_data;
     
-    printf("input on att:%s\n", data);
-    printf("id on att:%c\n", id);
     split_data = ft_split(data, ' ');
 
     if (id == 'A')

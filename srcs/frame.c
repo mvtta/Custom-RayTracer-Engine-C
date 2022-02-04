@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 17:35:32 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/01/02 22:40:36 by user             ###   ########.fr       */
+/*   Updated: 2022/02/02 22:05:01 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ t_frame *init_frame(void)
     rt->objs_first = NULL;
     rt->objs_last = NULL;
     rt->nbr_objs = 0;
-    rt->window_w = 1440;
-    rt->window_h = 1080;
+    rt->window_w = 720;
+    rt->window_h = 540;
     return(rt);
 }
 
@@ -30,10 +30,7 @@ t_frame *fill_frame(t_frame *rt)
     char *data;
     char id1;
     char id2;
-
    
-    // fd = open("scene_test.rt", O_RDONLY);
-    printf("hehe\n");
     while ((data = get_next_line(0)))
     {
         if(data == NULL)

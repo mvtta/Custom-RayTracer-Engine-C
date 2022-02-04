@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.c                                            :+:      :+:    :+:   */
+/*   quadratics.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/22 13:21:11 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/02/02 22:29:40 by user             ###   ########.fr       */
+/*   Created: 2022/01/29 15:32:49 by user              #+#    #+#             */
+/*   Updated: 2022/01/31 20:53:47 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtlib.h"
 
-t_scene *init_scene(void)
-{ 
-  t_scene *scene = NULL;
-
-  scene = malloc(sizeof(t_scene));
-
-  scene->amb_color = 0;
-  scene->ambient = 0;
-  scene->brightness = 0;
-  scene->cam_coord = 0;
-  scene->cam_norm = 0;
-  scene->fov = 0;
-  scene->id = 0;
-  scene->light_color = 0;
-  scene->light_coord = 0;
-
-  return(scene);
+float solve_q(float a, float b, float c, float t)
+{
+    float d = ((t * a) * (t * a)) + (b * t) + c;
+    printf("d : %f\n", d);
+    return (d);
 }

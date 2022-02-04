@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:50:22 by user              #+#    #+#             */
-/*   Updated: 2022/01/11 19:28:06 by user             ###   ########.fr       */
+/*   Updated: 2022/01/28 19:48:38 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ t_vec v_sub(t_vec *v1, t_vec *v2)
 {
     t_vec new;
 
-    new.x = v1->x - v2->x;
-    new.y = v1->y - v2->y;
-    new.z = v1->z - v2->z;
+    new.x = v2->x - v1->x;
+    new.y = v2->y - v1->y;
+    new.z = v2->z - v1->z;
     return (new);
 }
 
@@ -92,6 +92,26 @@ t_vec v_mult(t_vec *v1, t_vec *v2)
     new.z = v1->z * v2->z;
 
     return (new);
+}
+
+t_vec v_normcy(t_vec *v1)
+{
+    t_vec new;
+
+    new.x = v1->x * 2;
+    new.y = v1->y * 0;
+    new.z = v1->z * 2;
+
+    return (new);
+}
+
+t_vec v_3(float x, float y, float z)
+{
+    t_vec new;
+    new.x = x;
+    new.y = y;
+    new.z = z;
+    return(new);
 }
 
 float dot_p(t_vec *v1, t_vec *v2)
