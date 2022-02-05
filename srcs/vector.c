@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:50:22 by user              #+#    #+#             */
-/*   Updated: 2022/01/28 19:48:38 by user             ###   ########.fr       */
+/*   Updated: 2022/02/05 20:15:11 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,24 @@ t_vec v_3(float x, float y, float z)
     new.y = y;
     new.z = z;
     return(new);
+}
+
+t_vec *ro_3(t_ray *ray, t_vec *where)
+{
+    print_vector(*where, "segf here");
+    //exit(0);
+    ray->start->x = where->x;
+    ray->start->y = where->y;
+    ray->start->z = where->z;
+    return(ray->start);
+}
+
+t_vec *rd_3(t_ray *ray, t_vec *where)
+{
+    ray->dir->x = where->x;
+    ray->dir->y = where->y;
+    ray->dir->z = where->z;
+    return(ray->dir);
 }
 
 float dot_p(t_vec *v1, t_vec *v2)

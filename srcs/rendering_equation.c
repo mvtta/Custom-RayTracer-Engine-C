@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/02/03 17:54:23 by user             ###   ########.fr       */
+/*   Updated: 2022/02/05 19:21:57 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ double lambert(t_frame *rt, t_ray *ray, t_obj *obj)
     t_vec hit_norm;
     t_vec l;
 
-    hit = v_scale(rt->record.latest_t, &ray->dir);
+    hit = v_scale(rt->record.latest_t, ray->dir);
     hit_norm = v_sub(&hit, obj->obj_coord);
-    l = v_sub(&hit, rt->scene->light_coord);
+    l = v_sub(&hit, rt->scene->l->light_coord);
     l = normalize(&l);
     att = 1 / length(l) * 0.5;
     hit_norm = normalize(&hit_norm);
@@ -113,9 +113,9 @@ double blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
     t_vec l;
     t_vec h;
     
-    hit = v_scale(rt->record.latest_t, &ray->dir);
-    hit = v_add(&hit, &ray->start);
-    l = v_sub(&hit, rt->scene->light_coord);
+    hit = v_scale(rt->record.latest_t, ray->dir);
+    hit = v_add(&hit, ray->start);
+    l = v_sub(&hit, rt->scene->l->light_coord);
     if(obj->id1 == PLANE)
         hit_norm = v_sub(obj->obj_norm, &hit);
     else
@@ -139,6 +139,6 @@ t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj)
     t_color volume;
     double difuse = lambert(rt, ray, obj);
     double spec = blinn_phong(rt, ray, obj);
-    volume = c_grade(rt->scene->light_color, obj->obj_color, spec, difuse);
+    volume = c_grade(rt->scene->l->light_color, obj->obj_color, spec, difuse);
     return (volume);
 }

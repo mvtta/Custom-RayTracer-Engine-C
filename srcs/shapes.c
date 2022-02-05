@@ -6,13 +6,13 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 20:28:27 by user              #+#    #+#             */
-/*   Updated: 2022/01/31 21:05:21 by user             ###   ########.fr       */
+/*   Updated: 2022/02/05 19:58:32 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtlib.h"
 
-t_axis gen_axis(t_obj *shape, t_ray ray)
+t_axis gen_axis(t_obj *shape, t_ray *ray)
 {
     t_axis *axis = NULL;
     axis->center = v_3(shape->obj_coord->x, shape->obj_norm->y, shape->obj_norm->z);
@@ -25,7 +25,7 @@ t_axis gen_axis(t_obj *shape, t_ray ray)
     print_vector(axis->bot, "bot");
     print_vector(axis->top, "top");
     print_vector(axis->edge, "side");
-    print_vector(ray.dir, "ray");
+    print_vector(*ray->dir, "dir");
     exit(0);
 }
     
