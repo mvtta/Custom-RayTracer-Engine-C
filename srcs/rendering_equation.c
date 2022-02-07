@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/02/07 01:50:01 by user             ###   ########.fr       */
+/*   Updated: 2022/02/07 05:06:01 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,11 +125,12 @@ double blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
     l = v_scale(1, &l);
 
     if(obj->id1 == PLANE)
-        hit_norm = v_sub(&hit, obj->obj_coord);
+        return(0.0);
     if(obj->id1 == SPHERE)
         hit_norm = v_sub(&hit, &center);
     else
-        hit_norm = v_sub(&hit, &center);
+        return(0.0);
+    //hit_norm = v_sub(&hit, &center);
     v = hit;
     v = normalize(&v);
     camera = length(l);
