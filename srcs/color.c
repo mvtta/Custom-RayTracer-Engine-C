@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:19:06 by user              #+#    #+#             */
-/*   Updated: 2022/02/03 17:54:36 by user             ###   ########.fr       */
+/*   Updated: 2022/02/07 01:17:47 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ int c_hue(t_color *check)
 t_color c_mix(t_color *source, t_color *obj, double spec, double difuse)
 {
     t_color mixed;
-    *source = yellow;
-    mixed.r = c_range((source->r) * spec + (obj->r * difuse), 0, 255);
-    mixed.g = c_range((source->g) * spec + (obj->g * difuse), 0, 255);
-    mixed.b = c_range((source->b) * spec + (obj->b * difuse), 0, 255);
+    //*source = yellow;
+    mixed.r = c_range((source->r * spec) + ((obj->r * difuse)), 0, 255);
+    mixed.g = c_range((source->g * spec) + ((obj->g * difuse)), 0, 255);
+    mixed.b = c_range((source->b * spec) + ((obj->b * difuse)), 0, 255);
     return (mixed);
 }
 

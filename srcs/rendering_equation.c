@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/02/05 19:21:57 by user             ###   ########.fr       */
+/*   Updated: 2022/02/07 01:50:01 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,24 +88,29 @@ double lambert(t_frame *rt, t_ray *ray, t_obj *obj)
     t_vec l;
 
     hit = v_scale(rt->record.latest_t, ray->dir);
-    hit_norm = v_sub(&hit, obj->obj_coord);
-    l = v_sub(&hit, rt->scene->l->light_coord);
+    t_vec center = v_sub(ray->start, obj->obj_coord);
+    hit_norm = v_sub(&hit, &center);
+    l = v_sub(rt->scene->l->light_coord, ray->start);
+    l = v_add(&l, &hit);
+    att = ((length(l)));
     l = normalize(&l);
-    att = 1 / length(l) * 0.5;
     hit_norm = normalize(&hit_norm);
-    difuse = c_clamp(dot_p(&hit_norm, &l), 0.0, 1.0) * att;
-    return (difuse);
+    difuse = c_clamp(dot_p(&hit_norm, &l), 0.0, 1.0) * (0.8) * 10.0f / (att);
+    return ((difuse));
 }
 
 double blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
 {
     const double shine = 1000;
-    //const double energy_conservation = ((shine * 0.5) + shine) / (shine * 0.5  * M_PI);
+/*     const double energy_conservation = ((shine + rt->scene->l->brightness)) / (rt->scene->l->brightness * M_PI);
+    printf("b%f\n", rt->scene->l->brightness);
+    printf("ec%f\n", energy_conservation);
+    exit(0); */
     double spec;
     double attenuation;
     double total;
     double camera;
-    double ratio;
+    //double ratio;
 
     t_vec hit;
     t_vec hit_norm;
@@ -114,23 +119,30 @@ double blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
     t_vec h;
     
     hit = v_scale(rt->record.latest_t, ray->dir);
-    hit = v_add(&hit, ray->start);
-    l = v_sub(&hit, rt->scene->l->light_coord);
+    t_vec center = v_sub(ray->start, obj->obj_coord);
+    l = v_sub(rt->scene->l->light_coord, ray->start);
+    l = v_add(&l, &hit);
+    l = v_scale(1, &l);
+
     if(obj->id1 == PLANE)
-        hit_norm = v_sub(obj->obj_norm, &hit);
+        hit_norm = v_sub(&hit, obj->obj_coord);
+    if(obj->id1 == SPHERE)
+        hit_norm = v_sub(&hit, &center);
     else
-        hit_norm = v_sub(obj->obj_coord, &hit);
-    v = v_scale(1.0, &hit);
-    l = v_scale(1.0, &l);
-    h = v_add(&v, &l);
-    h = normalize(&h);
-    camera = 1 / length(l);
-    attenuation = camera;
+        hit_norm = v_sub(&hit, &center);
+    v = hit;
+    v = normalize(&v);
+    camera = length(l);
     l = normalize(&l);
+    h = v_add(&v, &l);
+    attenuation = 1 / camera;
     hit_norm = normalize(&hit_norm);
-    spec = pow(shine, dot_p(&h, &hit_norm));
-    ratio = attenuation * 0.4;
-    total = c_clamp(spec * ratio, 0.0, 1.0);
+    h = normalize(&h);
+    float dot = dot_p(&h, &hit_norm);
+    if(dot < 0 || dot < 0.7)
+        return(0);
+    spec = pow(dot, shine) * (attenuation * 30);
+    total = c_clamp(spec, 0.0, 1);
     return (total);
 }
 

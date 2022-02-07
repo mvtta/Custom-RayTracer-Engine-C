@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:45:46 by user              #+#    #+#             */
-/*   Updated: 2022/02/05 23:02:25 by user             ###   ########.fr       */
+/*   Updated: 2022/02/07 01:12:00 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord)
 			float t0 = -0.5 * b / a;
 			return (t0);
 		}
-		float q = MAX(-0.5 * (b + sqrtf(discr)), -0.5 * (b - sqrtf(discr)));
-		float t1 = q / 2 * a;
-		float t2 = c / q;
+		//float q = MAX(-0.5 * (b + sqrtf(discr)), -0.5 * (b - sqrtf(discr)));
+		float t1 = (-b - sqrt(discr)) / (2 * a);
+		float t2 = (-b + sqrt(discr)) / (2 * a);
 		if (t1 > t2)
 		{
 			float tmp = t1;
@@ -134,5 +134,6 @@ float ray_plane(t_ray *r, t_obj *p, t_vec obj_coord)
 	float time;
 
 	time = get_time_pl(r, &obj_coord, p->obj_norm);
+	//printf("time%f\n", time);
 	return (time);
 }

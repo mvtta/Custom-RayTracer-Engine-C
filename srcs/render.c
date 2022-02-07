@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/02/05 21:58:11 by user             ###   ########.fr       */
+/*   Updated: 2022/02/06 19:30:42 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void fake_init(t_ray **r) {
     *r = malloc(sizeof(t_ray));
     (*r)->start = malloc(sizeof(t_vec));
     (*r)->dir = malloc(sizeof(t_vec));
+    (*r)->norm = malloc(sizeof(t_vec));
     (*r)->len = 0;
 }
 int render(t_frame *rt)
@@ -51,6 +52,7 @@ int render(t_frame *rt)
     // ray = ray_init();
     fake_init(&ray);
     ray->start = ro_3(ray, rt->scene->c->cam_coord);
+    ray->norm = rt->scene->c->cam_norm;
     
     //print_vector(*ray->start, "camtest");
     //exit(0);

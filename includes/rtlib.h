@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/02/05 20:43:18 by user             ###   ########.fr       */
+/*   Updated: 2022/02/06 20:12:34 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,7 @@ float get_time_pl(t_ray *ray, t_vec *point, t_vec *normal);
 void  print_vector(t_vec v, char *info);
 
 /* ray */
-t_ray *ray_init(void);
+void ray_init(t_ray **r);
 // void   ray_init(t_ray **ray);
 t_vec *ro_3(t_ray *ray, t_vec *where);
 t_vec *rd_3(t_ray *ray, t_vec *where);

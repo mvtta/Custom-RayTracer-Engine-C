@@ -6,19 +6,22 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:50:22 by user              #+#    #+#             */
-/*   Updated: 2022/02/05 20:15:11 by user             ###   ########.fr       */
+/*   Updated: 2022/02/06 21:56:44 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtlib.h"
 
-t_vec normalize(t_vec *p)
+t_vec normalize(t_vec *v)
 {
-    float w = sqrtf(p->x * p->x + p->y * p->y + p->z * p->z);
-    p->x /= w;
-    p->y /= w;
-    p->z /= w;
-    return (*p);
+    t_vec p;
+    p = v_3(v->x,v->y,v->z);
+    float w = length(*v);
+    //printf("LEN%f\n", w);
+    p.x /= w;
+    p.y /= w;
+    p.z /= w;
+    return (p);
 }
 
 t_vec v_scale(float scale, t_vec *vec)
