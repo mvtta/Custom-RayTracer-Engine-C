@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtlib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/02/07 12:48:06 by user             ###   ########.fr       */
+/*   Updated: 2022/02/08 16:50:13 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@
 #define PLANE 'p'
 #define AVOID_MAX(x) (x > 255 ? x : 255)
 #define AVOID_MIN(x) (x < 0 ? x : 0)
+#define RUBBER 0
+#define METAL 1
+#define GLASS 2
+#define PU 3
+#define LIQUID 4
 
 #include <fcntl.h>
 #include <math.h>
@@ -50,12 +55,22 @@
 #include "libft.h"
 #include "color.h"
 
+
 typedef struct s_point
 {
     float x;
     float y;
     float z;
 } t_point;
+
+typedef struct s_mc
+{
+    double p0;
+    double p1;
+    double p2;
+    double p3;
+    double p4;
+} t_mc;
 
 typedef struct s_vec
 {
@@ -66,10 +81,11 @@ typedef struct s_vec
 
 typedef struct s_matrix
 {
-    double x;
-    double y;
-    double z;
-    double w;
+    int n_cols;
+    int n_vertex;
+    t_vec *first_vec;
+    t_mc *first_col;
+    
 } t_matrix;
 
 typedef struct s_ray
@@ -120,21 +136,25 @@ typedef struct s_obj
 {
     struct s_obj *prev;
     struct s_obj *next;
+    char *raw;
+    char id1;
     float diameter;
     float height;
     float spec_r;
     float shine;
-    char *raw;
-    char id1;
-    int id2;
+    float material;
+    t_vec *obj_coord;
     t_vec *obj_norm;
     t_vec *p;
-    t_vec *obj_coord;
+    t_vec *last_hit;
+    t_axis *axis;
+    t_matrix *edges;
     t_matrix *scale;
     t_matrix *pan;
     t_matrix *hom;
     t_color *obj_color;
     t_data *img;
+    int id2;
 
 } t_obj;
 

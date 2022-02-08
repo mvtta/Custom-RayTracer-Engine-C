@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_equation.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/02/07 13:42:44 by user             ###   ########.fr       */
+/*   Updated: 2022/02/08 17:07:44 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,10 @@ t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj)
         hit = compute_obj(shadow, current);
         if (hit != NO_HIT && current != obj)
         {
-            volume = c_grade(current->obj_color, obj->obj_color, 0, (1 / length(*(shadow->dir))));
+            volume = c_grade(obj->obj_color, current->obj_color, (obj->shine / length(*(shadow->dir)) * 0.018), 0);
+            if(obj->id1 == 'c')
+                printf("\trefe:%f\n", obj->shine / length(*(shadow->dir)) * 0.018);
+            //exit(0);
             return (volume);
         }
         i++;
