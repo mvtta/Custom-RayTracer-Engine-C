@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/02/07 05:06:01 by user             ###   ########.fr       */
+/*   Updated: 2022/02/07 13:42:44 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,23 +60,23 @@ the incident ray reflects
 double c_clamp(double d, double min, double max)
 {
     const double t = d;
-    
-    if(t < min)
-        return(min);
-    if(t > max)
-        return(max);
-    return(t);
+
+    if (t < min)
+        return (min);
+    if (t > max)
+        return (max);
+    return (t);
 }
 
 int c_range(int d, int min, int max)
 {
     const double t = d;
-    
-    if(t < min)
-        return(min);
-    if(t > max)
-        return(max);
-    return(t);
+
+    if (t < min)
+        return (min);
+    if (t > max)
+        return (max);
+    return (t);
 }
 
 double lambert(t_frame *rt, t_ray *ray, t_obj *obj)
@@ -102,35 +102,35 @@ double lambert(t_frame *rt, t_ray *ray, t_obj *obj)
 double blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
 {
     const double shine = 1000;
-/*     const double energy_conservation = ((shine + rt->scene->l->brightness)) / (rt->scene->l->brightness * M_PI);
-    printf("b%f\n", rt->scene->l->brightness);
-    printf("ec%f\n", energy_conservation);
-    exit(0); */
+    /*     const double energy_conservation = ((shine + rt->scene->l->brightness)) / (rt->scene->l->brightness * M_PI);
+        printf("b%f\n", rt->scene->l->brightness);
+        printf("ec%f\n", energy_conservation);
+        exit(0); */
     double spec;
     double attenuation;
     double total;
     double camera;
-    //double ratio;
+    // double ratio;
 
     t_vec hit;
     t_vec hit_norm;
     t_vec v;
     t_vec l;
     t_vec h;
-    
+
     hit = v_scale(rt->record.latest_t, ray->dir);
     t_vec center = v_sub(ray->start, obj->obj_coord);
     l = v_sub(rt->scene->l->light_coord, ray->start);
     l = v_add(&l, &hit);
     l = v_scale(1, &l);
 
-    if(obj->id1 == PLANE)
-        return(0.0);
-    if(obj->id1 == SPHERE)
+    if (obj->id1 == PLANE)
+        return (0.0);
+    if (obj->id1 == SPHERE)
         hit_norm = v_sub(&hit, &center);
     else
-        return(0.0);
-    //hit_norm = v_sub(&hit, &center);
+        return (0.0);
+    // hit_norm = v_sub(&hit, &center);
     v = hit;
     v = normalize(&v);
     camera = length(l);
@@ -140,8 +140,8 @@ double blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
     hit_norm = normalize(&hit_norm);
     h = normalize(&h);
     float dot = dot_p(&h, &hit_norm);
-    if(dot < 0 || dot < 0.7)
-        return(0);
+    if (dot < 0 || dot < 0.7)
+        return (0);
     spec = pow(dot, shine) * (attenuation * 30);
     total = c_clamp(spec, 0.0, 1);
     return (total);
@@ -150,6 +150,29 @@ double blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
 t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj)
 {
     t_color volume;
+    t_obj *current;
+    float hit;
+    int i = 0;
+    current = rt->objs_first;
+    t_ray *shadow;
+    ray_init(&shadow);
+    t_vec tar = v_scale(rt->record.latest_t, ray->dir);
+    t_vec center = v_sub(ray->start, obj->obj_coord);
+    t_vec hit_norm = v_sub(&tar, &center);
+    shadow->start = ro_3(shadow, &tar);
+    shadow->dir = rd_3(shadow, &hit_norm);
+    while (++i <= rt->nbr_objs)
+    {   
+
+        hit = compute_obj(shadow, current);
+        if (hit != NO_HIT && current != obj)
+        {
+            volume = c_grade(current->obj_color, obj->obj_color, 0, (1 / length(*(shadow->dir))));
+            return (volume);
+        }
+        i++;
+        current = current->next;
+    }
     double difuse = lambert(rt, ray, obj);
     double spec = blinn_phong(rt, ray, obj);
     volume = c_grade(rt->scene->l->light_color, obj->obj_color, spec, difuse);

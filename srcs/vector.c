@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:50:22 by user              #+#    #+#             */
-/*   Updated: 2022/02/06 21:56:44 by user             ###   ########.fr       */
+/*   Updated: 2022/02/07 13:40:43 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ t_vec v_3(float x, float y, float z)
 
 t_vec *ro_3(t_ray *ray, t_vec *where)
 {
-    print_vector(*where, "segf here");
     //exit(0);
     ray->start->x = where->x;
     ray->start->y = where->y;

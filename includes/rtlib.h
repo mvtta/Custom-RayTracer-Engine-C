@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/02/06 20:12:34 by user             ###   ########.fr       */
+/*   Updated: 2022/02/07 12:48:06 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,7 @@ typedef struct s_frame
 /* prototypes */
 
 /* shapes */
+float compute_obj(t_ray *ray, t_obj *obj);
 
 t_axis gen_axis(t_obj *shape, t_ray *ray);
 

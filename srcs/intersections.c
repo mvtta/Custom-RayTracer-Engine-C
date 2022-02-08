@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:45:46 by user              #+#    #+#             */
-/*   Updated: 2022/02/07 01:12:00 by user             ###   ########.fr       */
+/*   Updated: 2022/02/07 13:42:23 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ float ray_cy(t_ray *r, t_obj *s, t_vec obj_coord)
 	if(fabs(cap) <= radius)
 	{
 		printf("inside%f\n", t);
-		exit(0);
 		return (t);
 	}
 	//exit(0);
