@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:45:46 by user              #+#    #+#             */
-/*   Updated: 2022/02/01 21:23:45 by user             ###   ########.fr       */
+/*   Updated: 2022/02/07 13:42:23 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ t = =−(l0−p0)⋅n/ l⋅n
 float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord)
 {
 
-	t_vec d = v_add(&r->start, &r->dir);
+	t_vec d = v_add(r->start, r->dir);
 	t_vec dist = v_sub(&obj_coord, &d);
 
 	float radius = (s->diameter) / 2;
-	float a = dot_p(&r->dir, &r->dir);
-	float b = 2.0 * dot_p(&r->dir, &dist);
+	float a = dot_p(r->dir, r->dir);
+	float b = 2.0 * dot_p(r->dir, &dist);
 	float c = dot_p(&dist, &dist) - (radius * radius);
 	float discr = b * b - 4 * a * c;
 	if (discr >= 0)
@@ -51,12 +51,11 @@ float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord)
 		if (discr == 0)
 		{
 			float t0 = -0.5 * b / a;
-			printf("\tprintf t0: %f\n", t0);
 			return (t0);
 		}
-		float q = MAX(-0.5 * (b + sqrtf(discr)), -0.5 * (b - sqrtf(discr)));
-		float t1 = q / 2 * a;
-		float t2 = c / q;
+		//float q = MAX(-0.5 * (b + sqrtf(discr)), -0.5 * (b - sqrtf(discr)));
+		float t1 = (-b - sqrt(discr)) / (2 * a);
+		float t2 = (-b + sqrt(discr)) / (2 * a);
 		if (t1 > t2)
 		{
 			float tmp = t1;
@@ -76,11 +75,12 @@ float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord)
 
 float ray_cy(t_ray *r, t_obj *s, t_vec obj_coord)
 {
-	t_vec dir = r->dir;
-	t_vec pos = r->start;
+	t_vec dir = *r->dir;
+	t_vec pos = *r->start;
 	t_vec center = obj_coord;
 	float height = s->height;
 	float radius = s->diameter / 2;
+	//double rot = (M_PI * 45) / 180
 	
 	t_vec bot = v_3(center.x, center.y - (height / 2), center.z);
 	t_vec top = v_3(center.x, center.y + (height / 2), center.z);
@@ -105,8 +105,8 @@ float ray_cy(t_ray *r, t_obj *s, t_vec obj_coord)
 		t = t1;
 
 	float rd = pos.y + (t * dir.y);
-	t_vec p = v_scale(t, &r->dir);
-	p = v_add(&r->start, &p);
+	t_vec p = v_scale(t, r->dir);
+	p = v_add(r->start, &p);
 	float cap = (p.x * p.x) + (p.z * p.z);
 	//print_vector(p, "lol");
 	cap = sqrtf(cap);
@@ -116,7 +116,6 @@ float ray_cy(t_ray *r, t_obj *s, t_vec obj_coord)
 	if(fabs(cap) <= radius)
 	{
 		printf("inside%f\n", t);
-		exit(0);
 		return (t);
 	}
 	//exit(0);
@@ -134,5 +133,6 @@ float ray_plane(t_ray *r, t_obj *p, t_vec obj_coord)
 	float time;
 
 	time = get_time_pl(r, &obj_coord, p->obj_norm);
+	//printf("time%f\n", time);
 	return (time);
 }

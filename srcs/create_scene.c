@@ -6,37 +6,34 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:18:03 by user              #+#    #+#             */
-/*   Updated: 2022/01/27 05:40:44 by user             ###   ########.fr       */
+/*   Updated: 2022/02/05 11:44:59 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtlib.h"
 
-void fill_scene(t_frame *rt, char id)
+void fill_scene(t_parse *raw, t_frame *rt, char id)
 {
     char *data;
     if (id == 'A')
-        data = rt->ambient;
+        data = raw->ambient;
     if (id == 'C')
-        data = rt->camera;
+        data = raw->camera;
     if (id == 'L')
-        data = rt->light;
+        data = raw->light;
 
-    attribute(rt, rt->scene, id, data);
+    attribute(rt, id, data);
     return;
 }
 
-void create_scene(t_frame *rt)
+void create_scene(t_parse *info, t_frame *rt)
 {
-    t_scene *scene;
-
-    scene = init_scene();
-    rt->scene = scene;
-    fill_scene(rt, 'A');
+    rt->scene = init_3dw();
+    fill_scene(info, rt, 'A');
     write(1, "\nscene_created: A\n", 17);
-    fill_scene(rt, 'C');
+    fill_scene(info, rt, 'C');
     write(1, "\nscene_created: C\n", 17);
-    fill_scene(rt, 'L');
+    fill_scene(info, rt, 'L');
     write(1, "\nscene_created: L\n", 17);
     return;
 }

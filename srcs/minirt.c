@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 11:20:09 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/12/20 21:37:00 by user             ###   ########.fr       */
+/*   Updated: 2022/02/05 18:31:25 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 int minirt(void)
 {
     t_frame *rt;
+    t_parse *info;
     rt = init_frame();
+    info = init_parse();
 
-    fill_frame(rt);
+    fill_frame(info, rt);
     write(1, "\tframe\n", 7);
 
-    create_scene(rt);
+    create_scene(info, rt);
     write(1, "\tscene\n", 7);
 
     window_init(rt);
@@ -32,8 +34,6 @@ int minirt(void)
 
     render(rt);
     write(1, "\trender out\n", 11);
-    //exit(0);
-    
     mlx_loop(rt->mlx_ptr);
     return(0);
 }

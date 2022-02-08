@@ -27,7 +27,6 @@ char *make_line(char *archive)
     int i = 0;
     char *line;
     int line_size = has_line(archive) + 1;
-    printf("size: %d\n", line_size);
       
     line = malloc(line_size + 1);
 

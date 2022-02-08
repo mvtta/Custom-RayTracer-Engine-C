@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 11:20:21 by mvaldeta          #+#    #+#             */
-/*   Updated: 2021/12/07 17:32:41 by user             ###   ########.fr       */
+/*   Updated: 2022/02/04 12:03:20 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ char *parse_input(int fd)
 {
 	char *data = NULL;
 	data = get_next_line(fd);
-	printf("parsing:%s\n", data);
 	return(data);
 }
 

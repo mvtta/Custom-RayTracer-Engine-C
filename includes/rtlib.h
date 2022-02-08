@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/01/31 20:48:19 by user             ###   ########.fr       */
+/*   Updated: 2022/02/07 12:48:06 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,6 @@ typedef struct s_point
     float z;
 } t_point;
 
-typedef struct s_matrix
-{
-    float p_x;
-    float p_y;
-    float n_x;
-    float n_y;
-} t_matrix;
-
 typedef struct s_vec
 {
     float x;
@@ -72,23 +64,19 @@ typedef struct s_vec
     float z;
 } t_vec;
 
-typedef struct s_trans
+typedef struct s_matrix
 {
-    float aspect_ratio;
-    float dof;
-    t_matrix cam_matrix;
-    t_vec cam_in_3dworld;
-    t_vec anything_to_screen;
-    t_vec clipping_area;
-} t_trans;
-
-
+    double x;
+    double y;
+    double z;
+    double w;
+} t_matrix;
 
 typedef struct s_ray
 {
-    t_vec start;
-    t_vec dir;
-    t_vec norm;
+    t_vec *start;
+    t_vec *dir;
+    t_vec *norm;
     float len;
 } t_ray;
 
@@ -131,39 +119,61 @@ typedef struct s_data
 typedef struct s_obj
 {
     struct s_obj *prev;
+    struct s_obj *next;
+    float diameter;
+    float height;
+    float spec_r;
+    float shine;
     char *raw;
     char id1;
     int id2;
-    t_vec *obj_coord;
-    t_trans *obj_trans;
-    t_color *obj_color;
     t_vec *obj_norm;
     t_vec *p;
-    float diameter;
-    float height;
-    struct s_obj *next;
-    float spec_r;
-    float shine;
+    t_vec *obj_coord;
+    t_matrix *scale;
+    t_matrix *pan;
+    t_matrix *hom;
+    t_color *obj_color;
     t_data *img;
 
 } t_obj;
 
+typedef struct t_ambient
+{
+    float ambient;
+    t_color *amb_color;
+}t_ambient;
+
+typedef struct s_light
+{
+    float type;
+    float brightness;
+    t_vec *light_coord;
+    t_color *light_color;
+
+}t_light;
+
+typedef struct s_camera
+{
+    int lens;
+    float h_fov;
+    float v_fov;
+    float focus;
+    t_vec *cam_coord;
+    t_vec *cam_norm;
+    t_matrix *m;
+    t_vec clip_f;
+    t_vec clip_n;
+    
+}t_camera;
+
+
 typedef struct s_scene
 {
     char *id;
-    /* A */
-    float ambient;
-    t_color *amb_color;
-    /* C */
-    t_vec *cam_coord;
-    t_vec *cam_norm;
-    t_trans *cam_trans;
-    float fov;
-    /* L */
-    t_vec *light_coord;
-    float brightness;
-    t_color *light_color;
-    float far;
+    t_ambient *a;
+    t_light *l;
+    t_camera *c;
 
 } t_scene;
 
@@ -173,36 +183,39 @@ typedef struct s_time
     float closest_t;
 }t_time;
 
-typedef struct s_frame
+typedef struct s_parse
 {
     char *ambient;
     char *camera;
     char *light;
-    /* 🔺these are alocated separatly please
-    free after use thanks */
-    int window_w;
-    int window_h;
-    t_scene *scene;
-    t_obj *objs_first;
-    t_obj *objs_last;
-    int nbr_objs;
+}t_parse;
+
+typedef struct s_frame
+{
     void *mlx_ptr;
     void *win_ptr;
+    int window_w;
+    int window_h;
+    int nbr_objs;
+    t_obj *objs_first;
+    t_obj *objs_last;
+    t_scene *scene;
     t_data bkg_img;
     t_data obj_img;
     t_time record;
-    t_ray cam_ray;
-    t_ray light_ray;
-    t_ray shadow_ray;
-    t_ray reflection_ray;
+    t_ray *cam_ray;
+    t_ray *light_ray;
+    t_ray *shadow_ray;
+    t_ray *reflection_ray;
 
 } t_frame;
 
 /* prototypes */
 
 /* shapes */
+float compute_obj(t_ray *ray, t_obj *obj);
 
-t_axis gen_axis(t_obj *shape, t_ray ray);
+t_axis gen_axis(t_obj *shape, t_ray *ray);
 
 /* quadratics */
 
@@ -218,6 +231,11 @@ float get_time_pl(t_ray *ray, t_vec *point, t_vec *normal);
 void  print_vector(t_vec v, char *info);
 
 /* ray */
+void ray_init(t_ray **r);
+// void   ray_init(t_ray **ray);
+t_vec *ro_3(t_ray *ray, t_vec *where);
+t_vec *rd_3(t_ray *ray, t_vec *where);
+t_ray *ray_prime(t_ray *ray, t_vec *origin);
 t_ray ray_from_to(t_vec *point_origin, t_vec *point_direction);
 
 /* color */
@@ -230,6 +248,7 @@ t_color c_grade(t_color *source, t_color *color, double spec, double difuse);
 int c_channel_increase();
 
 /* control */
+int key_zoom(int keycode, t_frame *rt);
 int	key_kill(int keycode, t_frame *rt);
 
 /* rendering eq */
@@ -306,30 +325,40 @@ void create_sphere(t_obj *obj, char *data);
 void create_cylin(t_obj *obj, char *data);
 
 /* create_scene.c */
-void create_scene(t_frame *rt);
+void create_scene(t_parse *info, t_frame *rt);
 void create_objs(t_frame *rt);
 
 /* scene.c */
 
-t_scene *init_scene(void);
+t_scene *init_3dw(void);
+
 
 /* fill_scene.c */
 
-t_scene *att_ambient(t_scene *scene, char **data);
-t_scene *att_camera(t_scene *scene, char **data);
-t_scene *att_light(t_scene *scene, char **data);
-t_frame *attribute(t_frame *rt, t_scene *scene, char id, char *data);
-void fill_scene(t_frame *rt, char id);
+void    fill_scene(t_parse *info, t_frame *rt, char id);
+void    att_ambient(t_frame *rt, char **data);
+void    att_camera(t_frame *rt, char **data);
+void    att_light(t_frame *rt, char **data);
+t_frame *attribute(t_frame *rt, char id, char *data);
+
 
 /* frame.c */
-
-t_frame *init_frame(void);
-t_frame *fill_frame(t_frame *rt);
+t_frame *fill_frame(t_parse *raw, t_frame *rt);
 t_frame *kill_frame(t_frame *rt);
 
 /* parse.c */
 char *parse_input(int fd);
 char *save_raw(char *input);
+
+/* init */
+t_parse *init_parse(void);
+t_frame *init_frame(void);
+t_light *init_light(void);
+t_ambient *init_ambient(void);
+t_camera *init_camera(void);
+t_scene *init_3dw(void);
+
+/* free */
 
 /* minirt.c */
 

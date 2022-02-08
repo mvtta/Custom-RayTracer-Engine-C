@@ -6,19 +6,22 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:50:22 by user              #+#    #+#             */
-/*   Updated: 2022/01/28 19:48:38 by user             ###   ########.fr       */
+/*   Updated: 2022/02/07 13:40:43 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtlib.h"
 
-t_vec normalize(t_vec *p)
+t_vec normalize(t_vec *v)
 {
-    float w = sqrtf(p->x * p->x + p->y * p->y + p->z * p->z);
-    p->x /= w;
-    p->y /= w;
-    p->z /= w;
-    return (*p);
+    t_vec p;
+    p = v_3(v->x,v->y,v->z);
+    float w = length(*v);
+    //printf("LEN%f\n", w);
+    p.x /= w;
+    p.y /= w;
+    p.z /= w;
+    return (p);
 }
 
 t_vec v_scale(float scale, t_vec *vec)
@@ -112,6 +115,23 @@ t_vec v_3(float x, float y, float z)
     new.y = y;
     new.z = z;
     return(new);
+}
+
+t_vec *ro_3(t_ray *ray, t_vec *where)
+{
+    //exit(0);
+    ray->start->x = where->x;
+    ray->start->y = where->y;
+    ray->start->z = where->z;
+    return(ray->start);
+}
+
+t_vec *rd_3(t_ray *ray, t_vec *where)
+{
+    ray->dir->x = where->x;
+    ray->dir->y = where->y;
+    ray->dir->z = where->z;
+    return(ray->dir);
 }
 
 float dot_p(t_vec *v1, t_vec *v2)
