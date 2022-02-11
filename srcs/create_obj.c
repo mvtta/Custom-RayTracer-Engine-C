@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_obj.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 17:32:20 by user              #+#    #+#             */
-/*   Updated: 2022/02/08 17:07:16 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2022/02/09 20:54:27 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void create_plane(t_obj *obj, char *data)
     plane = ft_split(data, ' ');
 
     obj->id1 = 'p';
-    obj->id2 = count;
     obj->shine = 10;
     obj->spec_r = 0;
     obj->material = RUBBER;
@@ -100,7 +99,6 @@ void create_sphere(t_obj *obj, char *data)
     sphere = ft_split(data, ' ');
 
     obj->id1 = 's';
-    obj->id2 = count;
     obj->shine = 100;
     obj->spec_r = 1000;
     obj->material = PU;
@@ -117,7 +115,6 @@ void create_cylin(t_obj *obj, char *data)
     cylin = ft_split(data, ' ');
 
     obj->id1 = 'c';
-    obj->id2 = count;
     obj->shine = 0;
     obj->spec_r = 0;
     obj->material = RUBBER;

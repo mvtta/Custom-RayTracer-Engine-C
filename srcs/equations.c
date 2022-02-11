@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 12:30:11 by user              #+#    #+#             */
-/*   Updated: 2022/02/07 05:00:26 by user             ###   ########.fr       */
+/*   Updated: 2022/02/11 04:36:05 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,42 +15,19 @@
 float get_time_pl(t_ray *ray, t_vec *point, t_vec *normal)
 {
     float time;
-    float numerator;
     float denom;
-    t_vec to_p;
-    t_vec to_point;
-    t_vec to_coord;
-    t_vec n;
-
-    to_p = v_add(ray->dir, ray->start);
-    n = *normal;
-    // print_vector(to_point, "where");
-    to_point = *ray->dir;
-    to_coord = v_sub(ray->start, point);
-    // print_vector(to_point, "know");
-    to_point = normalize(&to_point);
-    to_coord = normalize(&to_coord);
-    numerator = dot_p(&to_coord, &n);
-    denom = dot_p(&to_point, &n);
-    // printf("denom:%f\n", denom);
-    // exit(0);
-    if (denom != 0.0 && denom > 1e-6)
+    denom = dot_p(normal, ray->dir);
+    //printf("denom%f\n", denom);
+    if (denom > 0.01)
     {
-        // printf("numerator:%f\n", numerator);
-        time = (numerator / denom);
-        to_p = v_scale(time, &to_p);
-        float where = length(to_p);
-        double is = dot_p(&to_p, &n);
-        // printf("is:%f\n", (is));
-   /*      printf("time:%f\n", time);
-        printf("were:%f\n", where); */
-        if(where > 20)
-            return (NO_HIT);
-        return (where);
-        if ((is) > 0.01)
-        {
-            printf("is:%f\n", (is));
-        }
+        t_vec hit = v_sub(ray->start, point);
+        time = dot_p(&hit, normal)  / denom;
+        //printf("time%f\n", time);
+    if (time > 0.01 && time < (ray->start->z + 100))
+    {
+        //printf("time%f\n", time);
+        return(time);
+    }
     }
     return (NO_HIT);
 }
