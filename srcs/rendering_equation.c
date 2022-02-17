@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_equation.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/02/16 18:00:09 by user             ###   ########.fr       */
+/*   Updated: 2022/02/17 14:54:23 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ double lambert(t_frame *rt, t_ray *ray, t_obj *obj)
     hit = v_scale(rt->record.latest_t, ray->dir);
     t_vec center = v_sub(ray->start, obj->obj_coord);
     hit_norm = v_sub(&hit, &center);
+    if(obj->id1 == 'p')
+        hit_norm = v_mult(obj->obj_norm, &hit);
     l = v_sub(ray->start, &hit);
     l = v_add(&l, &hit);
     att = ((length(l)));
@@ -159,25 +161,28 @@ t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj)
    //t_color shadow_b = {0, 0, 0, 0};
     ray_init(&shadow);
     t_vec tar = v_scale(rt->record.latest_t, ray->dir);
-    t_vec l = v_sub(ray->start, rt->scene->l->light_coord);
-    t_vec l_dir = v_add(&tar, &l);
-    l_dir = normalize(&l_dir);
-    shadow->start = ro_3(shadow, &tar);
-    shadow->dir = rd_3(shadow, &l_dir);
+    t_vec center = v_sub(rt->scene->l->light_coord, obj->obj_coord);
+    tar = v_sub(&center, &tar);
+    tar = v_scale(0.3, &tar);
+    //tar = normalize(&tar);
+    //t_vec l = v_add(rt->scene->l->light_coord, &tar);
+    //t_vec l_dir = v_sub(&tar, &l);
+    //t_vec l_dir = normalize(&l_dir);
+    shadow->start = rd_3(shadow, rt->scene->l->light_coord);
+    shadow->dir = ro_3(shadow, &tar);
     while (++i <= rt->nbr_objs)
     {
 
         hit = compute_obj(shadow, current);
-        if (hit != NO_HIT && current->id2 != obj->id2)
+        if (hit != NO_HIT && current)
         {
-  /*           print_vector(tar, "hit");
-            print_vector(hit_norm, "hit_norm");
-            print_vector(l, "t0_light");
-            print_vector(l_dir, "t0_light_from n");
-            print_vector(p, "from_light_from t0");
+            break;
+            /* print_vector(tar, "tar");
+            print_vector(*ray->start, "from_light");
+            print_vector(*ray->dir, "to_oposite");
             printf("hit:%f\n", hit);
             exit(0); */
-            volume = c_grade(current->obj_color, obj->obj_color, 0, hit);
+            volume = c_grade(current->obj_color, obj->obj_color, 0, (1 / hit) * 0.3);
             // printf("shadow\n");
             return (volume);
         }

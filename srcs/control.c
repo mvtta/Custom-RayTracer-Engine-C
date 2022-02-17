@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   control.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 14:28:56 by user              #+#    #+#             */
-/*   Updated: 2022/02/14 12:14:26 by user             ###   ########.fr       */
+/*   Updated: 2022/02/17 15:07:48 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int key_kill(int keycode, t_frame *rt)
     {
         printf("keycode LL: %d\n", keycode);
         print_vector(*rt->scene->c->cam_coord, "cam_test_control");
-        rt->scene->l->light_coord->z -= 10;
+        rt->scene->l->light_coord->x -= 10;
         mlx_destroy_image(rt->mlx_ptr, rt->obj_img.img_ptr);
         rt->obj_img.img_ptr = mlx_new_image(rt->mlx_ptr, rt->window_w, rt->window_h);
         rt->obj_img.data = (int *)mlx_get_data_addr(rt->obj_img.img_ptr, &rt->obj_img.bits_per_pixel, &rt->obj_img.line_length, &rt->obj_img.endian);
@@ -95,7 +95,7 @@ int key_kill(int keycode, t_frame *rt)
     {
         printf("keycode LR: %d\n", keycode);
         print_vector(*rt->scene->c->cam_coord, "cam_test_control");
-        rt->scene->l->light_coord->z += 10;
+        rt->scene->l->light_coord->x += 10;
         mlx_destroy_image(rt->mlx_ptr, rt->obj_img.img_ptr);
         rt->obj_img.img_ptr = mlx_new_image(rt->mlx_ptr, rt->window_w, rt->window_h);
         rt->obj_img.data = (int *)mlx_get_data_addr(rt->obj_img.img_ptr, &rt->obj_img.bits_per_pixel, &rt->obj_img.line_length, &rt->obj_img.endian);
@@ -112,11 +112,11 @@ int key_kill(int keycode, t_frame *rt)
             search_plane = search_plane->next;
         //search_plane->obj_coord->x += 100;
         //search_plane->obj_coord->x += 10;
-        search_plane->obj_coord->y -= 100;
-        search_plane->obj_coord->z -= 100;
+        search_plane->obj_norm->z -= 1;
+        //search_plane->obj_coord->z -= 10;
         //search_plane->obj_coord->z -= 100;
-        search_plane->obj_norm->y -= 10;
-        search_plane->obj_norm->z -= 10;
+       // search_plane->obj_norm->y -= 10;
+        //search_plane->obj_norm->z -= 10;
         print_vector(*search_plane->obj_norm, "plane_test_normcontrol");
         print_vector(*search_plane->obj_coord, "plane_test_coordcontrol");
         mlx_destroy_image(rt->mlx_ptr, rt->obj_img.img_ptr);
@@ -135,11 +135,13 @@ int key_kill(int keycode, t_frame *rt)
             search_plane = search_plane->next;
         //search_plane->obj_coord->x -= 100;
         //search_plane->obj_coord->x -= 10;
-        search_plane->obj_coord->y += 100;
-        search_plane->obj_coord->z += 100;
+        search_plane->obj_norm->z += 1;
+        search_plane->obj_norm->y -= 1;
+        //search_plane->obj_coord->z += 10;
+        //search_plane->obj_coord->z += 10;
         //search_plane->obj_coord->z += 100;
-        search_plane->obj_norm->y += 10;
-        search_plane->obj_norm->z += 10;
+        //search_plane->obj_norm->y += 10;
+        //search_plane->obj_norm->z += 10;
         //search_plane->obj_norm->z += 10;
         print_vector(*search_plane->obj_norm, "plane_test_normcontrol");
         print_vector(*search_plane->obj_coord, "plane_test_coordcontrol");
