@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/02/08 21:51:47 by user             ###   ########.fr       */
+/*   Updated: 2022/02/16 18:00:09 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ the incident ray reflects
         g(t) = f(t)|t1  t0|
     use random sample to make average estimation
 
+
 */
 double c_clamp(double d, double min, double max)
 {
@@ -90,12 +91,12 @@ double lambert(t_frame *rt, t_ray *ray, t_obj *obj)
     hit = v_scale(rt->record.latest_t, ray->dir);
     t_vec center = v_sub(ray->start, obj->obj_coord);
     hit_norm = v_sub(&hit, &center);
-    l = v_sub(rt->scene->l->light_coord, ray->start);
+    l = v_sub(ray->start, &hit);
     l = v_add(&l, &hit);
     att = ((length(l)));
     l = normalize(&l);
     hit_norm = normalize(&hit_norm);
-    difuse = c_clamp(dot_p(&hit_norm, &l), 0.0, 1.0) * (0.8) * 10.0f / (att);
+    difuse = c_clamp(dot_p(&hit_norm, &l) + (0.8 / (att)), 0.0, 1.0);
     return ((difuse));
 }
 
@@ -152,24 +153,33 @@ t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj)
     t_color volume;
     t_obj *current;
     float hit;
-    int i = 0;
+    int i = -1;
     current = rt->objs_first;
     t_ray *shadow;
+   //t_color shadow_b = {0, 0, 0, 0};
     ray_init(&shadow);
     t_vec tar = v_scale(rt->record.latest_t, ray->dir);
-    t_vec center = v_sub(ray->start, obj->obj_coord);
-    t_vec hit_norm = v_sub(&tar, &center);
+    t_vec l = v_sub(ray->start, rt->scene->l->light_coord);
+    t_vec l_dir = v_add(&tar, &l);
+    l_dir = normalize(&l_dir);
     shadow->start = ro_3(shadow, &tar);
-    shadow->dir = rd_3(shadow, &hit_norm);
+    shadow->dir = rd_3(shadow, &l_dir);
     while (++i <= rt->nbr_objs)
-    {   
+    {
 
         hit = compute_obj(shadow, current);
-        if (hit != NO_HIT && current != obj)
+        if (hit != NO_HIT && current->id2 != obj->id2)
         {
-            volume = c_grade(obj->obj_color, current->obj_color, (obj->shine / length(*(shadow->dir)) * 0.018), 0);
-            if(obj->id1 != 'c')
-                return (volume);
+  /*           print_vector(tar, "hit");
+            print_vector(hit_norm, "hit_norm");
+            print_vector(l, "t0_light");
+            print_vector(l_dir, "t0_light_from n");
+            print_vector(p, "from_light_from t0");
+            printf("hit:%f\n", hit);
+            exit(0); */
+            volume = c_grade(current->obj_color, obj->obj_color, 0, hit);
+            // printf("shadow\n");
+            return (volume);
         }
         i++;
         current = current->next;

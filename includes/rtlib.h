@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtlib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/02/08 16:50:13 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2022/02/13 22:19:44 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,9 @@ typedef struct s_frame
 } t_frame;
 
 /* prototypes */
+
+/* lens */
+float get_focal_len(float fov);
 
 /* shapes */
 float compute_obj(t_ray *ray, t_obj *obj);

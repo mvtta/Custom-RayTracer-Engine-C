@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 12:42:42 by user              #+#    #+#             */
-/*   Updated: 2022/02/05 22:07:19 by user             ###   ########.fr       */
+/*   Updated: 2022/02/14 03:26:02 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ float  ndc(t_frame *rt, float coord, char id)
     printf("HFOV:%f\n", rt->scene->c->h_fov);
     exit(0); */
     if(id == 'x')
-        coord = (2 * ((coord + 0.5) / rt->window_w) -1) * atan((rt->scene->c->h_fov / 2) * (M_PI / 180)) * aspect_ratio;
+        coord = rt->scene->c->cam_norm->x + (2 * ((coord + 0.5) / rt->window_w) -1) * atan((rt->scene->c->h_fov / 2) * (M_PI / 180)) * aspect_ratio;
     if(id == 'y')
-       coord = (1 - 2 * (coord + 0.5) / rt->window_h) * atan((rt->scene->c->v_fov / 2) * (M_PI / 180)) * aspect_ratio;
+       coord = rt->scene->c->cam_norm->y + (1 - 2 * (coord + 0.5) / rt->window_h) * atan((rt->scene->c->v_fov / 2) * (M_PI / 180)) * aspect_ratio;
     if(id == 'z')
         return(rt->scene->c->cam_norm->z);
     return(coord);

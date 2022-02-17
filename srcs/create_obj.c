@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 17:32:20 by user              #+#    #+#             */
-/*   Updated: 2022/02/09 20:54:27 by user             ###   ########.fr       */
+/*   Updated: 2022/02/14 11:29:38 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void add_new_obj(t_frame *rt, char *data)
 void create_plane(t_obj *obj, char *data)
 {
     char **plane;
-    static int count;
     plane = ft_split(data, ' ');
 
     obj->id1 = 'p';
@@ -89,13 +88,11 @@ void create_plane(t_obj *obj, char *data)
     obj->p = obj->obj_coord;
     obj->obj_norm = ascii_to_vec(plane[2]);
     obj->obj_color = ascii_to_rgb(plane[3]);
-    count += 1;
 }
 
 void create_sphere(t_obj *obj, char *data)
 {
     char **sphere;
-    static int count;
     sphere = ft_split(data, ' ');
 
     obj->id1 = 's';
@@ -105,13 +102,11 @@ void create_sphere(t_obj *obj, char *data)
     obj->obj_coord = ascii_to_vec(sphere[1]);
     obj->diameter = ascii_to_float(sphere[2]);
     obj->obj_color = ascii_to_rgb(sphere[3]);
-    count += 1;
 }
 
 void create_cylin(t_obj *obj, char *data)
 {
     char **cylin;
-    static int count;
     cylin = ft_split(data, ' ');
 
     obj->id1 = 'c';
@@ -125,5 +120,4 @@ void create_cylin(t_obj *obj, char *data)
     obj->height = ascii_to_float(cylin[4]);
     obj->obj_color = ascii_to_rgb(cylin[5]);
 
-    count += 1;
 }
