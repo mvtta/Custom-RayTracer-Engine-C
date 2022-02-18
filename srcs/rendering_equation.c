@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_equation.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/02/18 13:54:19 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2022/02/18 22:42:48 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,23 +156,21 @@ t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj)
     current = rt->objs_first;
     t_ray *shadow;
     ray_init(&shadow);
-    t_vec to_hit = v_sub(ray->start, ray->dir);
-    t_vec tar = v_scale(rt->record.latest_t, &to_hit);
-    //t_vec to_center = v_sub(ray->start, obj->obj_coord);
+    t_vec to_hit = v_scale(rt->record.latest_t, ray->dir);
+    to_hit = v_scale(1e1, &to_hit);
+    //t_vec tar = v_scale(rt->record.latest_t, &to_hit);
     //t_vec norm = v_sub(&tar, &to_center);
-    //t_vec ltostart = v_sub(&tar, rt->scene->l->light_coord);
-    //t_vec ldir = v_add(&tar, &norm);
-    to_hit = v_scale(1e-4, &tar);
-    //ldir = normalize(&ldir);
-    shadow->start = ro_3(shadow, &tar);
-    shadow->dir = rd_3(shadow, &to_hit);
+    t_vec ldir = v_sub(rt->scene->l->light_coord, &to_hit);
+    ldir = normalize(&ldir);
+    shadow->start = ro_3(shadow, &to_hit);
+    shadow->dir = rd_3(shadow, &ldir);
     while (++i <= rt->nbr_objs)
     {   
 
         hit = compute_obj(shadow, current);
-        if (hit != NO_HIT && current != obj)
+        if (hit != NO_HIT && current->id2 != obj->id2)
         {
-            volume = c_grade(current->obj_color, obj->obj_color, 0, (1 / length(*(shadow->dir))));
+            volume = c_grade(current->obj_color, obj->obj_color, 0, hit * 0.018);
             return (volume);
         }
         i++;
