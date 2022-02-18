@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_equation.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/02/07 13:42:44 by user             ###   ########.fr       */
+/*   Updated: 2022/02/18 13:54:19 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,11 +156,16 @@ t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj)
     current = rt->objs_first;
     t_ray *shadow;
     ray_init(&shadow);
-    t_vec tar = v_scale(rt->record.latest_t, ray->dir);
-    t_vec center = v_sub(ray->start, obj->obj_coord);
-    t_vec hit_norm = v_sub(&tar, &center);
+    t_vec to_hit = v_sub(ray->start, ray->dir);
+    t_vec tar = v_scale(rt->record.latest_t, &to_hit);
+    //t_vec to_center = v_sub(ray->start, obj->obj_coord);
+    //t_vec norm = v_sub(&tar, &to_center);
+    //t_vec ltostart = v_sub(&tar, rt->scene->l->light_coord);
+    //t_vec ldir = v_add(&tar, &norm);
+    to_hit = v_scale(1e-4, &tar);
+    //ldir = normalize(&ldir);
     shadow->start = ro_3(shadow, &tar);
-    shadow->dir = rd_3(shadow, &hit_norm);
+    shadow->dir = rd_3(shadow, &to_hit);
     while (++i <= rt->nbr_objs)
     {   
 
