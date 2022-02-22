@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/02/07 13:31:26 by user             ###   ########.fr       */
+/*   Updated: 2022/02/21 19:11:18 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ float compute_obj(t_ray *ray, t_obj *obj)
 {
     float t;
     if (obj->id1 == PLANE)
-        t = ray_plane(ray, obj, *obj->obj_coord);
+        t = ray_plane(ray, obj);
     if (obj->id1 == SPHERE)
         t = ray_sphere(ray, obj, *obj->obj_coord);
     if (obj->id1 == 'c')

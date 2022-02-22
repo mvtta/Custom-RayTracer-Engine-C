@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   equations.c                                        :+:      :+:    :+:   */
+/*   lens.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/27 12:30:11 by user              #+#    #+#             */
-/*   Updated: 2022/02/19 17:19:38 by user             ###   ########.fr       */
+/*   Created: 2022/02/19 13:45:34 by user              #+#    #+#             */
+/*   Updated: 2022/02/19 13:45:36 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtlib.h"
 
-/* float get_time_pl(t_ray *ray, t_vec *point, t_vec *normal)
+float get_focal_len(float fov)
 {
-    return (NO_HIT);
-} */
+    float fl;
+    float half = fov / 2;
+    fl = (half / (atanf(half)));
+    return((fl));
+}

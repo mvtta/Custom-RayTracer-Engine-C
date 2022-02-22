@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 17:32:20 by user              #+#    #+#             */
-/*   Updated: 2022/02/18 21:11:47 by user             ###   ########.fr       */
+/*   Updated: 2022/02/21 16:33:45 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_obj *new_obj(t_frame *rt, char *data)
     new->id1 = new->raw[0];
     new->id2 = rt->nbr_objs;
     new->obj_coord = NULL;
+    new->p = NULL;
     new->obj_color = NULL;
     new->obj_norm = NULL;
     new->diameter = 0;
@@ -74,7 +75,21 @@ void create_plane(t_obj *obj, char *data)
     obj->obj_coord = ascii_to_vec(plane[1]);
     obj->obj_norm = ascii_to_vec(plane[2]);
     obj->obj_color = ascii_to_rgb(plane[3]);
-    
+    obj->d = solve_d(obj, *obj->obj_coord);
+    //printf("d:%f\n", obj->d);
+    //exit(0);
+ /*    printf("d:%f\n", obj->d);
+    printf("p:%c\n", obj->id1);
+    exit(0); */
+/*     print_vector(*obj->obj_norm, "norm");
+    printf("d:%f\n", d);
+    exit(0); */
+/*     print_vector(normal, "norm");
+    print_vector(*obj->obj_norm, "ptrnorm"); */
+    //exit(0);
+/*     print_vector(normal, "norm");
+    print_vector(*obj->obj_norm, "ptrnorm");
+    exit(0); */
 }
 
 void create_sphere(t_obj *obj, char *data)

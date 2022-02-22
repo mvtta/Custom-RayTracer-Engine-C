@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/02/07 12:48:06 by user             ###   ########.fr       */
+/*   Updated: 2022/02/22 15:13:40 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,10 @@ typedef struct s_obj
     char *raw;
     char id1;
     int id2;
+    float d;
     t_vec *obj_norm;
     t_vec *p;
+    t_vec test;
     t_vec *obj_coord;
     t_matrix *scale;
     t_matrix *pan;
@@ -219,7 +221,10 @@ t_axis gen_axis(t_obj *shape, t_ray *ray);
 
 /* quadratics */
 
-float solve_q(float a, float b, float c, float t);
+float solve_q(t_obj *o, t_vec p);
+float solve_d(t_obj *o, t_vec p);
+float solve_abcd(float a, float b, float c, float d);
+float solve_abc(float a, float b, float c);
 
 /* equations */
 
@@ -262,6 +267,7 @@ float  ndc(t_frame *rt, float coord, char id);
 t_vec   world2scene(int width, int heigh, t_vec *coordinates);
 
 /* vector.c */
+t_vec normal_2p(t_vec *p1, t_vec *p2);
 t_vec v_normcy(t_vec *v1);
 float   degree_to_percentage(float degree);
 double          angle_bet_vs(t_vec *v1, t_vec *v2);
@@ -288,7 +294,7 @@ double			length(t_vec v);
 
 float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord);
 float ray_cy(t_ray *r, t_obj *p, t_vec obj_coord);
-float ray_plane(t_ray *r, t_obj *p, t_vec obj_coord);
+float ray_plane(t_ray *r, t_obj *p);
 /* render.c */
 
 float compute_light_plane(t_frame *rt, t_ray *ray, t_vec obj_coord);
