@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 14:28:56 by user              #+#    #+#             */
-/*   Updated: 2022/02/22 23:47:38 by user             ###   ########.fr       */
+/*   Updated: 2022/02/23 02:47:34 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int key_kill(int keycode, t_frame *rt)
     {
         printf("keycode LL: %d\n", keycode);
         print_vector(*rt->scene->l->light_coord, "ltest_control");
-        rt->scene->l->light_coord->y -= 10;
+        rt->scene->l->light_coord->x -= 10;
         mlx_destroy_image(rt->mlx_ptr, rt->obj_img.img_ptr);
         rt->obj_img.img_ptr = mlx_new_image(rt->mlx_ptr, rt->window_w, rt->window_h);
         rt->obj_img.data = (int *)mlx_get_data_addr(rt->obj_img.img_ptr, &rt->obj_img.bits_per_pixel, &rt->obj_img.line_length, &rt->obj_img.endian);
@@ -95,7 +95,7 @@ int key_kill(int keycode, t_frame *rt)
     {
         printf("keycode LR: %d\n", keycode);
         print_vector(*rt->scene->l->light_coord, "ltest_control");
-        rt->scene->l->light_coord->y += 10;
+        rt->scene->l->light_coord->x += 10;
         mlx_destroy_image(rt->mlx_ptr, rt->obj_img.img_ptr);
         rt->obj_img.img_ptr = mlx_new_image(rt->mlx_ptr, rt->window_w, rt->window_h);
         rt->obj_img.data = (int *)mlx_get_data_addr(rt->obj_img.img_ptr, &rt->obj_img.bits_per_pixel, &rt->obj_img.line_length, &rt->obj_img.endian);
