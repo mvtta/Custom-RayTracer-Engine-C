@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/02/23 00:58:02 by user             ###   ########.fr       */
+/*   Updated: 2022/02/23 02:16:31 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ double lambert(t_frame *rt, t_ray *ray, t_obj *obj)
     if (obj->id1 == SPHERE)
         hit_norm = v_sub(&hit, &center);
     else
-        hit_norm = v_mult(obj->obj_norm, &hit);
+        hit_norm = *obj->obj_norm;
     l = v_sub(rt->scene->l->light_coord, ray->start);
     l = v_add(&l, &hit);
     //att = (length(l));
@@ -128,7 +128,7 @@ double blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
     if (obj->id1 == SPHERE)
         hit_norm = v_sub(&hit, &center);
     else
-        return(0);
+        hit_norm = *obj->obj_norm;
     v = hit;
     v = normalize(&v);
     camera = length(l);
@@ -157,11 +157,13 @@ t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj)
     t_vec to_hit = v_scale(rt->record.latest_t, ray->dir);
     t_vec norm = normal_2p(&to_hit, obj->obj_coord);
     //to_hit = v_scale(0.3, &to_hit);
-    t_color black = {0, 255, 0, 0};
+    //t_color black = {0, 255, 0, 0};
     // t_vec tar = v_scale(rt->record.latest_t, &to_hit);
     // t_vec norm = v_sub(&tar, &to_center);
-    t_vec ldir = v_sub(&to_hit, rt->scene->l->light_coord);
+    t_vec ldir = v_sub(rt->scene->l->light_coord, ray->start);
+    ldir = v_add(&ldir, &to_hit);
     norm = v_scale(-1, &norm);
+    norm = v_scale(-0.3, &ldir);
     //t_vec l_dir = v_3(0, 1, 0);
     //norm = normalize(&norm);
     shadow->start = ro_3(shadow, &norm);
@@ -174,8 +176,8 @@ t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj)
         if (hit != NO_HIT && current)
         {
            // printf("here2");
-            volume = c_grade(current->obj_color, obj->obj_color, 0, hit * 0.3);
-            return (black);
+            volume = c_grade(rt, obj->obj_color, 0, hit * 0.3);
+            return (volume);
         }
         i--;
         current = current->prev;
@@ -183,6 +185,6 @@ t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj)
     double difuse = lambert(rt, ray, obj);
     double spec = blinn_phong(rt, ray, obj);
     //difuse = 0;
-    volume = c_grade(rt->scene->l->light_color, obj->obj_color, spec, difuse);
+    volume = c_grade(rt, obj->obj_color, spec, difuse);
     return (volume);
 }

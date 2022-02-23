@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:19:06 by user              #+#    #+#             */
-/*   Updated: 2022/02/23 01:03:00 by user             ###   ########.fr       */
+/*   Updated: 2022/02/23 01:31:22 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,25 @@ int c_hue(t_color *check)
     return (index);
 }
 
-t_color c_mix(t_color *source, t_color *obj, double spec, double difuse)
+t_color c_mix(t_frame *rt, t_color *obj, double spec, double difuse)
 {
     t_color mixed;
+    t_color source;
+    t_color ambient;
+
+    source = *rt->scene->l->light_color;
+    ambient = *rt->scene->a->amb_color;
     //*source = yellow;
-    mixed.r = c_range((source->r * spec) + ((obj->r * difuse)), 0, 255);
-    mixed.g = c_range((source->g * spec) + ((obj->g * difuse)), 0, 255);
-    mixed.b = c_range((source->b * spec) + ((obj->b * difuse)), 0, 255);
+    mixed.r = c_range((source.r * spec) + (ambient.r * difuse) + (obj->r * difuse), 0, 255);
+    mixed.g = c_range((source.g * spec) + (ambient.g * difuse) + (obj->g * difuse), 0, 255);
+    mixed.b = c_range((source.b * spec) + (ambient.b * difuse) + (obj->b * difuse), 0, 255);
     return (mixed);
 }
 
-t_color c_grade(t_color *source, t_color *color, double spec, double difuse)
+t_color c_grade(t_frame *rt, t_color *color, double spec, double difuse)
 {
     t_color new;
-    new = c_mix(source, color, spec, difuse);
+    new = c_mix(rt, color, spec, difuse);
     new.hex = DEC(new.r, new.g, new.b);
     return (new);
 }

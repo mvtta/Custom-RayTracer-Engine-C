@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/02/22 15:13:40 by user             ###   ########.fr       */
+/*   Updated: 2022/02/23 01:26:45 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,8 +248,8 @@ int c_range(int d, int min, int max);
 int c_increase(int max);
 float c_percentage(int color);
 int c_hue(t_color *check);
-t_color c_mix(t_color *source, t_color *obj, double spec, double difuse);
-t_color c_grade(t_color *source, t_color *color, double spec, double difuse);
+t_color c_mix(t_frame *rt, t_color *obj, double spec, double difuse);
+t_color c_grade(t_frame *rt, t_color *color, double spec, double difuse);
 int c_channel_increase();
 
 /* control */
