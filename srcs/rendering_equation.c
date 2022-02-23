@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/02/21 18:14:43 by user             ###   ########.fr       */
+/*   Updated: 2022/02/23 00:58:02 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,19 +88,20 @@ double lambert(t_frame *rt, t_ray *ray, t_obj *obj)
     t_vec l;
 
     hit = v_scale(rt->record.latest_t, ray->dir);
+    //hit = v_sub(ray->start, &hit);
     t_vec center = v_sub(ray->start, obj->obj_coord);
     if (obj->id1 == SPHERE)
         hit_norm = v_sub(&hit, &center);
     else
-        hit_norm = v_sub(&center, &hit);
-    //hit_norm = normal_2p(&hit, &center);
-    //hit_norm = v_sub(&hit, &center);
+        hit_norm = v_mult(obj->obj_norm, &hit);
     l = v_sub(rt->scene->l->light_coord, ray->start);
     l = v_add(&l, &hit);
-    att = (length(l));
+    //att = (length(l));
+    att = (1 /length(l));
     l = normalize(&l);
     hit_norm = normalize(&hit_norm);
-    difuse = c_clamp(dot_p(&hit_norm, &l), 0.0, 1.0) * (0.8) * 10.0f / (att);
+    //difuse = c_clamp(dot_p(&hit_norm, &l) + (0.2 / (att)), 0.0, 1.0);
+    difuse = c_clamp(dot_p(&hit_norm, &l), 0.0, 1.0) * (10) * (att);    
     return ((difuse));
 }
 
@@ -139,7 +140,7 @@ double blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
     float dot = dot_p(&h, &hit_norm);
     if (dot < 0 || dot < 0.7)
         return (0);
-    spec = pow(dot, 1000) * (attenuation * 30);
+    spec = pow(dot, 1000) * (attenuation) * 80;
     total = c_clamp(spec, 0.0, 1);
     return (total);
 }
@@ -149,33 +150,39 @@ t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj)
     t_color volume;
     t_obj *current;
     float hit;
-    int i = -1;
-    current = rt->objs_first;
+    int i = rt->nbr_objs;
+    current = rt->objs_last;
     t_ray *shadow;
     ray_init(&shadow);
     t_vec to_hit = v_scale(rt->record.latest_t, ray->dir);
-    // to_hit = v_scale(1e1, &to_hit);
-    // t_color black = {0, 0, 0, 0};
+    t_vec norm = normal_2p(&to_hit, obj->obj_coord);
+    //to_hit = v_scale(0.3, &to_hit);
+    t_color black = {0, 255, 0, 0};
     // t_vec tar = v_scale(rt->record.latest_t, &to_hit);
     // t_vec norm = v_sub(&tar, &to_center);
-    t_vec ldir = v_sub(rt->scene->l->light_coord, &to_hit);
-    // ldir = normalize(&ldir);
-    shadow->start = ro_3(shadow, &to_hit);
+    t_vec ldir = v_sub(&to_hit, rt->scene->l->light_coord);
+    norm = v_scale(-1, &norm);
+    //t_vec l_dir = v_3(0, 1, 0);
+    //norm = normalize(&norm);
+    shadow->start = ro_3(shadow, &norm);
     shadow->dir = rd_3(shadow, &ldir);
-    while (++i <= rt->nbr_objs)
+    while (i >= 0)
     {
 
         hit = compute_obj(shadow, current);
-        if (hit != NO_HIT && current->id2 != obj->id2)
+        //printf("here");
+        if (hit != NO_HIT && current)
         {
-            volume = c_grade(current->obj_color, obj->obj_color, 0, hit * obj->spec_r);
-            return (volume);
+           // printf("here2");
+            volume = c_grade(current->obj_color, obj->obj_color, 0, hit * 0.3);
+            return (black);
         }
-        i++;
-        current = current->next;
+        i--;
+        current = current->prev;
     }
     double difuse = lambert(rt, ray, obj);
     double spec = blinn_phong(rt, ray, obj);
+    //difuse = 0;
     volume = c_grade(rt->scene->l->light_color, obj->obj_color, spec, difuse);
     return (volume);
 }

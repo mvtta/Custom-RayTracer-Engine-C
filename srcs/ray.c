@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:02:38 by user              #+#    #+#             */
-/*   Updated: 2022/02/06 20:13:36 by user             ###   ########.fr       */
+/*   Updated: 2022/02/23 00:21:45 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,17 @@ t_ray *ray_prime(t_ray *ray, t_vec *origin)
 }
 
 t_ray ray_from_to(t_vec *point_origin, t_vec *point_direction)
+{
+    t_ray *new;
+    ray_init(&new);
+    *new->start = v_3(point_origin->x, point_origin->y, point_origin->z);
+    *new->dir = v_3(point_direction->x, point_direction->y, point_direction->z);
+    *new->norm = normalize(new->dir);
+    new->len = length(*new->dir);
+    return(*new);
+}
+
+t_ray ray_shadow(t_vec *point_origin, t_vec *point_direction)
 {
     t_ray *new;
     ray_init(&new);
