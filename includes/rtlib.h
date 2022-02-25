@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/02/23 01:26:45 by user             ###   ########.fr       */
+/*   Updated: 2022/02/23 16:00:11 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,8 @@ typedef struct s_camera
     int lens;
     float h_fov;
     float v_fov;
-    float focus;
+    float focal_l;
+    float a_ratio;
     t_vec *cam_coord;
     t_vec *cam_norm;
     t_matrix *m;
@@ -213,6 +214,9 @@ typedef struct s_frame
 } t_frame;
 
 /* prototypes */
+
+/* lens */
+float get_focal_len(float fov);
 
 /* shapes */
 float compute_obj(t_ray *ray, t_obj *obj);

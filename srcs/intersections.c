@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:45:46 by user              #+#    #+#             */
-/*   Updated: 2022/02/23 02:06:27 by user             ###   ########.fr       */
+/*   Updated: 2022/02/24 15:18:28 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord)
 			return (t0);
 		}
 		// float q = MAX(-0.5 * (b + sqrtf(discr)), -0.5 * (b - sqrtf(discr)));
-		float t1 = (-b - sqrt(discr)) / (2 * a);
-		float t2 = (-b + sqrt(discr)) / (2 * a);
+		float t1 = (-b - sqrtf(discr)) / (2 * a);
+		float t2 = (-b + sqrtf(discr)) / (2 * a);
 		if (t1 > t2)
 		{
 			float tmp = t1;
@@ -66,7 +66,7 @@ float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord)
 			t1 = t2;
 		if (t1 > 0)
 		{
-			// printf("\tT1: %f\n", t1);
+			//printf("\tt1: %f\n", t1);
 			return (t1);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 12:20:57 by user              #+#    #+#             */
-/*   Updated: 2022/02/05 22:36:03 by user             ###   ########.fr       */
+/*   Updated: 2022/02/23 11:41:26 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_camera *init_camera(void)
     new->lens = 0;
     new->h_fov = 0;
     new->v_fov = 0;
-    new->focus = 0;
+    new->focal_l = 0;
     new->cam_coord = NULL;
     new->cam_norm = NULL;
     new->m = NULL;
