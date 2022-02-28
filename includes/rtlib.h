@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtlib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/02/25 18:07:57 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2022/02/27 13:10:24 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,7 +304,7 @@ float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord);
 float ray_cy(t_ray *r, t_obj *p, t_vec obj_coord);
 float ray_plane(t_ray *r, t_obj *p);
 /* render.c */
-
+void iterate_obj(t_frame *rt, t_ray *prime, int x, int y);
 float compute_light_plane(t_frame *rt, t_ray *ray, t_vec obj_coord);
 float compute_light(t_frame *rt, t_ray *ray, t_vec obj_coord);
 void my_mlx_pixel_put(t_data *data, int x, int y, unsigned int color);
