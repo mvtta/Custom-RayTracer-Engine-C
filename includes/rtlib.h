@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtlib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/02/27 13:10:24 by user             ###   ########.fr       */
+/*   Updated: 2022/02/28 18:52:57 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,13 @@ typedef struct s_point
     float z;
 } t_point;
 
+typedef struct s_pixel
+{
+    int x;
+    int y;
+    
+}t_pixel;
+
 typedef struct s_vec
 {
     float x;
@@ -71,6 +78,19 @@ typedef struct s_matrix
     double z;
     double w;
 } t_matrix;
+
+typedef struct s_boxblur
+{
+    t_pixel m_00;
+    t_pixel m_01;
+    t_pixel m_02;
+    t_pixel m_10;
+    t_pixel m_11;
+    t_pixel m_12;
+    t_pixel m_20;
+    t_pixel m_21;
+    t_pixel m_22;
+} t_boxblur;
 
 typedef struct s_ray
 {
@@ -217,6 +237,8 @@ typedef struct s_frame
 
 /* effects.c */
 int limit_kernel(t_frame *rt, float source, float deviation, char xy);
+t_boxblur gaussian_var(int x, int y);
+unsigned int apply_blur(t_frame *rt, int x, int y);
 
 
 /* lens */

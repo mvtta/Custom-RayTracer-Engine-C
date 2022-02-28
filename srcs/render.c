@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/02/28 12:48:30 by user             ###   ########.fr       */
+/*   Updated: 2022/02/28 18:23:00 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,44 +32,13 @@ void iterate_obj(t_frame *rt, t_ray *prime, int x, int y)
                 my_mlx_pixel_put(&rt->obj_img, x, (rt->window_h - 1) - y, volume.hex);
             else
             {
-                double k1[] = {0.3, 1.5, 2.8, 1.8, 3.3};
-                double k2[] = {2, 1.8, 1.4, 0.5, 3.2};
-                double k3[] = {1, 2, 3, 4, 5};
-                int dev_x = fmod(x, 5);
-                int dev_y = fmod(y, 5);
-/*                 int in1_rangex;
-                int in1_rangey;
-                int in2_rangex;
-                int in2_rangey;
-
-                in1_rangex = limit_kernel(rt, x, x + k1[dev_x], 'x');
-                in1_rangey = limit_kernel(rt, y, y + k1[dev_y], 'y');
-                in2_rangex = limit_kernel(rt, x, x + k2[dev_x], 'x');
-                in2_rangey = limit_kernel(rt, y, y + k2[dev_y], 'y'); */
-
-                int hor[] = {1, 0};
-                int ver[] = {0, 1};
-                int up[] = {};
-                int down[] = ;
-
-                center = 1;
-
-                my_mlx_pixel_put(&rt->obj_img, x, (rt->window_h - 1) - y, volume.hex);
-    //my_mlx_pixel_put(&rt->obj_img, in_rangex, (rt->window_h - 1) - in_rangey, 65280);
-                //my_mlx_pixel_put(&rt->obj_img, x + (k1[dev_x]), (rt->window_h - 1) - (y - k1[dev_y]), 255);
-                //my_mlx_pixel_put(&rt->obj_img, in1_rangex, (rt->window_h - 1) - y, 16711680);
-                //my_mlx_pixel_put(&rt->obj_img, x, (rt->window_h - 1) - in1_rangey, 16711680);
-                my_mlx_pixel_put(&rt->obj_img, in1_rangex, (rt->window_h - 1) - in1_rangey, 16711680);
-                //my_mlx_pixel_put(&rt->obj_img, in2_rangex, (rt->window_h - 1) - y, 16711680);
-                //my_mlx_pixel_put(&rt->obj_img, x, (rt->window_h - 1) - in2_rangey, 16711680);
-                my_mlx_pixel_put(&rt->obj_img, in2_rangex, (rt->window_h - 1) - in2_rangey, 255);
+                my_mlx_pixel_put(&rt->obj_img, x, (rt->window_h - 1) - y, apply_blur(rt, x, (rt->window_h - 1) - y));
             }
         }
         current = current->next;
     }
 }
-
-float compute_obj(t_ray *ray, t_obj *obj)
+ float compute_obj(t_ray *ray, t_obj *obj)
 {
     float t;
     if (obj->id1 == PLANE)
