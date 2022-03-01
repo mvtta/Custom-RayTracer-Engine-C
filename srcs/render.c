@@ -6,7 +6,7 @@
 /*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/02/28 18:23:00 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2022/03/01 18:29:43 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void iterate_obj(t_frame *rt, t_ray *prime, int x, int y)
         {
             rt->record.latest_t = hit;
             volume = standard_re(rt, prime, current);
-            if (hit >= focal_l)
-                my_mlx_pixel_put(&rt->obj_img, x, (rt->window_h - 1) - y, volume.hex);
-            else
+            my_mlx_pixel_put(&rt->obj_img, x, (rt->window_h - 1) - y, volume.hex);
+            depth_map(rt, x, y, volume.hex);
+            if (hit < focal_l)
             {
                 my_mlx_pixel_put(&rt->obj_img, x, (rt->window_h - 1) - y, apply_blur(rt, x, (rt->window_h - 1) - y));
             }
@@ -87,6 +87,16 @@ int render(t_frame *rt)
         }
         y++;
     }
+ /*    int i = -1;
+    int j = -1;
+    while(++i < rt->window_h)
+    {
+      j = -1;
+      printf("\n");
+      while(++j < rt->window_w)
+        printf("%u,%u ", *rt->pixel_map.map[i], rt->pixel_map.map[i][j]);
+    }
+    exit(0); */
     mlx_put_image_to_window(rt->mlx_ptr, rt->win_ptr, rt->obj_img.img_ptr, 0, 0);
     return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 12:20:57 by user              #+#    #+#             */
-/*   Updated: 2022/02/23 11:41:26 by user             ###   ########.fr       */
+/*   Updated: 2022/03/01 18:26:47 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ t_frame *init_frame(void)
     rt->objs_first = NULL;
     rt->objs_last = NULL;
     rt->nbr_objs = 0;
+    int i = -1;
+    int j = -1;
+    while(++i < rt->window_h)
+    {
+        while(++j < rt->window_w)
+            rt->pixel_map.map[i][j] = 1;
+    }
     return(rt);
 }
 

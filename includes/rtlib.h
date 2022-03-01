@@ -6,7 +6,7 @@
 /*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/02/28 18:52:57 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2022/03/01 17:51:36 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,11 @@ typedef struct s_pixel
     int y;
     
 }t_pixel;
+
+typedef struct s_pixel_map
+{
+    unsigned int map[3000][3000];
+}t_pixel_map;
 
 typedef struct s_vec
 {
@@ -128,10 +133,6 @@ typedef struct s_data
     int line_length;    // width
     int bits_per_pixel; // bpp
     int endian;
-    /* Endianness The attribute of a system that indicates whether
-    integers are represented with the most significant byte
-    stored at the lowest address (big endian) or at the highest address (little endian).
-    Each address stores one element of the memory array. */
     int *data;
     void *img_ptr;
 } t_data;
@@ -230,6 +231,7 @@ typedef struct s_frame
     t_ray *light_ray;
     t_ray *shadow_ray;
     t_ray *reflection_ray;
+    t_pixel_map pixel_map;
 
 } t_frame;
 
@@ -239,6 +241,7 @@ typedef struct s_frame
 int limit_kernel(t_frame *rt, float source, float deviation, char xy);
 t_boxblur gaussian_var(int x, int y);
 unsigned int apply_blur(t_frame *rt, int x, int y);
+void  depth_map(t_frame *rt, int x, int y, unsigned int pixel_color);
 
 
 /* lens */

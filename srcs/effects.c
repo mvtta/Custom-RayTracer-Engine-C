@@ -6,7 +6,7 @@
 /*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 18:02:31 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/02/28 19:33:11 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2022/03/01 18:30:36 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_boxblur gaussian_var(int x, int y)
   int n_y[] = {-1, 0, 1};
 
   /* first col */
+  //printf("REF-> ox:%d & oy:%d \n", x, y);
   blur.m_00.x = x + n_x[0];
   blur.m_00.y = y + n_y[0];
   //printf("00-> x:%d & y:%d \n", blur.m_00.x, blur.m_00.y);
@@ -70,14 +71,19 @@ t_boxblur gaussian_var(int x, int y)
   blur.m_22.x = x + n_x[2];
   blur.m_22.y = y + n_x[2];
   //printf("22-> x:%d & y:%d \n", blur.m_22.x, blur.m_22.y);
-
+  //exit(0);
   return (blur);
+}
+
+void  depth_map(t_frame *rt, int x, int y, unsigned int pixel_color)
+{
+    rt->pixel_map.map[x][rt->window_h - y] = pixel_color;
 }
 
 unsigned int apply_blur(t_frame *rt, int x, int y)
 {
   t_boxblur k;
-  //size_t offset;
+
   unsigned int sum;
   unsigned int gb_1;
   unsigned int gb_2;
@@ -89,40 +95,23 @@ unsigned int apply_blur(t_frame *rt, int x, int y)
   unsigned int gb_8;
   unsigned int gb_9;
 
-  //printf("x:%d & y:%d\n", x, y);
 
   k = gaussian_var(x, y);
+
+  gb_1 = rt->pixel_map.map[x - 1][y - 1];
+  gb_2 = rt->pixel_map.map[x - 1][y - 0];
+  gb_3 = rt->pixel_map.map[x - 1][y + 1];
+  gb_4 = rt->pixel_map.map[x - 0][y - 1];
+  gb_5 = rt->pixel_map.map[x - 0][y - 0];
+  gb_6 = rt->pixel_map.map[x - 0][y + 1];
+  gb_7 = rt->pixel_map.map[x + 1][y - 1];
+  gb_8 = rt->pixel_map.map[x + 1][y - 0];
+  gb_9 = rt->pixel_map.map[x + 1][y + 1];
+  
+  printf("%u\n%u\n%u\n%u\n%u\n%u\n%u\n%u\n%u\n\n", gb_1, gb_2, gb_3, gb_4, gb_5, gb_6, gb_7, gb_8, gb_9);
   //exit(0);
-
-/*   printf("00-> kx:%d & ky:%d \n", k.m_00.x, k.m_00.y);
-  printf("01-> kx:%d & ky:%d \n", k.m_01.x, k.m_01.y); */
-  //offset = ((y * rt->obj_img.line_length + x * rt->obj_img.bits_per_pixel / 8) / 4);
-  //printf("offset:%zu \n", offset);
-
-  gb_1 = ((k.m_00.y * rt->obj_img.line_length) + (k.m_00.x * rt->obj_img.bits_per_pixel) / 8) / 4;
-  gb_2 = ((k.m_01.y * rt->obj_img.line_length) + (k.m_01.x * rt->obj_img.bits_per_pixel) / 8) / 4;
-  gb_3 = ((k.m_02.y * rt->obj_img.line_length) + (k.m_02.x * rt->obj_img.bits_per_pixel) / 8) / 4;
-  gb_4 = ((k.m_10.y * rt->obj_img.line_length) + (k.m_10.x * rt->obj_img.bits_per_pixel) / 8) / 4;
-  gb_5 = ((k.m_11.y * rt->obj_img.line_length) + (k.m_11.x * rt->obj_img.bits_per_pixel) / 8) / 4;
-  gb_6 = ((k.m_12.y * rt->obj_img.line_length) + (k.m_12.x * rt->obj_img.bits_per_pixel) / 8) / 4;
-  gb_7 = ((k.m_20.y * rt->obj_img.line_length) + (k.m_20.x * rt->obj_img.bits_per_pixel) / 8) / 4;
-  gb_8 = ((k.m_21.y * rt->obj_img.line_length) + (k.m_21.x * rt->obj_img.bits_per_pixel) / 8) / 4;
-  gb_9 = ((k.m_22.y * rt->obj_img.line_length) + (k.m_22.x * rt->obj_img.bits_per_pixel) / 8) / 4;
-
-/*   printf("\t\tGB1:%d\n", gb_1);
-  printf("\t\tGB2:%d\n", gb_2);
-  printf("\t\tGB3:%d\n", gb_3);
-  printf("\t\tGB4:%d\n", gb_4);
-  printf("\t\tGB5:%d\n", gb_5);
-  printf("\t\tGB6:%d\n", gb_6);
-  printf("\t\tGB7:%d\n", gb_7);
-  printf("\t\tGB8:%d\n", gb_8);
-  printf("\t\tGB9:%d\n", gb_9); */
-
   sum = gb_1 + gb_2 + gb_3 + gb_4 + gb_5 + gb_6 + gb_7 + gb_8 + gb_9;
-  //printf("\tsum_B:%u\n", sum);
   sum /= 9;
-  //printf("\t__colorTHERE %u\n", rt->obj_img.data[sum]);
-  //exit(0);
-  return (rt->obj_img.data[sum]);
+  depth_map(rt, x, y, sum);
+  return (sum);
 }
