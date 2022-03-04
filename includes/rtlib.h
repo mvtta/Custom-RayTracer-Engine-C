@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtlib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/03/02 21:38:15 by user             ###   ########.fr       */
+/*   Updated: 2022/03/04 17:23:23 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,11 +277,14 @@ t_ray *ray_prime(t_ray *ray, t_vec *origin);
 t_ray ray_from_to(t_vec *point_origin, t_vec *point_direction);
 
 /* color */
+t_color c_new_color(int r, int g, int b);
 t_color c_color_components(unsigned int decimal_color);
 int c_range(int d, int min, int max);
 int c_increase(int max);
+t_color c_mix_2colors(t_color one, t_color two);
+t_color c_mix_hue(t_color one, t_color two, t_color hue);
 float c_percentage(int color);
-int c_hue(t_color *check);
+t_color c_isolate_hue(t_color *check);
 t_color c_mix(t_frame *rt, t_color *obj, double spec, double difuse);
 t_color c_grade(t_frame *rt, t_color *color, double spec, double difuse);
 int c_channel_increase();
