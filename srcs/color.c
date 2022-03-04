@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:19:06 by user              #+#    #+#             */
-/*   Updated: 2022/02/23 01:31:22 by user             ###   ########.fr       */
+/*   Updated: 2022/03/02 22:35:11 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,37 @@
 
 /* declaring black */
 const t_color black = {0, 0, 0, 0};
-const t_color yellow = {0, 0, 155, 0};
+const t_color yellow = {0, 0, 255, 0};
 /* declaring primaries */
 const t_color red = {1, 0, 0, 0};
 const t_color green = {0, 1, 0, 0};
 const t_color blue = {0, 0, 1, 0};
 const int rgb[3] = {1, 2, 3};
+
+/* 
+B = LONG \ 65536
+G = (LONG - B * 65536) \ 256
+R = LONG - B * 65536 - G * 256 
+const r = (number & 0xff0000) >> 16;
+ const g = (number & 0x00ff00) >> 8;
+ const b = (number & 0x0000ff);*/
+
+
+t_color c_color_components(unsigned int decimal_color)
+{
+    t_color new;
+    new.r = (decimal_color & 0xff0000) >> 16;
+    new.g = (decimal_color & 0x00ff00) >> 8;
+    new.b = (decimal_color & 0x0000ff);
+    new.r *= new.r;
+    new.g *= new.g;
+    new.b *= new.b;
+/*     new.r = (int)sqrt(new.r);
+    new.g = (int)sqrt(new.g);
+    new.b = (int)sqrt(new.b); */
+
+    return(new);
+}
 
 int c_increase(int max)
 {

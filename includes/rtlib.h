@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtlib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/03/01 17:51:36 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2022/03/02 21:38:15 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,6 +277,7 @@ t_ray *ray_prime(t_ray *ray, t_vec *origin);
 t_ray ray_from_to(t_vec *point_origin, t_vec *point_direction);
 
 /* color */
+t_color c_color_components(unsigned int decimal_color);
 int c_range(int d, int min, int max);
 int c_increase(int max);
 float c_percentage(int color);

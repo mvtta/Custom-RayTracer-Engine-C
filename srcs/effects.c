@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   effects.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 18:02:31 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/03/01 18:30:36 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2022/03/02 22:53:03 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,84 +34,137 @@ t_boxblur gaussian_var(int x, int y)
   int n_y[] = {-1, 0, 1};
 
   /* first col */
-  //printf("REF-> ox:%d & oy:%d \n", x, y);
+  // printf("REF-> ox:%d & oy:%d \n", x, y);
   blur.m_00.x = x + n_x[0];
   blur.m_00.y = y + n_y[0];
-  //printf("00-> x:%d & y:%d \n", blur.m_00.x, blur.m_00.y);
+  // printf("00-> x:%d & y:%d \n", blur.m_00.x, blur.m_00.y);
 
   blur.m_01.x = x + n_x[0];
   blur.m_01.y = y + n_y[1];
-  //printf("01-> x:%d & y:%d \n", blur.m_01.x, blur.m_01.y);
+  // printf("01-> x:%d & y:%d \n", blur.m_01.x, blur.m_01.y);
 
   blur.m_02.x = x + n_x[0];
   blur.m_02.y = y + n_x[2];
-  //printf("02-> x:%d & y:%d \n", blur.m_02.x, blur.m_02.y);
+  // printf("02-> x:%d & y:%d \n", blur.m_02.x, blur.m_02.y);
 
   /* second col */
   blur.m_10.x = x + n_x[1];
   blur.m_10.y = y + n_y[0];
-  //printf("10-> x:%d & y:%d \n", blur.m_10.x, blur.m_10.y);
+  // printf("10-> x:%d & y:%d \n", blur.m_10.x, blur.m_10.y);
 
   blur.m_11.y = y + n_y[1];
   blur.m_11.x = x + n_x[1];
-  //printf("10-> x:%d & y:%d \n", blur.m_11.x, blur.m_11.y);
+  // printf("10-> x:%d & y:%d \n", blur.m_11.x, blur.m_11.y);
 
   blur.m_12.x = x + n_x[1];
   blur.m_12.y = y + n_x[2];
-  //printf("10-> x:%d & y:%d \n", blur.m_12.x, blur.m_12.y);
+  // printf("10-> x:%d & y:%d \n", blur.m_12.x, blur.m_12.y);
   /* third col */
   blur.m_20.x = x + n_x[2];
   blur.m_20.y = y + n_y[0];
-  //printf("20-> x:%d & y:%d \n", blur.m_20.x, blur.m_20.y);
+  // printf("20-> x:%d & y:%d \n", blur.m_20.x, blur.m_20.y);
 
   blur.m_21.x = x + n_x[2];
   blur.m_21.y = y + n_y[1];
-  //printf("21-> x:%d & y:%d \n", blur.m_21.x, blur.m_21.y);
+  // printf("21-> x:%d & y:%d \n", blur.m_21.x, blur.m_21.y);
 
   blur.m_22.x = x + n_x[2];
   blur.m_22.y = y + n_x[2];
-  //printf("22-> x:%d & y:%d \n", blur.m_22.x, blur.m_22.y);
-  //exit(0);
+  // printf("22-> x:%d & y:%d \n", blur.m_22.x, blur.m_22.y);
+  // exit(0);
   return (blur);
 }
 
-void  depth_map(t_frame *rt, int x, int y, unsigned int pixel_color)
+void depth_map(t_frame *rt, int x, int y, unsigned int pixel_color)
 {
-    rt->pixel_map.map[x][rt->window_h - y] = pixel_color;
+  rt->pixel_map.map[x][y] = pixel_color;
 }
 
 unsigned int apply_blur(t_frame *rt, int x, int y)
 {
-  t_boxblur k;
-
   unsigned int sum;
-  unsigned int gb_1;
-  unsigned int gb_2;
-  unsigned int gb_3;
-  unsigned int gb_4;
-  unsigned int gb_5;
-  unsigned int gb_6;
-  unsigned int gb_7;
-  unsigned int gb_8;
-  unsigned int gb_9;
+  int r = 0;
+  int g = 0;
+  int b = 0;
+  int n = 0;
 
+  int i;
+  int j;
+  int radius = 9;
+  if (x < radius || y < radius)
+    return (0);
+  i = y - radius;
+  j = x - radius;
 
-  k = gaussian_var(x, y);
+  t_color gb_1;
+  t_color gb_2;
+  t_color gb_3;
+  t_color gb_4;
+  t_color gb_5;
+  t_color gb_6;
+  t_color gb_7;
+  t_color gb_8;
+  t_color gb_9;
 
-  gb_1 = rt->pixel_map.map[x - 1][y - 1];
-  gb_2 = rt->pixel_map.map[x - 1][y - 0];
-  gb_3 = rt->pixel_map.map[x - 1][y + 1];
-  gb_4 = rt->pixel_map.map[x - 0][y - 1];
-  gb_5 = rt->pixel_map.map[x - 0][y - 0];
-  gb_6 = rt->pixel_map.map[x - 0][y + 1];
-  gb_7 = rt->pixel_map.map[x + 1][y - 1];
-  gb_8 = rt->pixel_map.map[x + 1][y - 0];
-  gb_9 = rt->pixel_map.map[x + 1][y + 1];
-  
-  printf("%u\n%u\n%u\n%u\n%u\n%u\n%u\n%u\n%u\n\n", gb_1, gb_2, gb_3, gb_4, gb_5, gb_6, gb_7, gb_8, gb_9);
-  //exit(0);
-  sum = gb_1 + gb_2 + gb_3 + gb_4 + gb_5 + gb_6 + gb_7 + gb_8 + gb_9;
-  sum /= 9;
+  /*   gb_1 = c_color_components(rt->pixel_map.map[x - 1][y - 1]);
+    gb_2 = c_color_components(rt->pixel_map.map[x - 1][y]);
+    gb_3 = c_color_components(rt->pixel_map.map[x - 1][y + 1]);
+    gb_4 = c_color_components(rt->pixel_map.map[x][y - 1]);
+    gb_5 = c_color_components(rt->pixel_map.map[x][y]);
+    gb_6 = c_color_components(rt->pixel_map.map[x][y + 1]);
+    gb_7 = c_color_components(rt->pixel_map.map[x + 1][y - 1]);
+    gb_8 = c_color_components(rt->pixel_map.map[x + 1][y]);
+    gb_9 = c_color_components(rt->pixel_map.map[x + 1][y + 1]); */
+
+  /*   r = sqrt((gb_1.r + gb_2.r + gb_3.r + gb_4.r + gb_5.r + gb_6.r + gb_7.r + gb_8.r + gb_9.r) / 9);
+    g = sqrt((gb_1.g + gb_2.g + gb_3.g + gb_4.g + gb_5.g + gb_6.g + gb_7.g + gb_8.g + gb_9.g) / 9);
+    b = sqrt((gb_1.b + gb_2.b + gb_3.b + gb_4.b + gb_5.b + gb_6.b + gb_7.b + gb_8.b + gb_9.b) / 9); */
+  // sum = DEC(c_range(r, 0, 255), c_range(g, 0, 255), c_range(b, 0, 255));
+
+  gb_1 = c_color_components(rt->pixel_map.map[x - 1][y - 1]);
+  gb_2 = c_color_components(rt->pixel_map.map[x - 1][y]);
+  gb_3 = c_color_components(rt->pixel_map.map[x - 1][y + 1]);
+  gb_4 = c_color_components(rt->pixel_map.map[x][y - 1]);
+  gb_5 = c_color_components(rt->pixel_map.map[x][y]);
+  gb_6 = c_color_components(rt->pixel_map.map[x][y + 1]);
+  gb_7 = c_color_components(rt->pixel_map.map[x + 1][y - 1]);
+  gb_8 = c_color_components(rt->pixel_map.map[x + 1][y]);
+  gb_9 = c_color_components(rt->pixel_map.map[x + 1][y + 1]);
+
+  r = ((gb_1.r + gb_2.r + gb_3.r + gb_4.r + gb_5.r + gb_6.r + gb_7.r + gb_8.r + gb_9.r));
+  g = ((gb_1.g + gb_2.g + gb_3.g + gb_4.g + gb_5.g + gb_6.g + gb_7.g + gb_8.g + gb_9.g));
+  b = ((gb_1.b + gb_2.b + gb_3.b + gb_4.b + gb_5.b + gb_6.b + gb_7.b + gb_8.b + gb_9.b));
+  while (i < y + radius)
+  {
+    j = x - radius;
+    while (j < x + radius)
+    {
+      gb_1 = c_color_components(rt->pixel_map.map[j - 1][i - 1]);
+      gb_2 = c_color_components(rt->pixel_map.map[j - 1][i]);
+      gb_3 = c_color_components(rt->pixel_map.map[j - 1][i + 1]);
+      gb_4 = c_color_components(rt->pixel_map.map[j][i - 1]);
+      gb_5 = c_color_components(rt->pixel_map.map[j][i]);
+      gb_6 = c_color_components(rt->pixel_map.map[j][i + 1]);
+      gb_7 = c_color_components(rt->pixel_map.map[j + 1][i - 1]);
+      gb_8 = c_color_components(rt->pixel_map.map[j + 1][i]);
+      gb_9 = c_color_components(rt->pixel_map.map[j + 1][i + 1]);
+      r += ((gb_1.r + gb_2.r + gb_3.r + gb_4.r + gb_5.r + gb_6.r + gb_7.r + gb_8.r + gb_9.r));
+      g += ((gb_1.g + gb_2.g + gb_3.g + gb_4.g + gb_5.g + gb_6.g + gb_7.g + gb_8.g + gb_9.g));
+      b += ((gb_1.b + gb_2.b + gb_3.b + gb_4.b + gb_5.b + gb_6.b + gb_7.b + gb_8.b + gb_9.b));
+
+      n += 9;
+      j += 1;
+    }
+    i += 1;
+  }
+
+  r = sqrt((r) / n);
+  g = sqrt((g) / n);
+  b = sqrt((b) / n);
+  // printf("r:%d, g:%d, b:%d, n:%d\n", r, g, b, n);
+  // sum = DEC(r, g, b);
+  // exit(0);
+  sum = DEC(c_range(r, 0, 255), c_range(g, 0, 255), c_range(b, 0, 255));
   depth_map(rt, x, y, sum);
   return (sum);
 }
