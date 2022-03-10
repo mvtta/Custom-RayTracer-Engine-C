@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:50:22 by user              #+#    #+#             */
-/*   Updated: 2022/02/07 13:40:43 by user             ###   ########.fr       */
+/*   Updated: 2022/03/09 21:14:42 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,3 +183,4 @@ double angle_bet_vs(t_vec *v1, t_vec *v2)
     // printf("angle should be between 0 & 180: %f\n", acos(angle));
     return (acos(angle));
 }
+

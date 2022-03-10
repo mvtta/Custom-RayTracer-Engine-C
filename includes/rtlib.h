@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   rtlib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/03/04 17:23:23 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2022/03/10 12:14:48 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RTLIB_H
-#define RTLIB_H
+#   ifndef RTLIB_H
+#   define RTLIB_H
 
 
 #define PI 3.14159265358979323846
@@ -42,12 +42,12 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <float.h>
-#include <mlx.h>
 #include <stdbool.h>
 
 #include "mlx.h"
 #include "gnl.h"
 #include "libft.h"
+#include "bimlib.h"
 #include "color.h"
 
 typedef struct s_point
@@ -238,12 +238,13 @@ typedef struct s_frame
 /* prototypes */
 
 /* effects.c */
+
 int limit_kernel(t_frame *rt, float source, float deviation, char xy);
 t_boxblur gaussian_var(int x, int y);
 unsigned int apply_blur(t_frame *rt, int x, int y);
 void  depth_map(t_frame *rt, int x, int y, unsigned int pixel_color);
 
-
+//int filetype_is_valid(char *arg, char *file_type);
 /* lens */
 float get_focal_len(float fov);
 

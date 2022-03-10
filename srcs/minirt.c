@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 11:20:09 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/02/05 18:31:25 by user             ###   ########.fr       */
+/*   Updated: 2022/03/07 17:28:31 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,11 @@ int main(int ac, char **av)
 {
     int last= 0;
 
-    last= ft_strlen(av[1]);
+    last = ft_strlen(av[1]);
     if (ac == 2)
     {
-        if (av[1][last- 3] == '.' 
-        && av[1][last- 2] == 'r' 
-        && av[1][last- 1] == 't')
-        minirt();
+        if (filetype_is_valid(av[1], ".rt"))
+            minirt();
         return(1);
     }
     else

@@ -1,39 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.h                                            :+:      :+:    :+:   */
+/*   bimlib.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/11 19:32:57 by user              #+#    #+#             */
-/*   Updated: 2022/03/05 10:06:46 by user             ###   ########.fr       */
+/*   Created: 2022/03/08 22:11:25 by user              #+#    #+#             */
+/*   Updated: 2022/03/09 00:01:08 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLOR_H
-#define COLOR_H
-
-#include "rtlib.h"
-
-#define L 255
-
-/* color matrix
-
-range 0-1
-------
-|1|0|0
-|0|1|0
-|0|0|1M
-------
-range 0-255
----------
-|255|0|0
-|0|255|0
-|0|0|255
----------
+/*
+** Basic Input Management library for C projects
+** Version Test (5/3/2022)
+** (｡◕‿◕｡)
 */
 
+#ifndef BIMLIB_H
+# define BIMLIB_H
 
+# include <unistd.h>
+# include <stdlib.h>
+# include <limits.h>
+# include <fcntl.h>
+# include "../../libft/includes/libft.h"
 
-/* prototypes */
+int filetype_is_valid(char *arg, char *file_type);
+
 #endif
