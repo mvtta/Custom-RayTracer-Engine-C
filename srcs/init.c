@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 12:20:57 by user              #+#    #+#             */
-/*   Updated: 2022/02/05 22:36:03 by user             ###   ########.fr       */
+/*   Updated: 2022/03/02 16:52:25 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ t_frame *init_frame(void)
     rt->objs_first = NULL;
     rt->objs_last = NULL;
     rt->nbr_objs = 0;
+    int i = -1;
+    int j = -1;
+    while(++i < rt->window_h)
+    {
+        while(++j < rt->window_w)
+            rt->pixel_map.map[i][j] = 1;
+    }
     return(rt);
 }
 
@@ -42,7 +49,7 @@ t_camera *init_camera(void)
     new->lens = 0;
     new->h_fov = 0;
     new->v_fov = 0;
-    new->focus = 0;
+    new->focal_l = 0;
     new->cam_coord = NULL;
     new->cam_norm = NULL;
     new->m = NULL;

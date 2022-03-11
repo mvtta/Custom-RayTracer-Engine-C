@@ -6,7 +6,11 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:45:46 by user              #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/02/14 03:07:46 by user             ###   ########.fr       */
+=======
+/*   Updated: 2022/02/24 15:18:28 by user             ###   ########.fr       */
+>>>>>>> normed
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +57,9 @@ float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord)
 			float t0 = -0.5 * b / a;
 			return (t0);
 		}
-		//float q = MAX(-0.5 * (b + sqrtf(discr)), -0.5 * (b - sqrtf(discr)));
-		float t1 = (-b - sqrt(discr)) / (2 * a);
-		float t2 = (-b + sqrt(discr)) / (2 * a);
+		// float q = MAX(-0.5 * (b + sqrtf(discr)), -0.5 * (b - sqrtf(discr)));
+		float t1 = (-b - sqrtf(discr)) / (2 * a);
+		float t2 = (-b + sqrtf(discr)) / (2 * a);
 		if (t1 > t2)
 		{
 			float tmp = t1;
@@ -66,7 +70,7 @@ float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord)
 			t1 = t2;
 		if (t1 > 0)
 		{
-			//printf("\tT1: %f\n", t1);
+			//printf("\tt1: %f\n", t1);
 			return (t1);
 		}
 	}
@@ -81,11 +85,11 @@ float ray_cy(t_ray *r, t_obj *s, t_vec obj_coord)
 	//t_vec orient = *s->obj_norm;
 	float height = s->height;
 	float radius = s->diameter / 2;
-	//double rot = (M_PI * 45) / 180
-	
+	// double rot = (M_PI * 45) / 180
+
 	t_vec bot = v_3(center.x, center.y - (height / 2), center.z);
 	t_vec top = v_3(center.x, center.y + (height / 2), center.z);
-	//t_vec top = v_3(obj_coord.x, obj_coord.y + (height / 2), obj_coord.z);
+	// t_vec top = v_3(obj_coord.x, obj_coord.y + (height / 2), obj_coord.z);
 	float a = (dir.x * dir.x) + (dir.z * dir.z);
 	float b = 2 * (dir.x * (pos.x - bot.x)) + (2 * dir.z) * (pos.z - bot.z);
 	float c = (pos.x - bot.x) * (pos.x - bot.x) + (pos.z - bot.z) * (pos.z - bot.z) - (radius * radius);
@@ -109,18 +113,22 @@ float ray_cy(t_ray *r, t_obj *s, t_vec obj_coord)
 	t_vec p = v_scale(t, r->dir);
 	p = v_add(r->start, &p);
 	float cap = (p.x * p.x) + (p.z * p.z);
-	//print_vector(p, "lol");
+	// print_vector(p, "lol");
 	cap = sqrtf(cap);
-/* 	printf("cap%f\n", cap);
-	printf("radius%f\n", radius);
-	exit(0); */
-	if(fabs(cap) <= radius)
+	/* 	printf("cap%f\n", cap);
+		printf("radius%f\n", radius);
+		exit(0); */
+	if (fabs(cap) <= radius)
 	{
+<<<<<<< HEAD
+=======
+		// printf("inside%f\n", t);
+>>>>>>> normed
 		return (t);
 /* 		printf("inside%f\n", t);
 		return (fabs(cap)); */
 	}
-	//exit(0);
+	// exit(0);
 	if ((rd >= bot.y) && (rd <= top.y))
 	{
 		return (t);
@@ -129,12 +137,38 @@ float ray_cy(t_ray *r, t_obj *s, t_vec obj_coord)
 		return (NO_HIT);
 }
 
-float ray_plane(t_ray *r, t_obj *p, t_vec obj_coord)
+float ray_plane(t_ray *r, t_obj *p)
 {
 
-	float time;
-
-	time = get_time_pl(r, &obj_coord, p->obj_norm);
-	//printf("time%f\n", time);
-	return (time);
+	float t;
+	float o;
+	float pp;
+	float v;
+	float d;
+	p->test = v_add(r->start, r->dir);
+	pp = solve_q(p, *p->obj_coord);
+	o = solve_q(p, *r->start);
+	v = solve_q(p, *r->dir);
+	d = solve_d(p, p->test);
+	t = (d / v);
+/* 	printf("pp:%f\n", pp);
+	printf("d:%f\n", d);
+	c
+	printf("o:%f\n", o);
+	printf("v:%f\n", v);
+	exit(0); */
+/* 	if(v < 1e-6 || pp - d != 0)
+		return(NO_HIT); */
+	if (v > 1e-9)
+	{
+		//printf("t:%f\n", t);
+		if(t >= 0)
+		{
+				return(t);
+		}
+/* 		p->test = v_scale(t, &p->test);
+		float intersection = solve_q(p, p->test);
+		if (intersection == 0) */
+	}
+	return (NO_HIT);
 }

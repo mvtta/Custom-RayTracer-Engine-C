@@ -6,7 +6,11 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 18:06:51 by user              #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/02/13 23:14:53 by user             ###   ########.fr       */
+=======
+/*   Updated: 2022/02/23 11:31:07 by user             ###   ########.fr       */
+>>>>>>> normed
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +28,16 @@ void att_camera(t_frame *rt, char **data)
     rt->scene->c->cam_coord = ascii_to_vec(data[1]);
     rt->scene->c->cam_norm = ascii_to_vec(data[2]);
     rt->scene->c->h_fov = ascii_to_float(data[3]);
+<<<<<<< HEAD
     rt->scene->c->lens = get_focal_len(rt->scene->c->h_fov);
 /*     printf("\tlens:%d\n", rt->scene->c->lens);
     exit(0); */
+=======
+    rt->scene->c->a_ratio = (double)rt->window_w / (double)rt->window_h;
+    rt->scene->c->v_fov = rt->scene->c->h_fov / rt->scene->c->a_ratio;
+    rt->scene->c->focal_l = get_focal_len(rt->scene->c->h_fov);
+
+>>>>>>> normed
     return;
 }
 
