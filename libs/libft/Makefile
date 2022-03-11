@@ -1,17 +1,6 @@
 ################################################################################
 # Makefile
 ################################################################################
-
-# Makefile by mvaldeta (tired of !understanting makefiles)
-# Version 0.0 made with minor changes from @fletcher97 Version: 1.2.1
-
-# The goal is to itearte this Makefile with the help from my friends @fletcher97 
-# & @DimitriDaSilva into my own version.
-
-# changed ${AT}rm -r ${OBJ_ROOT} on clean targets to delete tmp folders
-
-# helps to read the manual -> https://www.gnu.org/software/make/manual
-
 ################################################################################
 # Variables
 ################################################################################
@@ -25,7 +14,7 @@ AR				= ar rcs
 ################################################################################
 
 # Verbose levels
-# 0: Make will be totaly silenced
+# 0: Make wil be totaly silenced
 # 1: Make will print echos and printf
 # 2: Make will not be silenced but target commands will not be printed
 # 3: Make will print each command
@@ -73,7 +62,7 @@ OBJS			:= $(subst ${SRC_ROOT}, ${OBJ_ROOT}, ${SRCS:.c=.o})
 INCS			:= ${addprefix -I, ${INC_DIRS}}
 BINS			:= ${addprefix ${BIN_ROOT}, ${NAMES}}
 
-################################################################################
+###############################################M#################################
 # VPATHS
 # vpath is a list of directories to be searched for missing source files
 # -> https://www.cmcrossroads.com/article/basics-vpath-and-vpath

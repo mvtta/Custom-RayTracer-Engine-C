@@ -6,16 +6,12 @@
 /*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/02/13 22:19:44 by user             ###   ########.fr       */
-=======
-/*   Updated: 2022/03/04 17:23:23 by mvaldeta         ###   ########.fr       */
->>>>>>> normed
+/*   Updated: 2022/03/11 15:13:27 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RTLIB_H
-#define RTLIB_H
+#   ifndef RTLIB_H
+#   define RTLIB_H
 
 
 #define PI 3.14159265358979323846
@@ -51,12 +47,12 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <float.h>
-#include <mlx.h>
 #include <stdbool.h>
 
 #include "mlx.h"
 #include "gnl.h"
 #include "libft.h"
+#include "bimlib.h"
 #include "color.h"
 
 
@@ -275,12 +271,17 @@ typedef struct s_frame
 <<<<<<< HEAD
 =======
 /* effects.c */
+
 int limit_kernel(t_frame *rt, float source, float deviation, char xy);
 t_boxblur gaussian_var(int x, int y);
 unsigned int apply_blur(t_frame *rt, int x, int y);
 void  depth_map(t_frame *rt, int x, int y, unsigned int pixel_color);
 
+<<<<<<< HEAD
 
+=======
+//int filetype_is_valid(char *arg, char *file_type);
+>>>>>>> c4810ab6f3ea7cdd1ae51a71dff0790a4510889e
 >>>>>>> normed
 /* lens */
 float get_focal_len(float fov);
@@ -395,8 +396,8 @@ int ascii_to_int(char *data);
 float ascii_to_float(char *data);
 t_vec *ascii_to_vec(char *data);
 t_vec *ascii_to_vec(char *data);
-unsigned int ascii_to_hex(int r, int g, int b);
 t_color *ascii_to_rgb(char *data);
+unsigned int ascii_to_hex(int r, int g, int b);
 
 /* create_obj.c */
 t_obj *new_obj(t_frame *rt, char *data);
