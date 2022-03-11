@@ -11,5 +11,6 @@
         "ymax",
         "ymin",
         "zmin"
-    ]
+    ],
+    "C_Cpp.errorSquiggles": "Disabled"
 }

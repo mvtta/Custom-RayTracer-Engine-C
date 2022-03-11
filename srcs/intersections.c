@@ -6,7 +6,11 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:45:46 by user              #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2022/02/14 03:07:46 by user             ###   ########.fr       */
+=======
 /*   Updated: 2022/02/24 15:18:28 by user             ###   ########.fr       */
+>>>>>>> normed
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +82,7 @@ float ray_cy(t_ray *r, t_obj *s, t_vec obj_coord)
 	t_vec dir = *r->dir;
 	t_vec pos = *r->start;
 	t_vec center = obj_coord;
+	//t_vec orient = *s->obj_norm;
 	float height = s->height;
 	float radius = s->diameter / 2;
 	// double rot = (M_PI * 45) / 180
@@ -115,8 +120,13 @@ float ray_cy(t_ray *r, t_obj *s, t_vec obj_coord)
 		exit(0); */
 	if (fabs(cap) <= radius)
 	{
+<<<<<<< HEAD
+=======
 		// printf("inside%f\n", t);
+>>>>>>> normed
 		return (t);
+/* 		printf("inside%f\n", t);
+		return (fabs(cap)); */
 	}
 	// exit(0);
 	if ((rd >= bot.y) && (rd <= top.y))

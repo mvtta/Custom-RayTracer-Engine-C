@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_equation.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2022/02/17 14:54:23 by mvaldeta         ###   ########.fr       */
+=======
 /*   Updated: 2022/02/23 03:18:19 by user             ###   ########.fr       */
+>>>>>>> normed
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +60,7 @@ the incident ray reflects
         g(t) = f(t)|t1  t0|
     use random sample to make average estimation
 
+
 */
 double c_clamp(double d, double min, double max)
 {
@@ -90,18 +95,29 @@ double lambert(t_frame *rt, t_ray *ray, t_obj *obj)
     hit = v_scale(rt->record.latest_t, ray->dir);
     //hit = v_sub(ray->start, &hit);
     t_vec center = v_sub(ray->start, obj->obj_coord);
+<<<<<<< HEAD
+    hit_norm = v_sub(&hit, &center);
+    if(obj->id1 == 'p')
+        hit_norm = v_mult(obj->obj_norm, &hit);
+    l = v_sub(ray->start, &hit);
+=======
     if (obj->id1 == SPHERE)
         hit_norm = v_sub(&hit, &center);
     else
         hit_norm = *obj->obj_norm;
     l = v_sub(rt->scene->l->light_coord, ray->start);
+>>>>>>> normed
     l = v_add(&l, &hit);
     //att = (length(l));
     att = (1 /length(l));
     l = normalize(&l);
     hit_norm = normalize(&hit_norm);
+<<<<<<< HEAD
+    difuse = c_clamp(dot_p(&hit_norm, &l) + (0.8 / (att)), 0.0, 1.0);
+=======
     //difuse = c_clamp(dot_p(&hit_norm, &l) + (0.2 / (att)), 0.0, 1.0);
     difuse = c_clamp(dot_p(&hit_norm, &l), 0.0, 1.0) * (10) * (att);    
+>>>>>>> normed
     return ((difuse));
 }
 
@@ -153,7 +169,35 @@ t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj)
     int i = -1;
     current = rt->objs_first;
     t_ray *shadow;
+   //t_color shadow_b = {0, 0, 0, 0};
     ray_init(&shadow);
+<<<<<<< HEAD
+    t_vec tar = v_scale(rt->record.latest_t, ray->dir);
+    t_vec center = v_sub(rt->scene->l->light_coord, obj->obj_coord);
+    tar = v_sub(&center, &tar);
+    tar = v_scale(0.3, &tar);
+    //tar = normalize(&tar);
+    //t_vec l = v_add(rt->scene->l->light_coord, &tar);
+    //t_vec l_dir = v_sub(&tar, &l);
+    //t_vec l_dir = normalize(&l_dir);
+    shadow->start = rd_3(shadow, rt->scene->l->light_coord);
+    shadow->dir = ro_3(shadow, &tar);
+    while (++i <= rt->nbr_objs)
+    {
+
+        hit = compute_obj(shadow, current);
+        if (hit != NO_HIT && current)
+        {
+            break;
+            /* print_vector(tar, "tar");
+            print_vector(*ray->start, "from_light");
+            print_vector(*ray->dir, "to_oposite");
+            printf("hit:%f\n", hit);
+            exit(0); */
+            volume = c_grade(current->obj_color, obj->obj_color, 0, (1 / hit) * 0.3);
+            // printf("shadow\n");
+            return (volume);
+=======
     t_vec to_hit = v_scale(rt->record.latest_t, ray->dir);
     t_vec norm = normal_2p(&to_hit, obj->obj_coord);
     //to_hit = v_scale(0.3, &to_hit);
@@ -177,6 +221,7 @@ t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj)
         {
            // printf("here2");
             return (black);
+>>>>>>> normed
         }
         current = current->next;
     }

@@ -6,7 +6,11 @@
 /*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:19:06 by user              #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2022/02/14 11:13:32 by user             ###   ########.fr       */
+=======
 /*   Updated: 2022/03/04 17:28:53 by mvaldeta         ###   ########.fr       */
+>>>>>>> normed
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +18,11 @@
 
 /* declaring black */
 const t_color black = {0, 0, 0, 0};
+<<<<<<< HEAD
+const t_color yellow = {255, 0, 155, 0};
+=======
 const t_color yellow = {0, 0, 255, 0};
+>>>>>>> normed
 /* declaring primaries */
 const t_color red = {1, 0, 0, 0};
 const t_color green = {0, 1, 0, 0};

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtlib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/03/11 14:53:30 by user             ###   ########.fr       */
+/*   Updated: 2022/03/11 15:13:27 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@
 #define PLANE 'p'
 #define AVOID_MAX(x) (x > 255 ? x : 255)
 #define AVOID_MIN(x) (x < 0 ? x : 0)
+#define RUBBER 0
+#define METAL 1
+#define GLASS 2
+#define PU 3
+#define LIQUID 4
 
 #include <fcntl.h>
 #include <math.h>
@@ -50,6 +55,7 @@
 #include "bimlib.h"
 #include "color.h"
 
+
 typedef struct s_point
 {
     float x;
@@ -57,6 +63,16 @@ typedef struct s_point
     float z;
 } t_point;
 
+<<<<<<< HEAD
+typedef struct s_mc
+{
+    double p0;
+    double p1;
+    double p2;
+    double p3;
+    double p4;
+} t_mc;
+=======
 typedef struct s_pixel
 {
     int x;
@@ -68,6 +84,7 @@ typedef struct s_pixel_map
 {
     unsigned int map[3000][3000];
 }t_pixel_map;
+>>>>>>> normed
 
 typedef struct s_vec
 {
@@ -78,10 +95,11 @@ typedef struct s_vec
 
 typedef struct s_matrix
 {
-    double x;
-    double y;
-    double z;
-    double w;
+    int n_cols;
+    int n_vertex;
+    t_vec *first_vec;
+    t_mc *first_col;
+    
 } t_matrix;
 
 typedef struct s_boxblur
@@ -141,10 +159,21 @@ typedef struct s_obj
 {
     struct s_obj *prev;
     struct s_obj *next;
+    char *raw;
+    char id1;
     float diameter;
     float height;
     float spec_r;
     float shine;
+<<<<<<< HEAD
+    float material;
+    t_vec *obj_coord;
+    t_vec *obj_norm;
+    t_vec *p;
+    t_vec *last_hit;
+    t_axis *axis;
+    t_matrix *edges;
+=======
     char *raw;
     char id1;
     int id2;
@@ -153,11 +182,13 @@ typedef struct s_obj
     t_vec *p;
     t_vec test;
     t_vec *obj_coord;
+>>>>>>> normed
     t_matrix *scale;
     t_matrix *pan;
     t_matrix *hom;
     t_color *obj_color;
     t_data *img;
+    int id2;
 
 } t_obj;
 
@@ -237,6 +268,8 @@ typedef struct s_frame
 
 /* prototypes */
 
+<<<<<<< HEAD
+=======
 /* effects.c */
 
 int limit_kernel(t_frame *rt, float source, float deviation, char xy);
@@ -244,7 +277,12 @@ t_boxblur gaussian_var(int x, int y);
 unsigned int apply_blur(t_frame *rt, int x, int y);
 void  depth_map(t_frame *rt, int x, int y, unsigned int pixel_color);
 
+<<<<<<< HEAD
+
+=======
 //int filetype_is_valid(char *arg, char *file_type);
+>>>>>>> c4810ab6f3ea7cdd1ae51a71dff0790a4510889e
+>>>>>>> normed
 /* lens */
 float get_focal_len(float fov);
 

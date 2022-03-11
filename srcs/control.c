@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   control.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 14:28:56 by user              #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2022/02/17 15:07:48 by mvaldeta         ###   ########.fr       */
+=======
 /*   Updated: 2022/02/23 02:47:34 by user             ###   ########.fr       */
+>>>>>>> normed
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +86,11 @@ int key_kill(int keycode, t_frame *rt)
     if (keycode == 40)
     {
         printf("keycode LL: %d\n", keycode);
+<<<<<<< HEAD
+        print_vector(*rt->scene->c->cam_coord, "cam_test_control");
+=======
         print_vector(*rt->scene->l->light_coord, "ltest_control");
+>>>>>>> normed
         rt->scene->l->light_coord->x -= 10;
         mlx_destroy_image(rt->mlx_ptr, rt->obj_img.img_ptr);
         rt->obj_img.img_ptr = mlx_new_image(rt->mlx_ptr, rt->window_w, rt->window_h);
@@ -94,8 +102,62 @@ int key_kill(int keycode, t_frame *rt)
     if (keycode == 37)
     {
         printf("keycode LR: %d\n", keycode);
+<<<<<<< HEAD
+        print_vector(*rt->scene->c->cam_coord, "cam_test_control");
+        rt->scene->l->light_coord->x += 10;
+        mlx_destroy_image(rt->mlx_ptr, rt->obj_img.img_ptr);
+        rt->obj_img.img_ptr = mlx_new_image(rt->mlx_ptr, rt->window_w, rt->window_h);
+        rt->obj_img.data = (int *)mlx_get_data_addr(rt->obj_img.img_ptr, &rt->obj_img.bits_per_pixel, &rt->obj_img.line_length, &rt->obj_img.endian);
+        // mlx_clear_window(rt->mlx_ptr, rt->win_ptr);
+
+        render(rt);
+    }
+    if (keycode == 126)
+    {
+        printf("keycode arrow UP: %d\n", keycode);
+        t_obj *search_plane;
+        search_plane = rt->objs_first;
+        while(search_plane->id1 != 'p')
+            search_plane = search_plane->next;
+        //search_plane->obj_coord->x += 100;
+        //search_plane->obj_coord->x += 10;
+        search_plane->obj_norm->z -= 1;
+        //search_plane->obj_coord->z -= 10;
+        //search_plane->obj_coord->z -= 100;
+       // search_plane->obj_norm->y -= 10;
+        //search_plane->obj_norm->z -= 10;
+        print_vector(*search_plane->obj_norm, "plane_test_normcontrol");
+        print_vector(*search_plane->obj_coord, "plane_test_coordcontrol");
+        mlx_destroy_image(rt->mlx_ptr, rt->obj_img.img_ptr);
+        rt->obj_img.img_ptr = mlx_new_image(rt->mlx_ptr, rt->window_w, rt->window_h);
+        rt->obj_img.data = (int *)mlx_get_data_addr(rt->obj_img.img_ptr, &rt->obj_img.bits_per_pixel, &rt->obj_img.line_length, &rt->obj_img.endian);
+        // mlx_clear_window(rt->mlx_ptr, rt->win_ptr);
+
+        render(rt);
+    }
+    if (keycode == 125)
+    {
+        printf("keycode arrow DOWN: %d\n", keycode);
+        t_obj *search_plane;
+        search_plane = rt->objs_first;
+        while(search_plane->id1 != 'p')
+            search_plane = search_plane->next;
+        //search_plane->obj_coord->x -= 100;
+        //search_plane->obj_coord->x -= 10;
+        search_plane->obj_norm->z += 1;
+        search_plane->obj_norm->y -= 1;
+        //search_plane->obj_coord->z += 10;
+        //search_plane->obj_coord->z += 10;
+        //search_plane->obj_coord->z += 100;
+        //search_plane->obj_norm->y += 10;
+        //search_plane->obj_norm->z += 10;
+        //search_plane->obj_norm->z += 10;
+        print_vector(*search_plane->obj_norm, "plane_test_normcontrol");
+        print_vector(*search_plane->obj_coord, "plane_test_coordcontrol");
+=======
         print_vector(*rt->scene->l->light_coord, "ltest_control");
         rt->scene->l->light_coord->x += 10;
+>>>>>>> normed
         mlx_destroy_image(rt->mlx_ptr, rt->obj_img.img_ptr);
         rt->obj_img.img_ptr = mlx_new_image(rt->mlx_ptr, rt->window_w, rt->window_h);
         rt->obj_img.data = (int *)mlx_get_data_addr(rt->obj_img.img_ptr, &rt->obj_img.bits_per_pixel, &rt->obj_img.line_length, &rt->obj_img.endian);

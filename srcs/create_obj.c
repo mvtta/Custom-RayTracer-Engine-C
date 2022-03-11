@@ -6,7 +6,11 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 17:32:20 by user              #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2022/02/14 11:29:38 by user             ###   ########.fr       */
+=======
 /*   Updated: 2022/02/21 16:33:45 by user             ###   ########.fr       */
+>>>>>>> normed
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +19,7 @@
 t_obj *new_obj(t_frame *rt, char *data)
 {
     t_obj *new = NULL;
+    static int count;
 
     new = malloc(sizeof(t_obj));
     printf("data in <data> new obj: %s\n", data);
@@ -23,14 +28,32 @@ t_obj *new_obj(t_frame *rt, char *data)
     new->prev = NULL;
     new->next = NULL;
     new->id1 = new->raw[0];
+<<<<<<< HEAD
+    new->id2 = count;
+=======
     new->id2 = rt->nbr_objs;
     new->obj_coord = NULL;
     new->p = NULL;
     new->obj_color = NULL;
     new->obj_norm = NULL;
+>>>>>>> normed
     new->diameter = 0;
     new->height = 0;
-    rt->nbr_objs++;
+    new->spec_r = 0;
+    new->shine = 0;
+    new->material = 0;
+    new->obj_coord = NULL;
+    new->obj_norm = NULL;
+    new->p = NULL;
+    new->last_hit = NULL;
+    new->axis = NULL;
+    new->edges = NULL;
+    new->scale = NULL;
+    new->pan = NULL;
+    new->hom = NULL;
+    new->obj_color = NULL;
+    rt->nbr_objs = count;
+    count += 1;
     return (new);
 }
 
@@ -40,13 +63,12 @@ void add_new_obj(t_frame *rt, char *data)
     t_obj *old_tail = NULL;
     char *input = NULL;
 
-
     input = malloc(ft_strlen(data) + 1);
     ft_strlcpy(input, data, ft_strlen(data) + 1);
     new = new_obj(rt, input);
     free(input);
-    
-    if(rt->objs_first == NULL)
+
+    if (rt->objs_first == NULL)
     {
         rt->objs_first = new;
         rt->objs_last = new;
@@ -55,7 +77,6 @@ void add_new_obj(t_frame *rt, char *data)
         rt->objs_last->prev = rt->objs_first;
         return;
     }
-
     old_tail = rt->objs_last;
     new->prev = old_tail;
     new->next = NULL;
@@ -72,9 +93,18 @@ void create_plane(t_obj *obj, char *data)
     plane = ft_split(data, ' ');
 
     obj->id1 = 'p';
+<<<<<<< HEAD
+    obj->shine = 10;
+    obj->spec_r = 0;
+    obj->material = RUBBER;
+=======
+>>>>>>> normed
     obj->obj_coord = ascii_to_vec(plane[1]);
+    obj->p = obj->obj_coord;
     obj->obj_norm = ascii_to_vec(plane[2]);
     obj->obj_color = ascii_to_rgb(plane[3]);
+<<<<<<< HEAD
+=======
     obj->d = solve_d(obj, *obj->obj_coord);
     //printf("d:%f\n", obj->d);
     //exit(0);
@@ -90,6 +120,7 @@ void create_plane(t_obj *obj, char *data)
 /*     print_vector(normal, "norm");
     print_vector(*obj->obj_norm, "ptrnorm");
     exit(0); */
+>>>>>>> normed
 }
 
 void create_sphere(t_obj *obj, char *data)
@@ -98,6 +129,12 @@ void create_sphere(t_obj *obj, char *data)
     sphere = ft_split(data, ' ');
 
     obj->id1 = 's';
+<<<<<<< HEAD
+    obj->shine = 100;
+    obj->spec_r = 1000;
+    obj->material = PU;
+=======
+>>>>>>> normed
     obj->obj_coord = ascii_to_vec(sphere[1]);
     obj->diameter = ascii_to_float(sphere[2]);
     obj->obj_color = ascii_to_rgb(sphere[3]);
@@ -109,10 +146,21 @@ void create_cylin(t_obj *obj, char *data)
     cylin = ft_split(data, ' ');
 
     obj->id1 = 'c';
+<<<<<<< HEAD
+    obj->shine = 0;
+    obj->spec_r = 0;
+    obj->material = RUBBER;
+=======
+>>>>>>> normed
     obj->obj_coord = ascii_to_vec(cylin[1]);
+    /* compute here orientation axis */
     obj->obj_norm = ascii_to_vec(cylin[2]);
     obj->diameter = ascii_to_float(cylin[3]);
     obj->height = ascii_to_float(cylin[4]);
     obj->obj_color = ascii_to_rgb(cylin[5]);
+<<<<<<< HEAD
+=======
 }
+>>>>>>> normed
 
+}
