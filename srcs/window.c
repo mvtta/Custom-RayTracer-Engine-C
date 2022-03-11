@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 17:53:53 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/02/05 12:45:50 by user             ###   ########.fr       */
+/*   Updated: 2022/02/28 18:26:00 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void window_init(t_frame *rt)
 	rt->win_ptr = mlx_new_window(rt->mlx_ptr, rt->window_w, rt->window_h, "A cool rt");
 	rt->obj_img.img_ptr = mlx_new_image(rt->mlx_ptr, rt->window_w, rt->window_h);
     rt->obj_img.data = (int *)mlx_get_data_addr(rt->obj_img.img_ptr, &rt->obj_img.bits_per_pixel, &rt->obj_img.line_length, &rt->obj_img.endian);
+    ft_bzero(rt->obj_img.data, sizeof(&rt->obj_img.data));
     mlx_hook(rt->win_ptr, 2, 53, key_kill, rt);
     mlx_hook(rt->win_ptr, 17, 1216, key_kill, rt);
 }

@@ -6,14 +6,19 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 12:30:11 by user              #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/02/14 02:55:05 by user             ###   ########.fr       */
+=======
+/*   Updated: 2022/02/19 17:19:38 by user             ###   ########.fr       */
+>>>>>>> normed
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtlib.h"
 
-float get_time_pl(t_ray *ray, t_vec *point, t_vec *normal)
+/* float get_time_pl(t_ray *ray, t_vec *point, t_vec *normal)
 {
+<<<<<<< HEAD
     float time;
     float denom;
     t_vec n = normalize(normal);
@@ -35,5 +40,7 @@ float get_time_pl(t_ray *ray, t_vec *point, t_vec *normal)
         return(time);
     }
     }
+=======
+>>>>>>> normed
     return (NO_HIT);
-}
+} */

@@ -6,12 +6,16 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/02/13 22:19:44 by user             ###   ########.fr       */
+=======
+/*   Updated: 2022/03/11 14:53:30 by user             ###   ########.fr       */
+>>>>>>> normed
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RTLIB_H
-#define RTLIB_H
+#   ifndef RTLIB_H
+#   define RTLIB_H
 
 
 #define PI 3.14159265358979323846
@@ -47,12 +51,12 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <float.h>
-#include <mlx.h>
 #include <stdbool.h>
 
 #include "mlx.h"
 #include "gnl.h"
 #include "libft.h"
+#include "bimlib.h"
 #include "color.h"
 
 
@@ -63,6 +67,7 @@ typedef struct s_point
     float z;
 } t_point;
 
+<<<<<<< HEAD
 typedef struct s_mc
 {
     double p0;
@@ -71,6 +76,19 @@ typedef struct s_mc
     double p3;
     double p4;
 } t_mc;
+=======
+typedef struct s_pixel
+{
+    int x;
+    int y;
+    
+}t_pixel;
+
+typedef struct s_pixel_map
+{
+    unsigned int map[3000][3000];
+}t_pixel_map;
+>>>>>>> normed
 
 typedef struct s_vec
 {
@@ -87,6 +105,19 @@ typedef struct s_matrix
     t_mc *first_col;
     
 } t_matrix;
+
+typedef struct s_boxblur
+{
+    t_pixel m_00;
+    t_pixel m_01;
+    t_pixel m_02;
+    t_pixel m_10;
+    t_pixel m_11;
+    t_pixel m_12;
+    t_pixel m_20;
+    t_pixel m_21;
+    t_pixel m_22;
+} t_boxblur;
 
 typedef struct s_ray
 {
@@ -124,10 +155,6 @@ typedef struct s_data
     int line_length;    // width
     int bits_per_pixel; // bpp
     int endian;
-    /* Endianness The attribute of a system that indicates whether
-    integers are represented with the most significant byte
-    stored at the lowest address (big endian) or at the highest address (little endian).
-    Each address stores one element of the memory array. */
     int *data;
     void *img_ptr;
 } t_data;
@@ -142,6 +169,7 @@ typedef struct s_obj
     float height;
     float spec_r;
     float shine;
+<<<<<<< HEAD
     float material;
     t_vec *obj_coord;
     t_vec *obj_norm;
@@ -149,6 +177,16 @@ typedef struct s_obj
     t_vec *last_hit;
     t_axis *axis;
     t_matrix *edges;
+=======
+    char *raw;
+    char id1;
+    int id2;
+    float d;
+    t_vec *obj_norm;
+    t_vec *p;
+    t_vec test;
+    t_vec *obj_coord;
+>>>>>>> normed
     t_matrix *scale;
     t_matrix *pan;
     t_matrix *hom;
@@ -178,7 +216,8 @@ typedef struct s_camera
     int lens;
     float h_fov;
     float v_fov;
-    float focus;
+    float focal_l;
+    float a_ratio;
     t_vec *cam_coord;
     t_vec *cam_norm;
     t_matrix *m;
@@ -227,11 +266,23 @@ typedef struct s_frame
     t_ray *light_ray;
     t_ray *shadow_ray;
     t_ray *reflection_ray;
+    t_pixel_map pixel_map;
 
 } t_frame;
 
 /* prototypes */
 
+<<<<<<< HEAD
+=======
+/* effects.c */
+
+int limit_kernel(t_frame *rt, float source, float deviation, char xy);
+t_boxblur gaussian_var(int x, int y);
+unsigned int apply_blur(t_frame *rt, int x, int y);
+void  depth_map(t_frame *rt, int x, int y, unsigned int pixel_color);
+
+//int filetype_is_valid(char *arg, char *file_type);
+>>>>>>> normed
 /* lens */
 float get_focal_len(float fov);
 
@@ -242,7 +293,10 @@ t_axis gen_axis(t_obj *shape, t_ray *ray);
 
 /* quadratics */
 
-float solve_q(float a, float b, float c, float t);
+float solve_q(t_obj *o, t_vec p);
+float solve_d(t_obj *o, t_vec p);
+float solve_abcd(float a, float b, float c, float d);
+float solve_abc(float a, float b, float c);
 
 /* equations */
 
@@ -262,12 +316,16 @@ t_ray *ray_prime(t_ray *ray, t_vec *origin);
 t_ray ray_from_to(t_vec *point_origin, t_vec *point_direction);
 
 /* color */
+t_color c_new_color(int r, int g, int b);
+t_color c_color_components(unsigned int decimal_color);
 int c_range(int d, int min, int max);
 int c_increase(int max);
+t_color c_mix_2colors(t_color one, t_color two);
+t_color c_mix_hue(t_color one, t_color two, t_color hue);
 float c_percentage(int color);
-int c_hue(t_color *check);
-t_color c_mix(t_color *source, t_color *obj, double spec, double difuse);
-t_color c_grade(t_color *source, t_color *color, double spec, double difuse);
+t_color c_isolate_hue(t_color *check);
+t_color c_mix(t_frame *rt, t_color *obj, double spec, double difuse);
+t_color c_grade(t_frame *rt, t_color *color, double spec, double difuse);
 int c_channel_increase();
 
 /* control */
@@ -285,6 +343,7 @@ float  ndc(t_frame *rt, float coord, char id);
 t_vec   world2scene(int width, int heigh, t_vec *coordinates);
 
 /* vector.c */
+t_vec normal_2p(t_vec *p1, t_vec *p2);
 t_vec v_normcy(t_vec *v1);
 float   degree_to_percentage(float degree);
 double          angle_bet_vs(t_vec *v1, t_vec *v2);
@@ -311,9 +370,9 @@ double			length(t_vec v);
 
 float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord);
 float ray_cy(t_ray *r, t_obj *p, t_vec obj_coord);
-float ray_plane(t_ray *r, t_obj *p, t_vec obj_coord);
+float ray_plane(t_ray *r, t_obj *p);
 /* render.c */
-
+void iterate_obj(t_frame *rt, t_ray *prime, int x, int y);
 float compute_light_plane(t_frame *rt, t_ray *ray, t_vec obj_coord);
 float compute_light(t_frame *rt, t_ray *ray, t_vec obj_coord);
 void my_mlx_pixel_put(t_data *data, int x, int y, unsigned int color);
@@ -337,8 +396,8 @@ int ascii_to_int(char *data);
 float ascii_to_float(char *data);
 t_vec *ascii_to_vec(char *data);
 t_vec *ascii_to_vec(char *data);
-unsigned int ascii_to_hex(int r, int g, int b);
 t_color *ascii_to_rgb(char *data);
+unsigned int ascii_to_hex(int r, int g, int b);
 
 /* create_obj.c */
 t_obj *new_obj(t_frame *rt, char *data);
