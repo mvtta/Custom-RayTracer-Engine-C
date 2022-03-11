@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 11:20:09 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/03/07 17:28:31 by user             ###   ########.fr       */
+/*   Updated: 2022/03/10 19:58:21 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ int minirt(void)
 
 int main(int ac, char **av)
 {
-    int last= 0;
-
-    last = ft_strlen(av[1]);
     if (ac == 2)
     {
         if (filetype_is_valid(av[1], ".rt"))

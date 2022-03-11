@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/03/10 12:14:48 by user             ###   ########.fr       */
+/*   Updated: 2022/03/11 14:53:30 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -358,8 +358,8 @@ int ascii_to_int(char *data);
 float ascii_to_float(char *data);
 t_vec *ascii_to_vec(char *data);
 t_vec *ascii_to_vec(char *data);
-unsigned int ascii_to_hex(int r, int g, int b);
 t_color *ascii_to_rgb(char *data);
+unsigned int ascii_to_hex(int r, int g, int b);
 
 /* create_obj.c */
 t_obj *new_obj(t_frame *rt, char *data);
