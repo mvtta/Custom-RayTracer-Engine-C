@@ -6,12 +6,12 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/03/02 21:38:15 by user             ###   ########.fr       */
+/*   Updated: 2022/03/11 14:53:30 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RTLIB_H
-#define RTLIB_H
+#   ifndef RTLIB_H
+#   define RTLIB_H
 
 
 #define PI 3.14159265358979323846
@@ -42,12 +42,12 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <float.h>
-#include <mlx.h>
 #include <stdbool.h>
 
 #include "mlx.h"
 #include "gnl.h"
 #include "libft.h"
+#include "bimlib.h"
 #include "color.h"
 
 typedef struct s_point
@@ -238,12 +238,13 @@ typedef struct s_frame
 /* prototypes */
 
 /* effects.c */
+
 int limit_kernel(t_frame *rt, float source, float deviation, char xy);
 t_boxblur gaussian_var(int x, int y);
 unsigned int apply_blur(t_frame *rt, int x, int y);
 void  depth_map(t_frame *rt, int x, int y, unsigned int pixel_color);
 
-
+//int filetype_is_valid(char *arg, char *file_type);
 /* lens */
 float get_focal_len(float fov);
 
@@ -277,11 +278,14 @@ t_ray *ray_prime(t_ray *ray, t_vec *origin);
 t_ray ray_from_to(t_vec *point_origin, t_vec *point_direction);
 
 /* color */
+t_color c_new_color(int r, int g, int b);
 t_color c_color_components(unsigned int decimal_color);
 int c_range(int d, int min, int max);
 int c_increase(int max);
+t_color c_mix_2colors(t_color one, t_color two);
+t_color c_mix_hue(t_color one, t_color two, t_color hue);
 float c_percentage(int color);
-int c_hue(t_color *check);
+t_color c_isolate_hue(t_color *check);
 t_color c_mix(t_frame *rt, t_color *obj, double spec, double difuse);
 t_color c_grade(t_frame *rt, t_color *color, double spec, double difuse);
 int c_channel_increase();
@@ -354,8 +358,8 @@ int ascii_to_int(char *data);
 float ascii_to_float(char *data);
 t_vec *ascii_to_vec(char *data);
 t_vec *ascii_to_vec(char *data);
-unsigned int ascii_to_hex(int r, int g, int b);
 t_color *ascii_to_rgb(char *data);
+unsigned int ascii_to_hex(int r, int g, int b);
 
 /* create_obj.c */
 t_obj *new_obj(t_frame *rt, char *data);

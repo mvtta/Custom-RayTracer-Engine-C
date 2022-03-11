@@ -5,84 +5,47 @@
 #                                                     +:+ +:+         +:+      #
 #    By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/05/07 12:36:54 by mvaldeta          #+#    #+#              #
-#    Updated: 2021/12/07 17:32:14 by user             ###   ########.fr        #
+#    Created: 2022/03/10 19:44:38 by user              #+#    #+#              #
+#    Updated: 2022/03/10 19:47:11 by user             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-################################################################################
-# Makefile
-################################################################################
+# *+-+-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+
+# *|G|e|n|e|r|i|c| |M|a|k|e|f|i|l|e|
+# *+-+-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+
 
-# Makefile by mvaldeta (tired of !understanting makefiles)
-# Version 0.0
+CONFIG = rtconfig.mk
+include $(CONFIG)
 
-################################################################################
-# $@ evaluates to all
-# $< evaluates to server
-# $^ evaluates to server & client
-#
-# Automatic variables
-#
-# $@: The filename representing the target.
-# $%: The filename element of an archive member specification.
-# $<: The filename of the first prerequisite.
-# $?: The names of all prerequisites that are newer than the target, separated by spaces.
-# $*: The stem of the target filename. A stem is typically a filename without its suffix. 
-#
-# The -c flag generates the .o file; see man gcc for a more detailed explanation. 
-# The -o specifies the output file to create.
-# make -p for makefile database
-################################################################################
+${EXEC}: ${LIBS} $(OBJ)	
+	mkdir -p ${BROOT}
+	$(CC) $(CFLAGS) ${LINKFLAGS} -I${IROOT} ${SRC} -o ${OBJ} ${EXEC}
+	mv $@ $(BROOT)
+	printf "\e[31m[ALL]\e[0m\n"
+	printf "\e[31m[OUT]\e[0m\n"
 
-EXEC 		= ./minirt
-HEADERS 	= includes/
-SRC_EXEC 	= ${wildcard srcs/*.c}
-LIBFT 		= libs/libft/bin/libft.a
-SRC_LIBFT 	= libs/libft/
-BIN_ROOT 	= bin/
-OBJ_ROOT	= obj/
+${LIBS}:
+	printf "\e[31m[BUILD LIBS]\e[0m\n"
+	make -C libs/libft
+	make -C libs/libbim
+	make -C libs/minilibx_ogl
+	printf "\e[31m[DONE LIBS]\e[0m\n"
 
+$(OBJ):
+	mkdir -p ${OROOT}
 
-################################################################
-# compiler + flags minirt
-################################################################
+all : ${EXEC}
 
-CC = gcc
-
-#-fsanitize=address
-
-CFLAGS = -g -fsanitize=address -Imlx -Werror -Wall -Wextra
-
-MLX_DIR = libs/minilibx_opengl_20191021
-
-MLX_FLAGS = -L ./$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit 
-
-MLX_FILE = $(MLX_DIR)libmlx.a
-
-O_EXEC =  $(SRC_MAIN:%.c=%.o)
-
-all : $(EXEC)
-
-$(EXEC) : ${LIBFT} $(MLX_FILE) $(O_EXEC)
-	mkdir -p ${BIN_ROOT}
-	$(CC) $(CFLAGS) $(MLX_FLAGS) -I $(HEADERS) ${LIBFT} $(SRC_EXEC) $(O_EXEC) -o ${BIN_ROOT}$@
-	@printf "\e[32m${EXEC}built🎆\e[0m\n"
-
-${LIBFT} :
-					make -C ${SRC_LIBFT}
-					@printf "\e[32mcreating libft🎆\e[0m\n"
-
-${MLX_FILE} : 
-					@make -C $(MLX_DIR) 
-					@printf "\e[32mcreating MLX🎆\e[0m\n"
+.o:%.c
+	$(CC) $(CFLAGS) $(OBJ) -c $<
 
 clean :
 	@rm -f $(O_EXEC)
 	@printf "\e[31mclean done ✔️\e[0m\n"
 
 fclean : clean
-	@rm -rf $(BIN_ROOT)
+	@rm -rf $(BROOT)
+	@rm -rf $(OROOT)
 	@printf "\e[32mbin directory clean 👾\e[0m\n"
 	@rm -f $(EXEC) $(LIBFT)
 	@printf "\e[32mlibft clean 👾\e[0m\n"
