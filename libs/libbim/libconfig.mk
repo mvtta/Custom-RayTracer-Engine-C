@@ -2,21 +2,24 @@
 # *|G|e|n|e|r|i|c| |M|a|k|e|f|i|l|e|
 # *+-+-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+
 
-TARGET		= libbim.a
-IDIR		= includes/
-ODIR 		= obj/
-BUILDDIR	= bin/
-ADIR 		= bin/
-LBIR 		= ../libft
-SDIR 		= srcs/filetype_is_valid.c
-LIB 		= -lft
+EXEC		= libbim.a
+IROOT		= includes/
+L1ROOT		= ../libft
+_LIBDEP		= ../libft/includes/libft.h
+SRC 		= ${wildcard srcs/*.c}
+OBJ 		= ${patsubst %.c,%.o,${SRC:%.c}}
+OROOT 		= obj/
+BROOT		= bin/
+_L1			= libft.a
+_OBJ 		= filetype_is_valid.o
+_DEPS 		= includes/bimlib.h
+
 CC       	= gcc
+LINK_L1		= -L${L1ROOT}/bin -lft
+LINKFLAGS	= ${LINK_L1}
+CFLAGS		= -g -fsanitize=address -Werror -Wall -Wextra
 AR       	= ar
 ARFLAGS  	= rcs
-_DEPS 		= includes/bimlib.h
-_LIBDEP		= ../libft/includes/libft.h
-_DEPS 		= includes/bimlib.h
-_OBJ 		= filetype_is_valid.o
 
 # ********************************************************************************
 # * for building user libraries of all sorts.

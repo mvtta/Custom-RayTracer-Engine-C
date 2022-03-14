@@ -6,7 +6,7 @@
 #    By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/10 14:03:46 by user              #+#    #+#              #
-#    Updated: 2022/03/10 19:46:57 by user             ###   ########.fr        #
+#    Updated: 2022/03/14 13:14:19 by user             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,25 +16,33 @@
 
 CONFIG = libconfig.mk
 include $(CONFIG)
+	
+${EXEC}: $(_OBJ)
+	mkdir -p ${BROOT}
+	mkdir -p ${OROOT}
+	$(AR) rcs $@ $^
+	ranlib $@
+	-@mv $@ ${BROOT}
+	-@mv $^ ${OROOT}
 
-${TARGET}: $(_OBJ)
-	mkdir -p ${ADIR}
-	$(AR) rcs $@ ${ODIR}$(_OBJ)
-	@mv $@ ${ADIR}
+all: ${EXEC}
 
 $(_OBJ):
-	mkdir -p ${ODIR}
-	@mv $^ $(ODIR)
+	$(CC) $(CFLAGS) $(SRC) -c -I${IROOT} $<
+clean :
+	@rm -f $(EXEC)
+	@printf "\e[31mclean done ✔️\e[0m\n"
 
-all: ${TARGET}
+fclean : clean
+	@rm -rf $(BROOT)
+	@rm -rf $(OROOT)
+	@printf "\e[32mbin directory clean 👾\e[0m\n"
+	@printf "\e[31mfsuper clean done ✔️\e[0m\n"
 
-%.o:%.c
-	$(CC) $(CFLAGS) $(_OBJ) -c $<
+re : fclean all
 
-clean:
-	rm -rf $(ODIR) $(BUILDDIR) 
+.PHONY: all clean fclean re
 
-.PHONY: clean
 
 # ********************************************************************************
 # * for building user libraries of all sorts.
