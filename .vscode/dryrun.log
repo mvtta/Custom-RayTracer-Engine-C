@@ -1,0 +1,45 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory `/Users/mvaldeta/Desktop/02.miniRT'
+printf "\e[31m[BUILD LIBFT]\e[0m\n"
+make -C libs/libft
+printf "\e[31m[BUILD LIBIM]\e[0m\n"
+make -C libs/libbim
+printf "\e[31m[BUILD LIBVEC]\e[0m\n"
+make -C libs/libvec
+printf "\e[31m[BUILD MINILIBX]\e[0m\n"
+make -C libs/minilibx_ogl
+printf "\e[31m[DONE LIBS]\e[0m\n"
+printf "\e[31m[BUILD LIBFT]\e[0m\n"
+make -C libs/libft
+printf "\e[31m[BUILD LIBIM]\e[0m\n"
+make -C libs/libbim
+printf "\e[31m[BUILD LIBVEC]\e[0m\n"
+make -C libs/libvec
+printf "\e[31m[BUILD MINILIBX]\e[0m\n"
+make -C libs/minilibx_ogl
+printf "\e[31m[DONE LIBS]\e[0m\n"
+printf "\e[31m[BUILD LIBFT]\e[0m\n"
+make -C libs/libft
+printf "\e[31m[BUILD LIBIM]\e[0m\n"
+make -C libs/libbim
+printf "\e[31m[BUILD LIBVEC]\e[0m\n"
+make -C libs/libvec
+printf "\e[31m[BUILD MINILIBX]\e[0m\n"
+make -C libs/minilibx_ogl
+printf "\e[31m[DONE LIBS]\e[0m\n"
+printf "\e[31m[BUILD LIBFT]\e[0m\n"
+make -C libs/libft
+printf "\e[31m[BUILD LIBIM]\e[0m\n"
+make -C libs/libbim
+printf "\e[31m[BUILD LIBVEC]\e[0m\n"
+make -C libs/libvec
+printf "\e[31m[BUILD MINILIBX]\e[0m\n"
+make -C libs/minilibx_ogl
+printf "\e[31m[DONE LIBS]\e[0m\n"
+mkdir -p bin/
+gcc -g -fsanitize=address -Imlx -Werror -Wall -Wextra  -Llibs/minilibx_ogl/ -lmlx -framework OpenGL -framework AppKit -Llibs/libft/bin -lft -Llibs/libbim/bin -lbim -Llibs/libvec/bin -lvec -Iincludes srcs/engine/print_info.c srcs/engine/image.c srcs/engine/control.c srcs/interface/lens.c srcs/interface/compose.c srcs/render/intersections.c srcs/render/shadows.c srcs/render/ray.c srcs/render/space_translation.c srcs/render/effects.c srcs/render/vector.c srcs/render/minirt.c srcs/render/shapes.c srcs/render/render.c srcs/render/equations.c srcs/render/rendering_equation.c srcs/render/transformations.c srcs/render/color.c srcs/render/quadratics.c srcs/set/actors.c srcs/set/reform.c srcs/set/init.c srcs/set/scene.c srcs/set/frame.c srcs/set/window.c -o  ./minirt
+mv minirt bin/
+printf "\e[31m[ALL]\e[0m\n"
+printf "\e[31m[OUT]\e[0m\n"
+make: Leaving directory `/Users/mvaldeta/Desktop/02.miniRT'
+ 

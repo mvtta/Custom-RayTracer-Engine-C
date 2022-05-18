@@ -1,0 +1,6 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory `/Users/mvaldeta/42/42Cursus/02.miniRT/libs'
+make: Leaving directory `/Users/mvaldeta/42/42Cursus/02.miniRT/libs'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+

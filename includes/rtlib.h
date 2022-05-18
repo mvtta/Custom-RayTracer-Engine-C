@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/03/11 14:53:30 by user             ###   ########.fr       */
+/*   Updated: 2022/05/17 09:51:19 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,11 @@
 
 #include "mlx.h"
 #include "gnl.h"
-#include "libft.h"
+#include "libvec.h"
 #include "bimlib.h"
+#include "libft.h"
 #include "color.h"
 
-typedef struct s_point
-{
-    float x;
-    float y;
-    float z;
-} t_point;
 
 typedef struct s_pixel
 {
@@ -66,15 +61,9 @@ typedef struct s_pixel
 
 typedef struct s_pixel_map
 {
-    unsigned int map[3000][3000];
+    unsigned int map[9000][9000];
 }t_pixel_map;
 
-typedef struct s_vec
-{
-    float x;
-    float y;
-    float z;
-} t_vec;
 
 typedef struct s_matrix
 {
@@ -97,13 +86,6 @@ typedef struct s_boxblur
     t_pixel m_22;
 } t_boxblur;
 
-typedef struct s_ray
-{
-    t_vec *start;
-    t_vec *dir;
-    t_vec *norm;
-    float len;
-} t_ray;
 
 typedef struct s_axis
 {
@@ -158,6 +140,7 @@ typedef struct s_obj
     t_matrix *hom;
     t_color *obj_color;
     t_data *img;
+    t_vec  *material;
 
 } t_obj;
 
@@ -216,11 +199,13 @@ typedef struct s_parse
 
 typedef struct s_frame
 {
+    int out_of_focus;
     void *mlx_ptr;
     void *win_ptr;
     int window_w;
     int window_h;
     int nbr_objs;
+    unsigned int background;
     t_obj *objs_first;
     t_obj *objs_last;
     t_scene *scene;
@@ -236,6 +221,8 @@ typedef struct s_frame
 } t_frame;
 
 /* prototypes */
+
+t_vec *ascii_to_vec(char *data);
 
 /* effects.c */
 
@@ -269,26 +256,22 @@ float get_time_pl(t_ray *ray, t_vec *point, t_vec *normal);
 
 void  print_vector(t_vec v, char *info);
 
-/* ray */
-void ray_init(t_ray **r);
-// void   ray_init(t_ray **ray);
-t_vec *ro_3(t_ray *ray, t_vec *where);
-t_vec *rd_3(t_ray *ray, t_vec *where);
-t_ray *ray_prime(t_ray *ray, t_vec *origin);
-t_ray ray_from_to(t_vec *point_origin, t_vec *point_direction);
 
-/* color */
+/*  color  */
 t_color c_new_color(int r, int g, int b);
 t_color c_color_components(unsigned int decimal_color);
 int c_range(int d, int min, int max);
 int c_increase(int max);
 t_color c_mix_2colors(t_color one, t_color two);
-t_color c_mix_hue(t_color one, t_color two, t_color hue);
+t_color c_mix_hue(t_color onwe, t_color two, t_color hue);
 float c_percentage(int color);
 t_color c_isolate_hue(t_color *check);
-t_color c_mix(t_frame *rt, t_color *obj, double spec, double difuse);
-t_color c_grade(t_frame *rt, t_color *color, double spec, double difuse);
+t_color c_mix(t_frame *rt, t_obj *obj, double spec, double difuse);
+t_color c_grade(t_frame *rt, t_obj *curr, double spec, double difuse);
 int c_channel_increase();
+t_color c_intensity(t_color color, float intensity);
+t_color c_mix_3colors(t_color one, t_color two, t_color three);
+
 
 /* control */
 int key_zoom(int keycode, t_frame *rt);
@@ -296,6 +279,7 @@ int	key_kill(int keycode, t_frame *rt);
 
 /* rendering eq */
 double c_clamp(double d, double min, double max);
+int in_shadow(t_frame *rt, t_ray *ray, t_obj *obj);
 double lambert(t_frame *rt, t_ray *ray, t_obj *obj);
 double   blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj);
 t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj);
@@ -304,36 +288,19 @@ t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj);
 float  ndc(t_frame *rt, float coord, char id);
 t_vec   world2scene(int width, int heigh, t_vec *coordinates);
 
-/* vector.c */
-t_vec normal_2p(t_vec *p1, t_vec *p2);
-t_vec v_normcy(t_vec *v1);
-float   degree_to_percentage(float degree);
-double          angle_bet_vs(t_vec *v1, t_vec *v2);
-t_vec  cross_p(t_vec a, t_vec b);
-t_color c_mix_plane(float volume, float light, t_color *obj_color);
-t_color c_luminance_plane(float alpha, t_color *color);
-t_vec v_3(float x, float y, float z);
 
-float v_mag(t_vec *v1, t_vec *v2);
-t_color c_luminance(float alpha, t_color *color);
-t_color c_blend_flat(float alpha, t_color *color);
-t_color c_blend(float alpha, t_color *color);
-t_vec normalize(t_vec *p);
-t_vec v_scale(float scale, t_vec *vec);
-t_vec v_sub(t_vec *v1, t_vec *v2);
-t_vec v_from_2p(t_vec v1, t_vec v2);
-t_vec v_add(t_vec *v1, t_vec *v2);
-t_vec v_mult(t_vec *v1, t_vec *v2);
-float dot_p(t_vec *v1, t_vec *v2);
-double			length_squared(t_vec v);
-double			length(t_vec v);
 
 /* intersection.c */
 
 float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord);
 float ray_cy(t_ray *r, t_obj *p, t_vec obj_coord);
 float ray_plane(t_ray *r, t_obj *p);
+
 /* render.c */
+float get_near_dof(float fl);
+float get_hyperfocal_dist(float fl, float ap, float c);
+float get_far_dof(float fl);
+float get_dof_range(float near, float far);
 void iterate_obj(t_frame *rt, t_ray *prime, int x, int y);
 float compute_light_plane(t_frame *rt, t_ray *ray, t_vec obj_coord);
 float compute_light(t_frame *rt, t_ray *ray, t_vec obj_coord);
@@ -352,14 +319,9 @@ void create_image(t_frame *rt, int which);
 void window_init(t_frame *rt);
 void map_to_img(t_data data, int x, int y, int color);
 
-/* ascii_to.c */
+/* specific user conververtions */
 
-int ascii_to_int(char *data);
-float ascii_to_float(char *data);
-t_vec *ascii_to_vec(char *data);
-t_vec *ascii_to_vec(char *data);
 t_color *ascii_to_rgb(char *data);
-unsigned int ascii_to_hex(int r, int g, int b);
 
 /* create_obj.c */
 t_obj *new_obj(t_frame *rt, char *data);
@@ -387,7 +349,7 @@ t_frame *attribute(t_frame *rt, char id, char *data);
 
 
 /* frame.c */
-t_frame *fill_frame(t_parse *raw, t_frame *rt);
+t_frame *fill_frame(t_parse *raw, t_frame *rt, char *rtfile);
 t_frame *kill_frame(t_frame *rt);
 
 /* parse.c */
@@ -407,6 +369,6 @@ t_scene *init_3dw(void);
 /* minirt.c */
 
 size_t ft_strlen(const char *str);
-int minirt(void);
+int minirt(char *rtfile);
 
 #endif
