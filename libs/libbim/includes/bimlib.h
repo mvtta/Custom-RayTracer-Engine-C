@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 22:11:25 by user              #+#    #+#             */
-/*   Updated: 2022/03/11 14:53:24 by user             ###   ########.fr       */
+/*   Updated: 2022/04/28 22:51:09 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define BIMLIB_H
 
 # include <unistd.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <limits.h>
 # include <fcntl.h>
@@ -42,7 +43,13 @@
 int filetype_is_valid(char *arg, char *file_type);
 
 /* 
-*   input parse
+** input get
+*/
+
+char    *get_next_line(int fd);
+
+/* 
+** input parse 
 */
 
 char *parse_input(int fd);
@@ -50,7 +57,7 @@ char *save_raw(char *input);
 
 
 /* 
-*   input convertions
+** input convertions
 */
 
 int ascii_to_int(char *data);

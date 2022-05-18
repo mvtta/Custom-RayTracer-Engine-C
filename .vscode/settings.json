@@ -5,11 +5,16 @@
         "mlx.h": "c"
     },
     "cSpell.words": [
+        "cylin",
         "libft",
+        "LIBPIXL",
+        "rtlib",
+        "TELE",
         "xmax",
         "xmin",
         "ymax",
         "ymin",
         "zmin"
-    ]
+    ],
+    "C_Cpp.errorSquiggles": "Disabled"
 }

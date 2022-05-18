@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"iterator": "c",
+			"algorithm": "c"
+		},
+		"makefile.extensionOutputFolder": "./.vscode",
+		"vscode-decompiler.tool.ghidra.path": "/usr/local/Caskroom/ghidra/10.1.2-20220125/ghidra_10.1.2_PUBLIC/support/analyzeHeadless",
+		"better-comments.highlightPlainText": true,
+		"vscode-decompiler.java.decompiler.selected": "jadx",
+		"makefile-creator.makefile_cxx": "gcc",
+		"makefile-creator.makefile_cxxflags": "-Wall -Werror -Wextra -Wvla",
+		"makefile-creator.makefile_ldflags": "-g -fsanitize=address "
+	}
+}

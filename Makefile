@@ -6,7 +6,7 @@
 #    By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/10 19:44:38 by user              #+#    #+#              #
-#    Updated: 2022/03/10 19:47:11 by user             ###   ########.fr        #
+#    Updated: 2022/05/17 09:11:18 by user             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,12 +25,15 @@ ${EXEC}: ${LIBS} $(OBJ)
 	printf "\e[31m[OUT]\e[0m\n"
 
 ${LIBS}:
-	printf "\e[31m[BUILD LIBS]\e[0m\n"
+	printf "\e[31m[BUILD LIBFT]\e[0m\n"
 	make -C libs/libft
+	printf "\e[31m[BUILD LIBIM]\e[0m\n"
 	make -C libs/libbim
+	printf "\e[31m[BUILD LIBVEC]\e[0m\n"
+	make -C libs/libvec
+	printf "\e[31m[BUILD MINILIBX]\e[0m\n"
 	make -C libs/minilibx_ogl
 	printf "\e[31m[DONE LIBS]\e[0m\n"
-
 $(OBJ):
 	mkdir -p ${OROOT}
 
@@ -51,6 +54,10 @@ fclean : clean
 	@printf "\e[32mlibft clean 👾\e[0m\n"
 	@printf "\e[31mfsuper clean done ✔️\e[0m\n"
 
+
 re : fclean all
 
 .PHONY: all clean fclean re
+
+$(V).SILENT:
+

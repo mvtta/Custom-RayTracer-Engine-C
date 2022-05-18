@@ -6,7 +6,7 @@
 #    By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/10 14:03:46 by user              #+#    #+#              #
-#    Updated: 2022/03/14 13:14:19 by user             ###   ########.fr        #
+#    Updated: 2022/05/17 09:26:39 by user             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,21 +14,27 @@
 # *|G|e|n|e|r|i|c| |M|a|k|e|f|i|l|e|
 # *+-+-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+
 
-CONFIG = libconfig.mk
+CONFIG = libbim_config.mk
 include $(CONFIG)
 	
 ${EXEC}: $(_OBJ)
 	mkdir -p ${BROOT}
 	mkdir -p ${OROOT}
+	@printf "\e[31m[MADE FOLDERS]\e[0m\n"
 	$(AR) rcs $@ $^
 	ranlib $@
+	@printf "\e[31m[MADE LIB]\e[0m\n"
 	-@mv $@ ${BROOT}
 	-@mv $^ ${OROOT}
+	@printf "\e[31m[MOVED FOLDERS]\e[0m\n"
 
 all: ${EXEC}
 
-$(_OBJ):
+$(_OBJ):$(SRCS)
+	@printf "\e[31m[ENTERED OBJ RULE]\e[0m\n"
 	$(CC) $(CFLAGS) $(SRC) -c -I${IROOT} $<
+	@printf "\e[31m[MADE OBJSs]\e[0m\n"
+	#$(CC) -c $(CFLAGS) -I$(_DEPS) $< -o $@
 clean :
 	@rm -f $(EXEC)
 	@printf "\e[31mclean done ✔️\e[0m\n"
