@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 13:21:11 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/04/20 13:22:51 by user             ###   ########.fr       */
+/*   Updated: 2022/05/19 09:58:44 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,8 @@ void create_scene(t_parse *info, t_frame *rt)
 {
     rt->scene = init_3dw();
     fill_scene(info, rt, 'A');
-    write(1, "\nscene_created: A\n", 17);
     fill_scene(info, rt, 'C');
-    write(1, "\nscene_created: C\n", 17);
     fill_scene(info, rt, 'L');
-    write(1, "\nscene_created: L\n", 17);
     return;
 }
 

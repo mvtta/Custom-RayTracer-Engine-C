@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/05/01 21:38:51 by user             ###   ########.fr       */
+/*   Updated: 2022/05/19 19:47:39 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,16 @@ void iterate_obj(t_frame *rt, t_ray *prime, int x, int y)
             printf("dof:%f\n", dof);
             printf("fl:%f\n", fl);
             exit(0); */
-            if (hit != fh || hit < fl || hit > fl)
+            if(rt->auto_focus == 0)
             {
-                rt->out_of_focus = 9;
-                unsigned int new = apply_blur(rt, x, y);
-                my_mlx_pixel_put(&rt->obj_img, x, (rt->window_h - 1) - y, new);
-                depth_map(rt, x, y, new);
-            } 
+                if (hit != fh || hit < fl || hit > fl)
+                {
+                    rt->out_of_focus = 9;
+                    unsigned int new = apply_blur(rt, x, y);
+                    my_mlx_pixel_put(&rt->obj_img, x, (rt->window_h - 1) - y, new);
+                    depth_map(rt, x, y, new);
+                } 
+            }
             else
                 my_mlx_pixel_put(&rt->obj_img, x, (rt->window_h - 1) - y, volume.hex);
             depth_map(rt, x, y, volume.hex);
@@ -71,11 +74,13 @@ void iterate_obj(t_frame *rt, t_ray *prime, int x, int y)
     return (t);
 }
 
-/*   static void test_ray(t_ray *r, t_vec *o)
-{
-    // r->start = malloc(sizeof(t_vec));
-    r->start = o;
-} */
+/*
+    static void test_ray(t_ray *r, t_vec *o)
+    {
+        // r->start = malloc(sizeof(t_vec));
+        r->start = o;
+    }
+*/
 
 static void fake_init(t_ray **r)
 {
@@ -85,6 +90,7 @@ static void fake_init(t_ray **r)
     (*r)->norm = malloc(sizeof(t_vec));
     (*r)->len = 0;
 }
+
 int render(t_frame *rt)
 {
     t_ray *ray;
@@ -122,4 +128,5 @@ int render(t_frame *rt)
     mlx_put_image_to_window(rt->mlx_ptr, rt->win_ptr, rt->obj_img.img_ptr, 0, 0);
     //mlx_string_put(rt->mlx_ptr, rt->win_ptr, 100, 100, 3136671, "ESCREVER\n");
     return (0);
+
 }

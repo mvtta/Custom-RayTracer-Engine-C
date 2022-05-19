@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 12:20:57 by user              #+#    #+#             */
-/*   Updated: 2022/05/01 10:25:35 by user             ###   ########.fr       */
+/*   Updated: 2022/05/19 11:59:10 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_frame *init_frame(void)
     rt->objs_last = NULL;
     rt->nbr_objs = 0;
     rt->out_of_focus = 0;
+    rt->auto_focus = 1;
     int i = -1;
     int j = -1;
     while(++i < rt->window_h + 1000)

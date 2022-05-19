@@ -6,12 +6,12 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/05/17 09:51:19 by user             ###   ########.fr       */
+/*   Updated: 2022/05/19 10:34:58 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #   ifndef RTLIB_H
-#   define RTLIB_H
+# define RTLIB_H
 
 
 #define PI 3.14159265358979323846
@@ -217,8 +217,10 @@ typedef struct s_frame
     t_ray *shadow_ray;
     t_ray *reflection_ray;
     t_pixel_map pixel_map;
+    int auto_focus;
 
 } t_frame;
+
 
 /* prototypes */
 
@@ -274,6 +276,8 @@ t_color c_mix_3colors(t_color one, t_color two, t_color three);
 
 
 /* control */
+void    prompt_options(void);
+int choose_focus_mode(t_frame *rt);
 int key_zoom(int keycode, t_frame *rt);
 int	key_kill(int keycode, t_frame *rt);
 

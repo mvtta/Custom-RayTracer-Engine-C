@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 11:20:09 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/04/28 19:04:25 by user             ###   ########.fr       */
+/*   Updated: 2022/05/19 10:33:06 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@ int minirt(char *rtfile)
 
     fill_frame(info, rt, rtfile);
     write(1, "\tframe\n", 7);
-
+    
     create_scene(info, rt);
     write(1, "\tscene\n", 7);
-
+    
     window_init(rt);
+    prompt_options();
     write(1, "\twindow\n", 8);
 
     create_objs(rt);

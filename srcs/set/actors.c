@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 17:32:20 by user              #+#    #+#             */
-/*   Updated: 2022/05/17 11:56:38 by user             ###   ########.fr       */
+/*   Updated: 2022/05/19 12:41:13 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_obj *new_obj(t_frame *rt, char *data)
     new->diameter = 0;
     new->height = 0;
     new->material = NULL;
+    new->shine = 0.18;
     rt->nbr_objs++;
     return (new);
 }
@@ -76,7 +77,7 @@ void create_plane(t_obj *obj, char *data)
     obj->obj_norm = ascii_to_vec(plane[2]);
     obj->obj_color = ascii_to_rgb(plane[3]);
     obj->d = solve_d(obj, *obj->obj_coord);
-    obj->material = ascii_to_vec("0,0,0");
+    obj->material = ascii_to_vec("0.18,0.18,0.18");
     if(plane[4])
         obj->material = ascii_to_vec(plane[4]);
 }
@@ -90,7 +91,7 @@ void create_sphere(t_obj *obj, char *data)
     obj->obj_coord = ascii_to_vec(sphere[1]);
     obj->diameter = ascii_to_float(sphere[2]);
     obj->obj_color = ascii_to_rgb(sphere[3]);
-    obj->material = ascii_to_vec("0,0,0");
+    obj->material = ascii_to_vec("0.18,0.18,0.18");
     if(sphere[4])
         obj->material = ascii_to_vec(sphere[4]);
 }
@@ -106,10 +107,9 @@ void create_cylin(t_obj *obj, char *data)
     obj->diameter = ascii_to_float(cylin[3]);
     obj->height = ascii_to_float(cylin[4]);
     obj->obj_color = ascii_to_rgb(cylin[5]);
-    obj->material = ascii_to_vec("0,0,0");
-/*     print_vector(*obj->obj_coord, "coord");
-    print_vector(*obj->obj_norm, "norm");
-    printf("h:%fw:%f\n", obj->diameter, obj->height);
-    exit(0) */;
-}
+    obj->material = ascii_to_vec("0.18,0.18,0.18");
+    if(cylin[6])
+        obj->material = ascii_to_vec(cylin[6]);
+       
+} 
 

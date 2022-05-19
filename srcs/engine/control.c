@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 14:28:56 by user              #+#    #+#             */
-/*   Updated: 2022/04/09 03:28:12 by user             ###   ########.fr       */
+/*   Updated: 2022/05/19 10:29:33 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int key_zoom(int keycode, t_frame *rt)
 int key_kill(int keycode, t_frame *rt)
 {
     printf("keycode: %d\n", keycode);
+    if(keycode == 49)
+        choose_focus_mode(rt);
     if (keycode == 1216)
     {
         printf("\tRED DOT\n");

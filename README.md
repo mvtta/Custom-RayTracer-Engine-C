@@ -32,10 +32,21 @@ Exploring the basics: The goal of such project, under the directions of 42 Pedag
 | Libft + Minilibx| open, close, read, write, printf , malloc, free, perror, strerror, exit | plane, sphere, cylinder | You must implement Ambient and diffuse lighting | Pressing ESC must close the window and quit the program cleanly.  Clicking on the red cross on the window’s frame must close the window and quit the program cleanly. |
 
 ###### Renders I 
- sphere | cylinder | plane 
+ sphere | cylinder | plane | composed
 :-------------------------:|:-------------------------:|:-------------------------:
-|<img src="https://64.media.tumblr.com/9e8f97c1dd3031ea2515dd20217ea1a9/11dd4897a0228e1e-1a/s2048x3072/69639fcaa1b8d0e60eb21378bb7d0d36253c1693.pnj" width="200"> sub here|<img src="https://64.media.tumblr.com/df1b61f396d351c89c528f254d45c62f/6f82792bfefedfd5-37/s1280x1920/049f8fc3d6bf10e8dad1673624d85aad1b506a79.pnj" width="200"> sub here
-|<img src="https://64.media.tumblr.com/d02bf83e4f84a922b2fc2b3db5242e93/6f82792bfefedfd5-07/s2048x3072/4586c66567075e424166075f22e483c31b751c15.pnj" width="300"> sub here|<img src="https://64.media.tumblr.com/150c50f11d69c0f2d070752cb56c898b/11dd4897a0228e1e-e2/s2048x3072/e64667920fbc4b2098e4a8ff82cc995592029ef9.pnj" width="300"> sub here|<img src="https://64.media.tumblr.com/97cbef294cc150e810d90c57fdc9abe9/11dd4897a0228e1e-4d/s2048x3072/e65e057a1b0ac380ee721ce89e64f7c0b40a0e1c.pnj" width="300"> sub here|<img src="https://64.media.tumblr.com/a4c59b9870a40056c3e3931a195623f7/11dd4897a0228e1e-a4/s2048x3072/ca453266dc6eb7e9af8ad162217f91130c9b8654.pnj" width="300"> sub here|<img src="https://64.media.tumblr.com/f98a201d001c3fa914338e4f785129e5/11dd4897a0228e1e-d7/s2048x3072/250153bd044c97c23fd42b11dc2d652c060714a0.pnj" width="300"> sub here
+|<img src="https://64.media.tumblr.com/3de9f970562867dd8044b876049321ef/36fe930146fc0e14-3f/s1280x1920/45de2eb8d41440b30af7c69eccfdb5515cf630a2.pnj">|<img src="https://64.media.tumblr.com/150c50f11d69c0f2d070752cb56c898b/11dd4897a0228e1e-e2/s2048x3072/e64667920fbc4b2098e4a8ff82cc995592029ef9.pnj">|<img src="https://64.media.tumblr.com/150c50f11d69c0f2d070752cb56c898b/11dd4897a0228e1e-e2/s2048x3072/e64667920fbc4b2098e4a8ff82cc995592029ef9.pnj">|<img src="">
+
+
+|<img src="https://64.media.tumblr.com/9acd9a1bcfb9e601243b417258c7eb61/11dd4897a0228e1e-cb/s1280x1920/01d4a2ee32960b5d9f7111676041f039663c280f.pnj">|<img src="https://64.media.tumblr.com/6dba796210f64dc589815443a7db6ee7/11dd4897a0228e1e-f1/s400x600/d4867fc634209ddd34a7221408f58481ae59c079.pnj">|<img src="https://64.media.tumblr.com/f98a201d001c3fa914338e4f785129e5/11dd4897a0228e1e-d7/s400x600/89a4c357195041741b96315efb69babc007c482a.pnj">|<img src="">
+
+
+|<img src="https://64.media.tumblr.com/1ffab06bdf6928ab75b9e6cdd133c2f8/8cbad117aef3dc73-7c/s2048x3072/570e5d90107175bdc9e24dc449472d4ee9c127df.pnj">|<img src="https://64.media.tumblr.com/cc5a1dfbaf4812db3f47501cf77f4db8/8cbad117aef3dc73-a6/s400x600/bccf7f3ad1f303ec7416b4afd3386a45d6e05d2e.pnj">|<img src="https://64.media.tumblr.com/2d68bff1b43bd1fc8f0c8bd53c402414/8cbad117aef3dc73-a8/s400x600/007edf410f42e67e5dda541f7ffe09ae7e858d7d.pnj">|<img src="https://64.media.tumblr.com/7fcb4d80e51f64088b5374a2e91f6920/8cbad117aef3dc73-b7/s2048x3072/0a2210a5a226ab2ef6c3c4750f2ec71ad2c1c59e.pnj">|<img src="">
+
+
+|<img src="">|<img src="">|<img src="">
+
+
+|<img src="">|<img src="">|<img src="">
 
 
 ###### Part II 
