@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/05/19 19:47:39 by user             ###   ########.fr       */
+/*   Updated: 2022/05/24 22:27:29 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void iterate_obj(t_frame *rt, t_ray *prime, int x, int y)
         current = current->next;
     }
 }
- float compute_obj(t_ray *ray, t_obj *obj)
+
+float compute_obj(t_ray *ray, t_obj *obj)
 {
     float t;
     if (obj->id1 == PLANE)
@@ -73,14 +74,6 @@ void iterate_obj(t_frame *rt, t_ray *prime, int x, int y)
         t = ray_cy(ray, obj, *obj->obj_coord);
     return (t);
 }
-
-/*
-    static void test_ray(t_ray *r, t_vec *o)
-    {
-        // r->start = malloc(sizeof(t_vec));
-        r->start = o;
-    }
-*/
 
 static void fake_init(t_ray **r)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 11:20:09 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/05/19 10:33:06 by user             ###   ########.fr       */
+/*   Updated: 2022/05/24 22:40:29 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int minirt(char *rtfile)
     rt = init_frame();
     info = init_parse();
 
-    fill_frame(info, rt, rtfile);
+    fill_frame(info, &rt, rtfile);
     write(1, "\tframe\n", 7);
     
     create_scene(info, rt);

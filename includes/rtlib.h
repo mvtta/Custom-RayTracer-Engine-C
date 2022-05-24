@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtlib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/05/19 10:34:58 by user             ###   ########.fr       */
+/*   Updated: 2022/05/24 22:38:00 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,11 @@ typedef struct s_frame
 } t_frame;
 
 
+
+/* set */
+
+void  str_alloc(char **str, char *data);
+
 /* prototypes */
 
 t_vec *ascii_to_vec(char *data);
@@ -353,7 +358,7 @@ t_frame *attribute(t_frame *rt, char id, char *data);
 
 
 /* frame.c */
-t_frame *fill_frame(t_parse *raw, t_frame *rt, char *rtfile);
+void    fill_frame(t_parse *raw, t_frame **rt, char *rtfile);
 t_frame *kill_frame(t_frame *rt);
 
 /* parse.c */
