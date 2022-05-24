@@ -1,18 +1,16 @@
 <h2 align="center">
-Mini Raytracer 🏳️
+A (Mini) Raytracer Engine
 
 </h2>
-<h6 align="center">
-Exploring the principles of Raytracing ♾
-version: 0.0
-by: mvaldeta
+<h6 align="left">
+Exploring the principles of raytracing, subject by 42 school.
 </h6>
 
 <h2>
 </h2>
 
 ###### Cover image for project: from external web link 
-![IMG_COVER](https://64.media.tumblr.com/8c716d457931de0b15c8115663c439ce/3cdfb2845c5a7db3-f5/s1280x1920/6eb1c2423ac0730a795de3098e6a56a80bf636e9.jpg)
+![IMG_COVER](https://va.media.tumblr.com/tumblr_rccusoQ7SN1z7v8no_720.mp4)
 
 #### Abstract 
 
@@ -32,15 +30,14 @@ Exploring the basics: The goal of such project, under the directions of 42 Pedag
 | Libft + Minilibx| open, close, read, write, printf , malloc, free, perror, strerror, exit | plane, sphere, cylinder | You must implement Ambient and diffuse lighting | Pressing ESC must close the window and quit the program cleanly.  Clicking on the red cross on the window’s frame must close the window and quit the program cleanly. |
 
 ###### Renders I 
- sphere | cylinder | plane | composed
-:-------------------------:|:-------------------------:|:-------------------------:
-|<img src="https://64.media.tumblr.com/3de9f970562867dd8044b876049321ef/36fe930146fc0e14-3f/s1280x1920/45de2eb8d41440b30af7c69eccfdb5515cf630a2.pnj">|<img src="https://64.media.tumblr.com/150c50f11d69c0f2d070752cb56c898b/11dd4897a0228e1e-e2/s2048x3072/e64667920fbc4b2098e4a8ff82cc995592029ef9.pnj">|<img src="https://64.media.tumblr.com/150c50f11d69c0f2d070752cb56c898b/11dd4897a0228e1e-e2/s2048x3072/e64667920fbc4b2098e4a8ff82cc995592029ef9.pnj">|<img src="">
 
+[objects_gi]: https://64.media.tumblr.com/95040833b48c66b3aa8e2b21f6c0516b/468d61b557d29e28-6e/s1280x1920/91d1443692d3cb572451a20c21ab1b311963db4c.png
+[objects_sl]: variable value
+[random]: variable value
 
-|<img src="https://64.media.tumblr.com/9acd9a1bcfb9e601243b417258c7eb61/11dd4897a0228e1e-cb/s1280x1920/01d4a2ee32960b5d9f7111676041f039663c280f.pnj">|<img src="https://64.media.tumblr.com/6dba796210f64dc589815443a7db6ee7/11dd4897a0228e1e-f1/s400x600/d4867fc634209ddd34a7221408f58481ae59c079.pnj">|<img src="https://64.media.tumblr.com/f98a201d001c3fa914338e4f785129e5/11dd4897a0228e1e-d7/s400x600/89a4c357195041741b96315efb69babc007c482a.pnj">|<img src="">
-
-
-|<img src="https://64.media.tumblr.com/1ffab06bdf6928ab75b9e6cdd133c2f8/8cbad117aef3dc73-7c/s2048x3072/570e5d90107175bdc9e24dc449472d4ee9c127df.pnj">|<img src="https://64.media.tumblr.com/cc5a1dfbaf4812db3f47501cf77f4db8/8cbad117aef3dc73-a6/s400x600/bccf7f3ad1f303ec7416b4afd3386a45d6e05d2e.pnj">|<img src="https://64.media.tumblr.com/2d68bff1b43bd1fc8f0c8bd53c402414/8cbad117aef3dc73-a8/s400x600/007edf410f42e67e5dda541f7ffe09ae7e858d7d.pnj">|<img src="https://64.media.tumblr.com/7fcb4d80e51f64088b5374a2e91f6920/8cbad117aef3dc73-b7/s2048x3072/0a2210a5a226ab2ef6c3c4750f2ec71ad2c1c59e.pnj">|<img src="">
+Global Light  |  Spot Light
+:------------:|:-------------------------:
+![objects_gi] |  ![objects_sl]
 
 
 |<img src="">|<img src="">|<img src="">

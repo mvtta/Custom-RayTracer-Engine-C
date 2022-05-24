@@ -1,10 +1,9 @@
-make --dry-run --keep-going --print-directory
+make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/mvaldeta/Desktop/02.miniRT'
 make -C libs/libft
 make -C libs/libbim
 make -C libs/libvec
 make -C libs/minilibx_ogl
- 
 make -C libs/libft
 make -C libs/libbim
 make -C libs/libvec

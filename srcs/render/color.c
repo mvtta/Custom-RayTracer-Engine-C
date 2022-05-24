@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:19:06 by user              #+#    #+#             */
-/*   Updated: 2022/05/19 22:02:37 by user             ###   ########.fr       */
+/*   Updated: 2022/05/19 22:41:26 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,10 @@ t_color c_mix(t_frame *rt, t_obj *curr, double spec, double diffuse)
     t_color frag_spec;
     
     //float mat_amb = curr->material->x;
-    float mat_amb = curr->material->x * rt->scene->a->ambient;
+
+    
+    /* fresnell law here */
+    float mat_amb = curr->material->x;
     float mat_diff = curr->material->y;
     float mat_spec = curr->material->z;
 
@@ -179,8 +182,8 @@ t_color c_mix(t_frame *rt, t_obj *curr, double spec, double diffuse)
 
 
     frag_amb = c_intensity(*curr->obj_color, (mat_amb));
-    frag_diff = c_intensity(*curr->obj_color,(mat_diff * diffuse));
-    frag_spec = c_intensity(*curr->obj_color, (mat_spec * spec));
+    frag_diff = c_intensity(*curr->obj_color,(mat_diff));
+    frag_spec = c_intensity(*curr->obj_color, (mat_spec));
     frag = c_mix_3colors(frag_amb, frag_diff, frag_spec);
     mixed.r = c_range(light.r * (spec) + (frag.r + diffuse), 0, 255);
     mixed.g = c_range(light.g * (spec) + (frag.g + diffuse), 0, 255);
