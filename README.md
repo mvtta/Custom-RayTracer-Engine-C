@@ -1,18 +1,16 @@
 <h2 align="center">
-Mini Raytracer 🏳️
+A (Mini) Raytracer Engine
 
 </h2>
-<h6 align="center">
-Exploring the principles of Raytracing ♾
-version: 0.0
-by: mvaldeta
+<h6 align="left">
+Exploring the principles of raytracing, subject by 42 school.
 </h6>
 
 <h2>
 </h2>
 
 ###### Cover image for project: from external web link 
-![IMG_COVER](https://64.media.tumblr.com/8c716d457931de0b15c8115663c439ce/3cdfb2845c5a7db3-f5/s1280x1920/6eb1c2423ac0730a795de3098e6a56a80bf636e9.jpg)
+![IMG_COVER](https://va.media.tumblr.com/tumblr_rccusoQ7SN1z7v8no_720.mp4)
 
 #### Abstract 
 
@@ -32,6 +30,22 @@ Exploring the basics: The goal of such project, under the directions of 42 Pedag
 | Libft + Minilibx| open, close, read, write, printf , malloc, free, perror, strerror, exit | plane, sphere, cylinder | You must implement Ambient and diffuse lighting | Pressing ESC must close the window and quit the program cleanly.  Clicking on the red cross on the window’s frame must close the window and quit the program cleanly. |
 
 ###### Renders I 
+
+
+[objects_gi]: https://64.media.tumblr.com/95040833b48c66b3aa8e2b21f6c0516b/468d61b557d29e28-6e/s1280x1920/91d1443692d3cb572451a20c21ab1b311963db4c.png
+[objects_sl]: variable value
+[random]: variable value
+
+Global Light  |  Spot Light
+:------------:|:-------------------------:
+![objects_gi] |  ![objects_sl]
+
+
+|<img src="">|<img src="">|<img src="">
+
+
+|<img src="">|<img src="">|<img src="">
+=======
 | sphere | cylinder | plane |
 |:-------------------------:|:-------------------------:|:-------------------------:|
 |<img src="https://64.media.tumblr.com/867a0a8548de0f4ea4b20995b1718552/6f82792bfefedfd5-11/s1280x1920/7a476bdf8b1a8135470cfb35bd22f3481420a860.pnj" width="200"> sub here|<img src="https://64.media.tumblr.com/8a89afa303e35e3b7ecdc12af7a256f3/6f82792bfefedfd5-d5/s1280x1920/6d9596d6e4ae985eea2510e29afc56fc33e31d72.pnj" width="200"> sub here|<img src="https://64.media.tumblr.com/df1b61f396d351c89c528f254d45c62f/6f82792bfefedfd5-37/s1280x1920/049f8fc3d6bf10e8dad1673624d85aad1b506a79.pnj" width="200"> sub here|<img src="https://64.media.tumblr.com/d02bf83e4f84a922b2fc2b3db5242e93/6f82792bfefedfd5-07/s2048x3072/4586c66567075e424166075f22e483c31b751c15.pnj" width="300"> sub here|<img src="https://64.media.tumblr.com/4cd662c870a7d0c3ccc1f6290bc4d3b2/6f82792bfefedfd5-94/s2048x3072/b38ba2b92918a69c0665f5e310659aa3a447b8e6.pnj" width="300"> sub here|<img src="https://64.media.tumblr.com/bca0384e480db8a57f51472efe8b4655/6f82792bfefedfd5-b3/s2048x3072/4b22b52dbbb010d96ee841b47daa23da35bc1dfe.pnj" width="300"> sub here|

@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/04/30 04:51:59 by user             ###   ########.fr       */
+/*   Updated: 2022/05/19 15:18:56 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ t_color standard_re(t_frame *rt, t_ray *ray, t_obj *obj)
     double shadow = in_shadow(rt, ray, obj);
     double spec = blinn_phong(rt, ray, obj);
     volume = c_new_color(0, 0, 0);
-    volume = c_grade(rt, obj, spec, difuse - shadow);
+    volume = c_grade(rt, obj, spec, (difuse - shadow));
 /*     printf("m1R:%d, m1G:%d, m1B:%d uint:%u \n", volume.r, volume.g, volume.b, volume.hex);
     exit(0); */
     return (volume);

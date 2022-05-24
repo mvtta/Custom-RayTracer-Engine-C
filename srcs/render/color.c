@@ -6,11 +6,13 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:19:06 by user              #+#    #+#             */
-/*   Updated: 2022/05/17 11:48:46 by user             ###   ########.fr       */
+/*   Updated: 2022/05/19 22:41:26 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtlib.h"
+
+#define COLOR_UNIVERSE 1
 
 /* declaring black */
 const t_color black = {0, 0, 0, 0};
@@ -145,20 +147,47 @@ t_color c_mix(t_frame *rt, t_obj *curr, double spec, double diffuse)
     t_color frag_diff;
     t_color frag_spec;
     
+    //float mat_amb = curr->material->x;
+
+    
+    /* fresnell law here */
     float mat_amb = curr->material->x;
     float mat_diff = curr->material->y;
     float mat_spec = curr->material->z;
 
     ambient = c_intensity(*rt->scene->a->amb_color, rt->scene->a->ambient);
     source = c_intensity(*rt->scene->l->light_color, rt->scene->l->brightness);
+    
     light = c_mix_2colors(ambient, source);
-    frag_amb = c_intensity(*curr->obj_color, (mat_amb));
-    frag_diff = c_intensity(*curr->obj_color,(mat_diff * diffuse));
-    frag_spec = c_intensity(*curr->obj_color, (mat_spec * spec));
+
+/*  
+    float light_metal_universe = 2;
+    float light_digi_universe = 10;
+    float light_u[2] = {light_metal_universe, light_digi_universe};
+
+    frag_amb = c_intensity(*curr->obj_color, (mat_amb * light_u[COLOR_UNIVERSE]));
+    frag_diff = c_intensity(*curr->obj_color, (mat_diff * light_u[COLOR_UNIVERSE]));
+    frag_spec = c_intensity(*curr->obj_color, (mat_spec * light_u[COLOR_UNIVERSE]));
     frag = c_mix_3colors(frag_amb, frag_diff, frag_spec);
-    mixed.r = c_range(light.r * (spec) + (frag.r * diffuse), 0, 255);
-    mixed.g = c_range(light.g * (spec) + (frag.g * diffuse), 0, 255);
-    mixed.b = c_range(light.b * (spec) + (frag.b * diffuse), 0, 255);
+    float metal_universe = pow(diffuse + spec, 1/2.2);
+    float digi_universe = pow(diffuse * spec, 1/2.2);
+     float metal_universe = ((diffuse + spec));
+    float digi_universe = ((diffuse * spec));
+    float effect_u[2] = {metal_universe, digi_universe};
+
+    mixed.g = c_range(light.g * (effect_u[COLOR_UNIVERSE]) + (frag.g + effect_u[COLOR_UNIVERSE]), 0, 255);
+    mixed.r = c_range(light.r * (effect_u[COLOR_UNIVERSE]) + (frag.r + effect_u[COLOR_UNIVERSE]), 0, 255);
+    mixed.b = c_range(light.b * (effect_u[COLOR_UNIVERSE]) + (frag.b + effect_u[COLOR_UNIVERSE]), 0, 255); 
+*/
+
+
+    frag_amb = c_intensity(*curr->obj_color, (mat_amb));
+    frag_diff = c_intensity(*curr->obj_color,(mat_diff));
+    frag_spec = c_intensity(*curr->obj_color, (mat_spec));
+    frag = c_mix_3colors(frag_amb, frag_diff, frag_spec);
+    mixed.r = c_range(light.r * (spec) + (frag.r + diffuse), 0, 255);
+    mixed.g = c_range(light.g * (spec) + (frag.g + diffuse), 0, 255);
+    mixed.b = c_range(light.b * (spec) + (frag.b + diffuse), 0, 255);
     return (mixed);
 }
 

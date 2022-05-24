@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   rtlib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/05/17 09:51:19 by user             ###   ########.fr       */
+/*   Updated: 2022/05/24 22:38:00 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #   ifndef RTLIB_H
-#   define RTLIB_H
+# define RTLIB_H
 
 
 #define PI 3.14159265358979323846
@@ -217,8 +217,15 @@ typedef struct s_frame
     t_ray *shadow_ray;
     t_ray *reflection_ray;
     t_pixel_map pixel_map;
+    int auto_focus;
 
 } t_frame;
+
+
+
+/* set */
+
+void  str_alloc(char **str, char *data);
 
 /* prototypes */
 
@@ -274,6 +281,8 @@ t_color c_mix_3colors(t_color one, t_color two, t_color three);
 
 
 /* control */
+void    prompt_options(void);
+int choose_focus_mode(t_frame *rt);
 int key_zoom(int keycode, t_frame *rt);
 int	key_kill(int keycode, t_frame *rt);
 
@@ -349,7 +358,7 @@ t_frame *attribute(t_frame *rt, char id, char *data);
 
 
 /* frame.c */
-t_frame *fill_frame(t_parse *raw, t_frame *rt, char *rtfile);
+void    fill_frame(t_parse *raw, t_frame **rt, char *rtfile);
 t_frame *kill_frame(t_frame *rt);
 
 /* parse.c */
