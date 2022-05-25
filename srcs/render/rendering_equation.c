@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_equation.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/05/19 15:18:56 by user             ###   ########.fr       */
+/*   Updated: 2022/05/25 12:10:29 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,10 @@ double blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
     float dot = dot_p(&h, &hit_norm);
     if (dot < 0 || dot > 1)
         return (0);
+    /* 
+    try this feature:
+                    spec = pow(dot, 1000) * (attenuation) * 80;
+    */
     spec = pow(10, dot) * (attenuation);
 /* printf("SPECK:%f | DOT:%f | pow(10, dot):%f | pow(dot, 10):%f\n", spec, dot, pow(10, dot), pow(dot, 10));
     exit(0); */

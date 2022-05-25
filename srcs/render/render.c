@@ -6,7 +6,7 @@
 /*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/05/24 22:27:29 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2022/05/25 12:07:12 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,6 @@ void iterate_obj(t_frame *rt, t_ray *prime, int x, int y)
         {
             rt->record.latest_t = hit;
             volume = standard_re(rt, prime, current);
- /*            printf("hit:%f\n", hit);
-            printf("fn:%f\n", fn);
-            printf("ff:%f\n", ff);
-            printf("fh:%f\n", fh);
-            printf("dof:%f\n", dof);
-            printf("fl:%f\n", fl);
-            exit(0); */
             if(rt->auto_focus == 0)
             {
                 if (hit != fh || hit < fl || hit > fl)
