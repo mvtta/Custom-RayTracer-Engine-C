@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_equation.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/05/25 13:43:18 by user             ###   ########.fr       */
+/*   Updated: 2022/05/25 16:31:36 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,32 +79,6 @@ int c_range(int d, int min, int max)
     return (t);
 }
 
-double lambert(t_frame *rt, t_ray *ray, t_obj *obj)
-{
-    double difuse;
-    double att;
-    t_vec hit;
-    t_vec hit_norm;
-    t_vec l;
-
-    hit = v_scale(rt->record.latest_t, ray->dir);
-    //hit = v_sub(ray->start, &hit);
-    t_vec center = v_sub(ray->start, obj->obj_coord);
-    if (obj->id1 == SPHERE)
-        hit_norm = v_sub(&hit, &center);
-    else
-        hit_norm = *obj->obj_norm;
-    l = v_sub(rt->scene->l->light_coord, ray->start);
-    l = v_add(&l, &hit);
-    //att = (length(l));
-    att = (1 /length(hit));
-    l = normalize(&l);
-    hit_norm = normalize(&hit_norm);
-    //difuse = c_clamp(dot_p(&hit_norm, &l) + (0.2 / (att)), 0.0, 1.0);
-    difuse = c_clamp(dot_p(&hit_norm, &l), 0.0, 1.0) * (att);    
-    return ((difuse));
-}
-
 double blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
 {
     float spec;
@@ -143,11 +117,13 @@ double blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj)
     /* 
     shiny specular effect
     */
-   spec = pow(dot, 1000) * (attenuation) * 80;
+   spec = pow(dot, 1000) * 80;
+   
+   
    /*
-   brassy metal effect
+   brassy metal effect:
    */
-/* spec = pow(10, dot) * (attenuation); */
+                        //spec = pow(10, dot) * (attenuation);
 
 /* printf("SPECK:%f | DOT:%f | pow(10, dot):%f | pow(dot, 10):%f\n", spec, dot, pow(10, dot), pow(dot, 10));
     exit(0); */

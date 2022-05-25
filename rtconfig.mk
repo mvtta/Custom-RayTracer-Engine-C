@@ -11,7 +11,9 @@ L4			= libs/minilibx_ogl
 SROOT		= srcs/engine \
 							srcs/interface \
 							srcs/render \
-							srcs/set
+							srcs/set \
+							srcs/shaders
+
 SRC 		:= $(shell find $(SROOT) -name '*.c')
 BROOT 		= bin/
 OROOT		= obj/

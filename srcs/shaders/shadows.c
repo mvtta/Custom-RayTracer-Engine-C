@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shadows.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 20:51:35 by user              #+#    #+#             */
-/*   Updated: 2022/05/19 22:31:20 by user             ###   ########.fr       */
+/*   Updated: 2022/05/25 16:33:42 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int in_shadow(t_frame *rt, t_ray *ray, t_obj *obj)
 
    // t_vec dev = v_3(0.2, 0.3, 0.1);
    // ldir = v_add(&dev,&ldir);
-    ldir = v_scale(0.03, &ldir);
+    ldir = v_scale(0.07, &ldir);
     
     shadow->start = rd_3(shadow, &norm);
     shadow->dir = ro_3(shadow, &ldir);
