@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:19:06 by user              #+#    #+#             */
-/*   Updated: 2022/05/25 12:06:52 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2022/05/25 13:40:36 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtlib.h"
 
-#define COLOR_UNIVERSE 0
+#define COLOR_UNIVERSE 1
 
 /* declaring black */
 const t_color	black = {0, 0, 0, 0};
