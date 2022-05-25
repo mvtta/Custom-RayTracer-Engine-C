@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lens.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 13:45:34 by user              #+#    #+#             */
-/*   Updated: 2022/04/21 05:49:41 by user             ###   ########.fr       */
+/*   Updated: 2022/05/25 11:58:03 by mvaldeta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtlib.h"
-
-float gaussian_blur();
-
 
 /* 
 DOF = /2f (M + 1) / M) / ((fM / Nc) - (Nc / fM))
@@ -42,40 +39,37 @@ for 4x5in film format d =	0.1
 * | 100 | 5     |             | 15   | SUPER WIDE |
 */
 
-float get_focal_len(float fov)
+float	get_focal_len(float fov)
 {
-    float fl;
-    float half = fov / 2;
-    fl = (36 * 0.5) / (tan(half / 52.296));
-    return((fl));
+	float	fl;
+	float	half;
+
+	half = fov / 2;
+	fl = (36 * 0.5) / (tan(half / 52.296));
+	return (fl);
 }
 
-float get_hyperfocal_dist(float fl, float ap, float c)
+float	get_hyperfocal_dist(float fl, float ap, float c)
 {
-    return((fl / ap * c));
+	return ((fl / ap * c));
 }
 
-float get_near_dof(float fl)
+float	get_near_dof(float fl)
 {
-    return(fl - (0.6 * (fl)));
+	return (fl - (0.6 * (fl)));
 }
 
-float get_far_dof(float fl)
+float	get_far_dof(float fl)
 {
-    return(fl + (0.3 * (fl)));
+	return (fl + (0.3 * (fl)));
 }
 
-float get_dof_range(float near, float far)
+float	get_dof_range(float near, float far)
 {
-    return(far - near);
+	return (far - near);
 }
-
-
-
-
-
 
 /* void  out_of_focus(t_ray *prime)
 {
-    prime->dir = sin;
+	prime->dir = sin;
 } */
