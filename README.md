@@ -11,11 +11,7 @@ Exploring the principles of raytracing, subject by 42 school.
 
 ###### Cover image for project: from external web link 
 
-<iframe width="560" height="315"
-src="https://va.media.tumblr.com/tumblr_rccusoQ7SN1z7v8no_720.mp4" 
-frameborder="0" 
-allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-allowfullscreen></iframe>
+<img src="https://64.media.tumblr.com/9db1800f23bd2b3eaaf071a8ce464b8c/13125e997c7c3e38-26/s1280x1920/fb877507cb4fe41f355e40c35f671c7b27d63e94.gif">
 
 #### Abstract 
 
