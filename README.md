@@ -1,16 +1,7 @@
 <h2 align="center">
 A (Mini) Raytracer Engine
 
-</h2>
-<h6 align="left">
-Exploring the principles of raytracing, subject by 42 school.
-</h6>
-
-<h2>
-</h2>
-
-###### Cover image for project: from external web link 
-![IMG_COVER](https://va.media.tumblr.com/tumblr_rccusoQ7SN1z7v8no_720.mp4)
+<img src="https://64.media.tumblr.com/9db1800f23bd2b3eaaf071a8ce464b8c/13125e997c7c3e38-26/s1280x1920/fb877507cb4fe41f355e40c35f671c7b27d63e94.gif">
 
 #### Abstract 
 
@@ -22,6 +13,11 @@ Exploring the basics: The goal of such project, under the directions of 42 Pedag
 - In Part I, you may find the mandatory features of the 42 requirements to validate ths project. 
 - In Part II, the extra features I've been working on. 
 ```
+
+###### Light shading methods (intuitive implementation)
+
+<img src="https://64.media.tumblr.com/64842901b9d4f81dbfe5ead3a504ac48/15afaa9bbc098a8b-af/s1280x1920/840725380b3ad154bf1140a5b70c6dd78dfb65fa.pnj">
+
 
 ###### Part I
 
