@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lambert.c                                          :+:      :+:    :+:   */
+/*   ambient.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/25 15:40:34 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/05/27 10:30:48 by user             ###   ########.fr       */
+/*   Created: 2022/05/27 10:07:34 by user              #+#    #+#             */
+/*   Updated: 2022/05/27 10:08:03 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtlib.h"
 
-double lambert(t_frame *rt, t_ray *ray, t_obj *obj)
+double ambient(t_frame *rt, t_ray *ray, t_obj *obj)
 {
-    double diffuse;
-    double camera;
-    double attenuation;
+    double difuse;
     t_vec hit;
     t_vec hit_norm;
     t_vec l;
@@ -32,14 +30,11 @@ double lambert(t_frame *rt, t_ray *ray, t_obj *obj)
     l = v_sub(&l, &hit);
     l = v_scale(1, &l);
     
-    camera = length(l);
     l = normalize(&l);
     hit_norm = normalize(&hit_norm);
-    attenuation = 1 / (camera);
 
-   diffuse = dot_p(&hit_norm, &l);
-   diffuse = pow(10, diffuse) * attenuation * 40;
-   if (diffuse < 0)
-        return(0);
-    return ((diffuse));
+   difuse = dot_p(&hit_norm, &l);
+   if (difuse < 0)
+    return(0);
+    return ((difuse));
 }
