@@ -1,16 +1,6 @@
 <h2 align="center">
 A (Mini) Raytracer Engine
 
-</h2>
-<h6 align="left">
-Exploring the principles of raytracing, subject by 42 school.
-</h6>
-
-<h2>
-</h2>
-
-###### Cover image for project: from external web link 
-
 <img src="https://64.media.tumblr.com/9db1800f23bd2b3eaaf071a8ce464b8c/13125e997c7c3e38-26/s1280x1920/fb877507cb4fe41f355e40c35f671c7b27d63e94.gif">
 
 #### Abstract 
