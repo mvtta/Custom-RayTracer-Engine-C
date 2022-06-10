@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 13:21:11 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/05/24 23:07:27 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2022/06/06 19:37:23 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	create_scene(t_parse *info, t_frame *rt)
 	fill_scene(info, rt, 'A');
 	fill_scene(info, rt, 'C');
 	fill_scene(info, rt, 'L');
+	set_focus(rt);
 	return ;
 }
 

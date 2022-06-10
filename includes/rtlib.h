@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/05/28 10:11:34 by user             ###   ########.fr       */
+/*   Updated: 2022/06/06 20:09:50 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 #include <float.h>
 #include <stdbool.h>
 
+#include "settings.h"
 #include "mlx.h"
 #include "gnl.h"
 #include "libvec.h"
@@ -262,6 +263,7 @@ float get_time_pl(t_ray *ray, t_vec *point, t_vec *normal);
 /* print_info */
 
 void  print_vector(t_vec v, char *info);
+void printi(char *info, char color);
 
 
 /*  color  */
@@ -282,7 +284,7 @@ t_color c_mix_3colors(t_color one, t_color two, t_color three);
 
 /* control */
 void    prompt_options(void);
-int choose_focus_mode(t_frame *rt);
+void set_focus(t_frame *rt);
 int key_zoom(int keycode, t_frame *rt);
 int	key_kill(int keycode, t_frame *rt);
 

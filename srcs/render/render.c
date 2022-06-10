@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/05/25 13:21:36 by user             ###   ########.fr       */
+/*   Updated: 2022/06/06 19:19:02 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void iterate_obj(t_frame *rt, t_ray *prime, int x, int y)
         {
             rt->record.latest_t = hit;
             volume = standard_re(rt, prime, current);
-            if(rt->auto_focus == 0)
+            if(rt->auto_focus == 'm')
             {
                 if (hit != fh || hit < fl || hit > fl)
                 {
