@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 10:01:58 by user              #+#    #+#             */
-/*   Updated: 2022/06/09 09:24:50 by user             ###   ########.fr       */
+/*   Updated: 2022/06/16 19:50:06 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,47 @@
 
 void	prompt_options(void)
 {
-	printi("FOR MANUAL FOCUS PRESS [m] + ENTER", 'p');
-	printi("TO STAY IN AUTOMATIC PRESS [a] + ENTER", 'p');
+    printi("▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ ", 'g');
+    printi("██▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄██ ██▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄██  ", 't');
+	printi("		FOR MANUAL FOCUS PRESS [m] + ENTER", 'p');
+	printi("	  TO STAY IN AUTOMATIC PRESS [a] + ENTER", 'p');
+    printi("██▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄██ ██▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄██  ", 't');
+    printi("▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ ", 'g');
+}
+
+static void	invalid_focus_opt(int try)
+{
+	printi("| @||  ___```````________----________ ||", 'g');
+	printi("| @||  |________________ ____       | ||", 'g');
+	printi("| @||    |______-     ---(_'_` /    | ||", 'g');
+	printi("| @||                         ` `-' | || ", 'g');
+	printi("| @||                          `____| || ", 'g');
+	printi("| @||                                 || ", 'g');
+	printi("| @||     INVALID OPTION              || ", 'g');
+	printf("| @||     you have %d attempt left!\n", try);
+	prompt_options();
+}
+
+static void focus_mode_dialog(int f)
+{
+	char *mode;
+	if (f == 'a')
+		mode = "AUTO\n";
+	if (f == 'm')
+		mode = "MANUAL\n";
+	printi("▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ ", 'g');
+    printi("██▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄██ ██▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄██  ", 't');
+	printi("     .-------------------. ", 't');
+    printi("    /--#--.------.------/| ", 'y');
+    printi("    |Kodak|__Ll__| [==] || ", 't');
+	printi("    |     | .--. | """" || ", 't');
+	printi("    |     |( () )|      || ", 'p');
+	printi("    |     | `--' |      |/ ", 't');
+	printi("    `-----'------'------' ", 't');
+	printi("AUTO FOCUS: ", 'b');
+	printf("%s", mode);
+	printi("▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ ", 'g');
+    printi("██▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄██ ██▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄██  ", 't');
 }
 
 void set_focus(t_frame *rt)
@@ -26,19 +65,17 @@ void set_focus(t_frame *rt)
 	while(read(0, &focus, 1))
 	{		
 		if(focus != 'a' && focus != 'm')
-		{
-			printi("INVALID SETTING, ONE ATTEMPT LEFT", 'p');
-			prompt_options();
-		}
+			invalid_focus_opt(1);
+			else
+				break ;
+		if(focus)
+			rt->auto_focus = focus;
 		else
-			break ;
-	}
-	if(focus)
-		rt->auto_focus = focus;
-	else
 		{
-			printi("INVALID SETTING, NONE ATTEMPTS LEFT\n RENDERING IN AUTO FOCUS MODE", 'r');
+			invalid_focus_opt(0);
 			rt->auto_focus = 'a';
 		}
+	}
+	focus_mode_dialog(focus);
 	return ;
 }

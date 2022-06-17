@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 15:40:34 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/05/27 10:30:48 by user             ###   ########.fr       */
+/*   Updated: 2022/06/15 22:39:50 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ double lambert(t_frame *rt, t_ray *ray, t_obj *obj)
     hit = v_scale(rt->record.latest_t, ray->dir);
     //hit = v_sub(ray->start, &hit);
     t_vec center = v_sub(ray->start, obj->obj_coord);
-    if (obj->id1 == SPHERE)
-        hit_norm = v_sub(&hit, &center);
-    else
+    hit_norm = v_sub(&hit, &center);
+    if (obj->id1 == 'p')
         hit_norm = *obj->obj_norm;
     l = v_add(ray->start, rt->scene->l->light_coord);
     l = v_sub(&l, &hit);
@@ -35,10 +34,10 @@ double lambert(t_frame *rt, t_ray *ray, t_obj *obj)
     camera = length(l);
     l = normalize(&l);
     hit_norm = normalize(&hit_norm);
-    attenuation = 1 / (camera);
+    attenuation = 1 / (camera) ;
 
    diffuse = dot_p(&hit_norm, &l);
-   diffuse = pow(10, diffuse) * attenuation * 40;
+   diffuse = pow(diffuse, rt->scene->a->ambient) * attenuation * 40;
    if (diffuse < 0)
         return(0);
     return ((diffuse));

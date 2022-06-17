@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:42:44 by user              #+#    #+#             */
-/*   Updated: 2022/06/06 18:45:21 by user             ###   ########.fr       */
+/*   Updated: 2022/06/16 20:00:02 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int    zoom_in(int keycode, t_frame *rt)
 int    zoom_out(int keycode, t_frame *rt)
 {
     printf("* * * * ZOOMING OUT * * * * \n[%d\n]", keycode);
-    rt->scene->c->cam_coord->z += 10;
+    rt->scene->c->cam_coord->z -= 10;
     mlx_destroy_image(rt->mlx_ptr, rt->obj_img.img_ptr);
     rt->obj_img.img_ptr = mlx_new_image(rt->mlx_ptr, \
         rt->window_w, \

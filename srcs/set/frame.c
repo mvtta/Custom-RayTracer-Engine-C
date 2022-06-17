@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 17:35:32 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/05/24 22:51:10 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2022/06/16 23:12:35 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void	fill_frame(t_parse *raw, t_frame **rt, char *rtfile)
 		if (fill.id1 == 'C')
 			raw->camera = save_raw(fill.data);
 		if (fill.id1 == 'L')
+		{
 			raw->light = save_raw(fill.data);
+			add_new_obj(*rt, ft_strjoin("r", fill.data));
+		}
 		if (fill.id1 == 's' && fill.id2 == 'p')
 			add_new_obj(*rt, fill.data);
 		if (fill.id1 == 'p' && fill.id2 == 'l')

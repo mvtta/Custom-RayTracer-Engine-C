@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 12:20:57 by user              #+#    #+#             */
-/*   Updated: 2022/06/06 19:23:42 by user             ###   ########.fr       */
+/*   Updated: 2022/06/12 02:32:06 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_frame	*init_frame(void)
 	rt->nbr_objs = 0;
 	rt->out_of_focus = 0;
 	rt->auto_focus = 0;
+	rt->caption = NULL;
 	i = -1;
 	j = -1;
 	while (++i < rt->window_h + 1000)

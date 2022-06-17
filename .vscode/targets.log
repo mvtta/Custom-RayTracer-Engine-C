@@ -8,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Wed Jun  1 20:23:28 2022
+# Make data base, printed on Wed Jun 15 22:31:18 2022
 
 # Variables
 
@@ -19,7 +19,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # makefile (from `rtconfig.mk', line 20)
 OBJ = $(patsubst %.c,%.o,${SRC:%.c})
 # makefile (from `rtconfig.mk', line 17)
-SRC := srcs/engine/print_info.c srcs/engine/image.c srcs/engine/control.c srcs/engine/settings.c srcs/engine/navigation.c srcs/interface/lens.c srcs/interface/compose.c srcs/render/intersections.c srcs/render/ray.c srcs/render/space_translation.c srcs/render/vector.c srcs/render/minirt.c srcs/render/shapes.c srcs/render/render.c srcs/render/equations.c srcs/render/transformations.c srcs/render/quadratics.c srcs/set/actors.c srcs/set/memory.c srcs/set/reform.c srcs/set/init.c srcs/set/scene.c srcs/set/frame.c srcs/set/window.c srcs/shaders/shadows.c srcs/shaders/phong.c srcs/shaders/effects.c srcs/shaders/rendering_equation.c srcs/shaders/ambient.c srcs/shaders/blinn_phong.c srcs/shaders/lambert.c srcs/shaders/color.c
+SRC := srcs/engine/zoom.c srcs/engine/print_info.c srcs/engine/image.c srcs/engine/control.c srcs/engine/settings.c srcs/engine/navigation.c srcs/engine/change_light.c srcs/interface/lens.c srcs/interface/compose.c srcs/render/intersections.c srcs/render/ray.c srcs/render/space_translation.c srcs/render/vector.c srcs/render/minirt.c srcs/render/shapes.c srcs/render/render.c srcs/render/equations.c srcs/render/transformations.c srcs/render/quadratics.c srcs/set/actors.c srcs/set/memory.c srcs/set/reform.c srcs/set/init.c srcs/set/scene.c srcs/set/frame.c srcs/set/window.c srcs/shaders/shadows.c srcs/shaders/phong.c srcs/shaders/effects.c srcs/shaders/rendering_equation.c srcs/shaders/ambient.c srcs/shaders/blinn_phong.c srcs/shaders/lambert.c srcs/shaders/color.c
 # environment
 VSCODE_LOG_NATIVE = false
 # automatic
@@ -51,7 +51,7 @@ __CFBundleIdentifier = com.microsoft.VSCode
 # makefile (from `rtconfig.mk', line 7)
 L1 = libs/libft
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/3_/pm7hgvr57cvd0y7byk5667n40000gp/T/vscode-ipc-3e8e8412-c90e-4531-be53-460bc700c025.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/3_/pm7hgvr57cvd0y7byk5667n40000gp/T/vscode-ipc-28537991-e9e5-4295-9e2b-c9f289c43c70.sock
 # environment
 VSCODE_CWD = /
 # makefile (from `rtconfig.mk', line 10)
@@ -77,13 +77,13 @@ L2 = libs/libbim
 # makefile (from `rtconfig.mk', line 25)
 LINKBIM = -L${L2}/bin -lbim
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.RvWbizoyJX/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.yeJHXAqQc8/Listeners
 # automatic
 %F = $(notdir $%)
 # makefile (from `rtconfig.mk', line 21)
 _DEPS = includes/rtlib.h
 # environment
-DISPLAY = /private/tmp/com.apple.launchd.AClDjDQgHJ/org.xquartz:0
+DISPLAY = /private/tmp/com.apple.launchd.VW6St2kB67/org.xquartz:0
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
@@ -191,7 +191,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 942
+VSCODE_PID = 987
 # variable set hash-table stats:
 # Load=90/1024=9%, Rehash=0, Collisions=7/131=5%
 
@@ -201,7 +201,8 @@ VSCODE_PID = 942
 
 # Directories
 
-# . (device 16777220, inode 68392091): 17 files, no impossibilities.
+# . (device 16777225, inode 68392091): 17 files, no impossibilities.
+ 
 
 # 17 files, no impossibilities in 1 directories.
 
@@ -299,7 +300,6 @@ libft.a:
 
 fclean: clean
 #  Phony target (prerequisite of .PHONY).
- 
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
@@ -396,6 +396,6 @@ libbim.a:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4075 / max = 4075 / min = 4075 / avg = 4075
 
-# Finished Make data base on Wed Jun  1 20:23:28 2022
+# Finished Make data base on Wed Jun 15 22:31:18 2022
 
  

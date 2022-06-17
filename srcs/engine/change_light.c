@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:51:10 by user              #+#    #+#             */
-/*   Updated: 2022/06/06 19:06:44 by user             ###   ########.fr       */
+/*   Updated: 2022/06/16 23:35:02 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,12 @@ int	light_down(int keycode, t_frame *rt)
 int	light_left(int keycode, t_frame *rt)
 {
 	printf("* * * * LIGHT LEFT * * * * \n[%d]\n", keycode);
+	t_obj *lref = NULL;
+	lref = rt->objs_first;
+	while(lref->next && lref->id2 != 'r')
+		lref = lref->next;
 	rt->scene->l->light_coord->x += 10;
+	lref->obj_coord->x += 10;
 	mlx_destroy_image(rt->mlx_ptr, rt->obj_img.img_ptr);
 	rt->obj_img.img_ptr = mlx_new_image(rt->mlx_ptr,
 			rt->window_w,
@@ -64,7 +69,12 @@ int	light_left(int keycode, t_frame *rt)
 int	light_right(int keycode, t_frame *rt)
 {
 	printf("* * * * LIGHT RIGHT * * * * \n[%d]\n", keycode);
+	t_obj *lref = NULL;
+	lref = rt->objs_first;
+	while(lref->next && lref->id2 != 'r')
+		lref = lref->next;
 	rt->scene->l->light_coord->x -= 10;
+	lref->obj_coord->x -= 10;
 	mlx_destroy_image(rt->mlx_ptr, rt->obj_img.img_ptr);
 	rt->obj_img.img_ptr = mlx_new_image(rt->mlx_ptr,
 			rt->window_w, rt->window_h);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 17:32:20 by user              #+#    #+#             */
-/*   Updated: 2022/05/24 22:28:19 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2022/06/17 01:41:36 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,25 @@ void	create_sphere(t_obj *obj, char *data)
 	obj->material = ascii_to_vec("0.18,0.18,0.18");
 	if (sphere[4])
 		obj->material = ascii_to_vec(sphere[4]);
+}
+
+void	create_light_ref(t_obj *obj, char *data)
+{
+	char	**sphere;
+
+	sphere = ft_split(data, ' ');
+/* 	printf("%s\n", sphere[0]);
+	printf("%s\n", sphere[1]);
+	printf("%s\n", sphere[2]);
+	printf("%s\n", sphere[3]);
+	printf("%s\n", sphere[4]);
+	exit(0); */
+	obj->id1 = 's';
+	obj->id2 = 'r';
+	obj->obj_coord = ascii_to_vec(sphere[1]);
+	obj->diameter = 0.5;
+	obj->obj_color = ascii_to_rgb(sphere[3]);
+	obj->material = ascii_to_vec("6,6,6");
 }
 
 void	create_cylin(t_obj *obj, char *data)

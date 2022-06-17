@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/06/06 20:09:50 by user             ###   ########.fr       */
+/*   Updated: 2022/06/16 23:18:22 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ typedef struct s_light
 
 }t_light;
 
+
 typedef struct s_camera
 {
     int lens;
@@ -175,15 +176,15 @@ typedef struct s_camera
     
 }t_camera;
 
-
 typedef struct s_scene
 {
     char *id;
     t_ambient *a;
     t_light *l;
     t_camera *c;
-
+    
 } t_scene;
+
 
 typedef struct s_time
 {
@@ -218,6 +219,7 @@ typedef struct s_frame
     t_ray *shadow_ray;
     t_ray *reflection_ray;
     t_pixel_map pixel_map;
+    char *caption;
     int auto_focus;
 
 } t_frame;
@@ -264,6 +266,7 @@ float get_time_pl(t_ray *ray, t_vec *point, t_vec *normal);
 
 void  print_vector(t_vec v, char *info);
 void printi(char *info, char color);
+void	compose_caption(t_frame *rt);
 
 
 /*  color  */
@@ -291,6 +294,7 @@ int	key_kill(int keycode, t_frame *rt);
 /* rendering eq */
 double c_clamp(double d, double min, double max);
 int in_shadow(t_frame *rt, t_ray *ray, t_obj *obj);
+double ambient(t_frame *rt, t_ray *ray, t_obj *obj);
 double lambert(t_frame *rt, t_ray *ray, t_obj *obj);
 double   phong(t_frame *rt, t_ray *ray, t_obj *obj);
 double   blinn_phong(t_frame *rt, t_ray *ray, t_obj *obj);
@@ -336,11 +340,12 @@ void map_to_img(t_data data, int x, int y, int color);
 t_color *ascii_to_rgb(char *data);
 
 /* create_obj.c */
-t_obj *new_obj(t_frame *rt, char *data);
-void add_new_obj(t_frame *rt, char *data);
-void create_plane(t_obj *obj, char *data);
-void create_sphere(t_obj *obj, char *data);
-void create_cylin(t_obj *obj, char *data);
+t_obj   *new_obj(t_frame *rt, char *data);
+void    add_new_obj(t_frame *rt, char *data);
+void    create_plane(t_obj *obj, char *data);
+void    create_sphere(t_obj *obj, char *data);
+void    create_cylin(t_obj *obj, char *data);
+void	create_light_ref(t_obj *obj, char *data);
 
 /* create_scene.c */
 void create_scene(t_parse *info, t_frame *rt);

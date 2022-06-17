@@ -6,11 +6,12 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 00:11:38 by user              #+#    #+#             */
-/*   Updated: 2022/06/10 03:49:42 by user             ###   ########.fr       */
+/*   Updated: 2022/06/15 17:24:25 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtlib.h"
+void	compose_caption(t_frame *rt);
 
 void	print_vector(t_vec v, char *info)
 {
