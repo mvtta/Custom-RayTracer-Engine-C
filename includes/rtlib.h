@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 16:15:12 by user              #+#    #+#             */
-/*   Updated: 2022/06/16 23:18:22 by user             ###   ########.fr       */
+/*   Updated: 2022/06/17 20:13:04 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,6 +311,7 @@ t_vec   world2scene(int width, int heigh, t_vec *coordinates);
 float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord);
 float ray_cy(t_ray *r, t_obj *p, t_vec obj_coord);
 float ray_plane(t_ray *r, t_obj *p);
+t_vec project_m(t_vec src, t_vec rot);
 
 /* render.c */
 float get_near_dof(float fl);

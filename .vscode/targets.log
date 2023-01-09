@@ -8,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Wed Jun 15 22:31:18 2022
+# Make data base, printed on Sun Sep  4 19:46:41 2022
 
 # Variables
 
@@ -51,7 +51,7 @@ __CFBundleIdentifier = com.microsoft.VSCode
 # makefile (from `rtconfig.mk', line 7)
 L1 = libs/libft
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/3_/pm7hgvr57cvd0y7byk5667n40000gp/T/vscode-ipc-28537991-e9e5-4295-9e2b-c9f289c43c70.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/3_/pm7hgvr57cvd0y7byk5667n40000gp/T/vscode-ipc-476aa561-ca91-47a5-90b1-e41be3f5d655.sock
 # environment
 VSCODE_CWD = /
 # makefile (from `rtconfig.mk', line 10)
@@ -77,13 +77,13 @@ L2 = libs/libbim
 # makefile (from `rtconfig.mk', line 25)
 LINKBIM = -L${L2}/bin -lbim
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.yeJHXAqQc8/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.fEECaKhFnu/Listeners
 # automatic
 %F = $(notdir $%)
 # makefile (from `rtconfig.mk', line 21)
 _DEPS = includes/rtlib.h
 # environment
-DISPLAY = /private/tmp/com.apple.launchd.VW6St2kB67/org.xquartz:0
+DISPLAY = /private/tmp/com.apple.launchd.vYr5ZRolyD/org.xquartz:0
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
@@ -157,7 +157,7 @@ MFLAGS = -sRrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.67650960.67650966
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.68826729.68826735
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # makefile (from `rtconfig.mk', line 38)
@@ -191,7 +191,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 987
+VSCODE_PID = 729
 # variable set hash-table stats:
 # Load=90/1024=9%, Rehash=0, Collisions=7/131=5%
 
@@ -202,7 +202,6 @@ VSCODE_PID = 987
 # Directories
 
 # . (device 16777225, inode 68392091): 17 files, no impossibilities.
- 
 
 # 17 files, no impossibilities in 1 directories.
 
@@ -299,6 +298,7 @@ libft.a:
 #  File has not been updated.
 
 fclean: clean
+ 
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
@@ -396,6 +396,6 @@ libbim.a:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4075 / max = 4075 / min = 4075 / avg = 4075
 
-# Finished Make data base on Wed Jun 15 22:31:18 2022
+# Finished Make data base on Sun Sep  4 19:46:41 2022
 
  
