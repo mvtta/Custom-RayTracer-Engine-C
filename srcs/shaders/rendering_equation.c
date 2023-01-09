@@ -6,11 +6,12 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:30:18 by user              #+#    #+#             */
-/*   Updated: 2022/05/28 11:16:52 by user             ###   ########.fr       */
+/*   Updated: 2022/07/16 12:28:24 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtlib.h"
+#include "settings.h"
 
 /*
 Lo(x, wo) = Le(x, wo) + ∫Ω (BDRF)(LIGHT_AT_INTERSECTION)(LAMBERT), dwi
@@ -88,18 +89,19 @@ t_color	standard_re(t_frame *rt, t_ray *ray, t_obj *obj)
 	double diff;
 	int l_mod;
 
-	l_mod = 1;
+	l_mod = 2;
+	//l_mod = L_MOD;
 	shadow = in_shadow(rt, ray, obj);
+	//shadow /= ambient(rt, ray, obj);
 	if (l_mod == 0)
 		spec = 0;
 	if (l_mod == 1 || l_mod == 2)
 		spec = phong(rt, ray, obj);
 	if (l_mod == 2)
 		spec += blinn_phong(rt, ray, obj);
-	diff = lambert(rt, ray, obj);
+	diff = ambient(rt, ray, obj);
+	diff += lambert(rt, ray, obj);
 	volume = c_new_color(0, 0, 0);
-	if (shadow > diff)
-		shadow = diff;
 	volume = c_grade(rt, obj, spec, (diff - shadow));
 	return (volume);
 }

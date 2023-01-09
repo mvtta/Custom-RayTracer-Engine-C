@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldeta <mvaldeta@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 13:21:11 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/05/24 23:07:27 by mvaldeta         ###   ########.fr       */
+/*   Updated: 2022/06/16 23:24:41 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	create_scene(t_parse *info, t_frame *rt)
 	fill_scene(info, rt, 'A');
 	fill_scene(info, rt, 'C');
 	fill_scene(info, rt, 'L');
+	set_focus(rt);
 	return ;
 }
 
@@ -42,7 +43,7 @@ void	create_objs(t_frame *rt)
 
 	current = rt->objs_first;
 	i = 0;
-	while (++i <= rt->nbr_objs)
+	while (++i <= (rt->nbr_objs))
 	{
 		if (current->id1 == SPHERE)
 			create_sphere(current, current->raw);
@@ -50,6 +51,8 @@ void	create_objs(t_frame *rt)
 			create_plane(current, current->raw);
 		if (current->id1 == 'c')
 			create_cylin(current, current->raw);
+		if (current->id1 == 'r')
+			create_light_ref(current, current->raw);
 		current = current->next;
 	}
 	return ;

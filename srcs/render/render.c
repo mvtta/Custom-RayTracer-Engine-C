@@ -6,11 +6,20 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:27:40 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/05/25 13:21:36 by user             ###   ########.fr       */
+/*   Updated: 2022/06/16 19:50:34 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtlib.h"
+
+static void	render_status(void)
+{
+    printi("▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀", 'g');
+    printi("██▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄██ ██▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄██  ", 'y');
+	printi("		Rendering . . .", 'y');
+    printi("██▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄██ ██▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄██  ", 'y');
+    printi("▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀", 'g');
+}
 
 void iterate_obj(t_frame *rt, t_ray *prime, int x, int y)
 {
@@ -38,7 +47,7 @@ void iterate_obj(t_frame *rt, t_ray *prime, int x, int y)
         {
             rt->record.latest_t = hit;
             volume = standard_re(rt, prime, current);
-            if(rt->auto_focus == 0)
+            if(rt->auto_focus == 'm')
             {
                 if (hit != fh || hit < fl || hit > fl)
                 {
@@ -79,6 +88,7 @@ static void fake_init(t_ray **r)
 
 int render(t_frame *rt)
 {
+    //compose_caption(rt);
     t_ray *ray;
     float x;
     float y = 0;
@@ -87,6 +97,7 @@ int render(t_frame *rt)
     (*ray->dir) = v_sub(rt->scene->c->cam_coord, rt->scene->c->cam_norm);
     ray->dir->z = ndc(rt, rt->scene->c->cam_norm->z, 'z');
     (*ray->norm) = normalize(rt->scene->c->cam_norm);
+    render_status();
     while (y < (float)rt->window_h - 1)
     {
         x = 0;
@@ -101,18 +112,22 @@ int render(t_frame *rt)
         }
         y++;
     }
-/*     int i = -1;
-    int j = -1;
-    while(++i < rt->window_h - 1)
-    {
-      j = -1;
-      while(++j < rt->window_w - 1)
-        printf("%u", rt->pixel_map.map[i][j]);
-      printf("\n");
-    } */
-    //exit(0);
     mlx_put_image_to_window(rt->mlx_ptr, rt->win_ptr, rt->obj_img.img_ptr, 0, 0);
-    //mlx_string_put(rt->mlx_ptr, rt->win_ptr, 100, 100, 3136671, "ESCREVER\n");
+    /* 
+    * caption:
+                ~   lens
+                ~   number of objects
+                ~   focus 
+    compose_caption(&rt);
+    mlx_string_put(rt->mlx_ptr, rt->win_ptr, 100, 100, 3136671, "ESCREVER\n");
+    * focal distance marked:
+                ~   closest
+                ~   furthest
+    focal_marks(&rt);
+    mlx_string_put(rt->mlx_ptr, rt->win_ptr, 100, 100, 3136671, "+"
+    *
+    */
+
     return (0);
 
 }

@@ -6,7 +6,7 @@
 /*   By: user <mvaldeta@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 15:39:38 by mvaldeta          #+#    #+#             */
-/*   Updated: 2022/05/28 11:17:02 by user             ###   ########.fr       */
+/*   Updated: 2022/06/15 22:38:18 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ double phong(t_frame *rt, t_ray *ray, t_obj *obj)
     l = v_sub(rt->scene->l->light_coord, ray->start);
     l = v_add(&l, &hit);
     l = v_scale(1, &l);
-    if (obj->id1 == SPHERE)
-        hit_norm = v_sub(&hit, &center);
-    else
-        hit_norm = *obj->obj_norm;
+    hit_norm = v_sub(&hit, &center);
+    //hit_norm = *obj->obj_norm;
     v = hit;
     v = normalize(&v);
     camera = length(l);
