@@ -1,64 +1,119 @@
-<h2 align="center">
-A (Mini) Raytracer Engine
+<div align="center">
+
+
+# A Mini Raytracer Engine
 
 <img src="https://64.media.tumblr.com/9db1800f23bd2b3eaaf071a8ce464b8c/13125e997c7c3e38-26/s1280x1920/fb877507cb4fe41f355e40c35f671c7b27d63e94.gif">
+</div>
 
-#### Abstract 
+# Project
+
+[//]: # (collapsed)
+[//]: # (end-collapsed)
+[//]: # (format)
+[//]: # (end-format)
+
+
+
+[//]: # (collapsed)
+<details>
+<summary><b>Introduction</b> </summary>
+<br>
+
+# Exploring the basics
+```
+The goal of such project, under the directions of 42 Pedagogy council, was to get us, students, to better understand the basic concepts of Graphic's Programing. As a personal quest, I added, the principles of math and physics, the foundation of our collective understanding of the universe. 
+```
+
+[//]: # (end-collapsed)
+</details>
+
+
+
+[//]: # (collapsed)
+<details>
+<summary><b>Personal Note</b> </summary>
+<br>
+
+# Personal note
+
+> In University, while studying Visual Culture, Semiotics with minor in Photography, it was commonly said in class that a Photograph is a drawing by light. 
+While building this project, its was a recurring thought, that raytracing is a sort of "painting by numbers".  Due to time constrains and my own personal limitations I didn't get to deep dive into photon behavior and other fascinating topics.
 
 ```
-Exploring the basics: The goal of such project, under the directions of 42 Pedagogy council, was to get us, students, to better understand the basic concepts of Graphic's Programing. As a personal quest, I added, the principles of math and physics, the foundation of our collective understanding of the universe.
-                        In University, while studying Visual Culture, Semiotics with minor in Photography, it was commonly said in class that a Photograph is a drawing by light. While doing this project, its was a recurring thought, that raytracing is a sort of "painting by numbers".
-                        Due to time constrains and my own personal limitations I didn't get to deep dive into photon behavior and other fascinating topics.
-
-- In Part I, you may find the mandatory features of the 42 requirements to validate ths project. 
-- In Part II, the extra features I've been working on. 
+In Part I, you may find the mandatory features of the 42 requirements to validate ths project. 
+In Part II, the extra features I've been working on. 
 ```
+[//]: # (end-collapsed)
+</details>
 
-###### Light shading methods (intuitive implementation)
 
+[//]: # (collapsed)
+<details>
+<summary><b>Light shading methods </b> </summary>
+<br>
+
+## Light shading methods (intuitive implementation)
 <img src="https://64.media.tumblr.com/64842901b9d4f81dbfe5ead3a504ac48/15afaa9bbc098a8b-af/s1280x1920/840725380b3ad154bf1140a5b70c6dd78dfb65fa.pnj">
 
+[//]: # (end-collapsed)
+</details>
 
-###### Part I
+[//]: # (collapsed)
+<details>
+<summary><b>Part I </b> </summary>
+<br>
+
+# Part I
 
 | Allowed libs | Allowed c functions | Shapes | Light System | Interactions |
-|:------------:|:-------------------:|:------:|:------------:|:------------:|
-| Libft + Minilibx| open, close, read, write, printf , malloc, free, perror, strerror, exit | plane, sphere, cylinder | You must implement Ambient and diffuse lighting | Pressing ESC must close the window and quit the program cleanly.  Clicking on the red cross on the window’s frame must close the window and quit the program cleanly. |
-
-###### Renders I 
+|:------------|:-------------------|:------|:------------|:------------|
+| 1. Libft  2.Minilibx|  - open * close, read, write, printf , malloc, free, perror, strerror, exit | plane, sphere, cylinder | You must implement Ambient and diffuse lighting | Pressing ESC must close the window and quit the program cleanly.  Clicking on the red cross on the window’s frame must close the window and quit the program cleanly. |
 
 
-[objects_gi]: https://64.media.tumblr.com/95040833b48c66b3aa8e2b21f6c0516b/468d61b557d29e28-6e/s1280x1920/91d1443692d3cb572451a20c21ab1b311963db4c.png
-[objects_sl]: variable value
-[random]: variable value
+## Renders Part I
 
-Global Light  |  Spot Light
-:------------:|:-------------------------:
-![objects_gi] |  ![objects_sl]
-
-
-|<img src="">|<img src="">|<img src="">
-
-
-|<img src="">|<img src="">|<img src="">
-=======
-| sphere | cylinder | plane |
-|:-------------------------:|:-------------------------:|:-------------------------:|
-|<img src="https://64.media.tumblr.com/867a0a8548de0f4ea4b20995b1718552/6f82792bfefedfd5-11/s1280x1920/7a476bdf8b1a8135470cfb35bd22f3481420a860.pnj" width="200"> sub here|<img src="https://64.media.tumblr.com/8a89afa303e35e3b7ecdc12af7a256f3/6f82792bfefedfd5-d5/s1280x1920/6d9596d6e4ae985eea2510e29afc56fc33e31d72.pnj" width="200"> sub here|<img src="https://64.media.tumblr.com/df1b61f396d351c89c528f254d45c62f/6f82792bfefedfd5-37/s1280x1920/049f8fc3d6bf10e8dad1673624d85aad1b506a79.pnj" width="200"> sub here|<img src="https://64.media.tumblr.com/d02bf83e4f84a922b2fc2b3db5242e93/6f82792bfefedfd5-07/s2048x3072/4586c66567075e424166075f22e483c31b751c15.pnj" width="300"> sub here|<img src="https://64.media.tumblr.com/4cd662c870a7d0c3ccc1f6290bc4d3b2/6f82792bfefedfd5-94/s2048x3072/b38ba2b92918a69c0665f5e310659aa3a447b8e6.pnj" width="300"> sub here|<img src="https://64.media.tumblr.com/bca0384e480db8a57f51472efe8b4655/6f82792bfefedfd5-b3/s2048x3072/4b22b52dbbb010d96ee841b47daa23da35bc1dfe.pnj" width="300"> sub here|
-<img src="https://64.media.tumblr.com/bca0384e480db8a57f51472efe8b4655/6f82792bfefedfd5-b3/s2048x3072/4b22b52dbbb010d96ee841b47daa23da35bc1dfe.pnj" width="300"> sub here|<img src="https://64.media.tumblr.com/150c50f11d69c0f2d070752cb56c898b/11dd4897a0228e1e-e2/s2048x3072/e64667920fbc4b2098e4a8ff82cc995592029ef9.pnj" width="300"> sub here|<img src="https://64.media.tumblr.com/97cbef294cc150e810d90c57fdc9abe9/11dd4897a0228e1e-4d/s2048x3072/e65e057a1b0ac380ee721ce89e64f7c0b40a0e1c.pnj" width="300"> sub here|<img src="https://64.media.tumblr.com/a4c59b9870a40056c3e3931a195623f7/11dd4897a0228e1e-a4/s2048x3072/ca453266dc6eb7e9af8ad162217f91130c9b8654.pnj" width="300"> sub here|<img src="https://64.media.tumblr.com/f98a201d001c3fa914338e4f785129e5/11dd4897a0228e1e-d7/s2048x3072/250153bd044c97c23fd42b11dc2d652c060714a0.pnj" width="300"> sub here|
-
-
-###### Part II 
-
-```
-Exploring some more:
-
-```
-###### Part II Renders
+| Shadows | Light type | Light Reference | Shading |
+|:------------|:------------|:------------|:------------|
+| no | global + spot| yes | difuse shading |
 
 | | | |
 |:-------------------------:|:-------------------------:|:-------------------------:|
-|<img src="https://64.media.tumblr.com/c5b04f340576ce5859ac69e6401450e3/6dab6b5c26e26f6c-30/s1280x1920/4b3d1abd358d41def4dbfb5b8d5ae40254d0cc88.jpg" width="200"> sub here|<img src="https://64.media.tumblr.com/33dbe83c6197a3cd6ad4310a0a5486bd/2176a82ead6fd58d-91/s1280x1920/beee5984a9e174ca46131c6196b61cc562744bb4.jpg" width="200"> sub here|<img src="https://64.media.tumblr.com/8da44fb8814ac1482f4a909f99f8ca41/2176a82ead6fd58d-89/s1280x1920/a16611cf91e0ba0ab41823313ff41dc4eb0cf3da.jpg" width="200"> sub here|<img src="https://64.media.tumblr.com/30b98071c89271d8b2de5f8caeb60885/27d8b878f7373bc3-45/s1280x1920/33724b1b0f3bf754bcb9b1613026e853d6c09be1.jpg" width="300"> sub here|
+|![](https://64.media.tumblr.com/95040833b48c66b3aa8e2b21f6c0516b/468d61b557d29e28-6e/s1280x1920/91d1443692d3cb572451a20c21ab1b311963db4c.png)sub here|  ![](https://64.media.tumblr.com/6dba796210f64dc589815443a7db6ee7/11dd4897a0228e1e-f1/s1280x1920/47a623b12137d9e78c88a970f775be4118ec136a.png)sub here|![](https://64.media.tumblr.com/867a0a8548de0f4ea4b20995b1718552/6f82792bfefedfd5-11/s1280x1920/7a476bdf8b1a8135470cfb35bd22f3481420a860.png)sub here|
+
+[//]: # (end-collapsed)
+</details>
+
+
+
+
+
+
+[//]: # (collapsed)
+<details>
+<summary><b>Part II </b> </summary>
+<br>
+
+## Part II 
+
+| Shadows | Light type | Light Reference | Shading |
+:------------:|:------------:|:------------:|:------------:|
+|  no | global Light + spot| yes | difuse shading |
+
+
+## Part II Renders
+
+| | | |
+|:-------------------------:|:-------------------------:|:-------------------------:|
+|sub here|sub here|sub here|
+
+[//]: # (end-collapsed)
+</details>
+
+[//]: # (collapsed)
+<details>
+<summary><b>More </b> </summary>
+<br>
 
 ###### Project Structure
 
@@ -152,7 +207,7 @@ breakthroughs away. But the rocket-building game
 lets you pilot a fusion-propelled craft right now.
 ```
 ###### Languages used (extended version)
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=m4r11&langs_count=8&layout=compact&theme=dark&align="center")](https://github.com/m4r11/github-readme-stats)
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=mvtta&langs_count=8&layout=compact&theme=dark&align="center")](https://github.com/mvtta/github-readme-stats)
 ---  
 
 ###### Badges
@@ -170,3 +225,6 @@ lets you pilot a fusion-propelled craft right now.
 [![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://github.com/m4r11/Template-Project)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://github.com/m4r11/Template-Project?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 ![madebash](https://img.shields.io/badge/Made%20with-Bash-1f425f.svg)
+
+[//]: # (end-collapsed)
+</details>

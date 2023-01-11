@@ -15,5 +15,5 @@
 
 #include "rtlib.h"
 
-#define L_MOD 2
+#define L_MOD 0
 #endif

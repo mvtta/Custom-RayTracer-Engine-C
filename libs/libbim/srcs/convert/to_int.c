@@ -19,14 +19,15 @@ int ascii_to_int(char *data)
     int nbr = 0;
 
     i = 0;
-    if (data[0] == '-')
+
+    if (data && data[0] == '-')
     {
         sign = -1;
         i += 1;
     }
-    if(data[0] == '0')
+    if(data && data[0] == '0')
         return(0);
-    while (data[i])
+    while (data && data[i])
     {
         nbr = data[i] - 48 + nbr;
         i++;

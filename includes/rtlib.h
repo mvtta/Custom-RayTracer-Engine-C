@@ -336,7 +336,7 @@ void create_image(t_frame *rt, int which);
 void window_init(t_frame *rt);
 void map_to_img(t_data data, int x, int y, int color);
 
-/* specific user conververtions */
+/* specific user */
 
 t_color *ascii_to_rgb(char *data);
 

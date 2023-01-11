@@ -225,13 +225,13 @@ float ray_plane(t_ray *r, t_obj *p)
 {
 
 	float t;
-	float o;
-	float pp;
+	//float o;
+	//float pp;
 	float v;
 	float d;
 	p->test = v_add(r->start, r->dir);
-	pp = solve_q(p, *p->obj_coord);
-	o = solve_q(p, *r->start);
+	//pp = solve_q(p, *p->obj_coord);
+	//o = solve_q(p, *r->start);
 	v = solve_q(p, *r->dir);
 	d = solve_d(p, p->test);
 	t = (d / v);
