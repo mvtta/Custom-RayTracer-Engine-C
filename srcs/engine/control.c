@@ -15,13 +15,13 @@
 
 int	key_kill(int keycode, t_frame *rt)
 {
-	printf("keycode: %d\n", keycode);
+	//printf("keycode: %d\n", keycode);
 	if (keycode == 1216 || keycode == 53)
 	{
-		printi("▬▬ι═══════ﺤ KILLING RT -═══════ι▬▬", 'r');
+		printi(" ▬▬ι═══════ﺤ\n KILLING RT\n -═══════ι▬▬ ", 'r');
 		mlx_destroy_window(rt->mlx_ptr, rt->win_ptr);
 		kill_frame(rt);
-		printi("▬▬ι═══════ﺤ TERMINATED -═══════ι▬▬", 'r');
+		printi(" ▬▬ι═══════ﺤ\n TERMINATED\n -═══════ι▬▬ ", 'r');
 		exit(0);
 	}
 	if (keycode == 34)

@@ -159,16 +159,16 @@ t_color c_mix(t_frame *rt, t_obj *curr, double spec, double diffuse)
 	
 	light = c_mix_2colors(ambient, source);
 	/* maybe have to multiply for gama correction? */
-
- 
-/* 	float light_metal_universe = 2;
+	float light_metal_universe = 2;
 	float light_digi_universe = 10;
 	float light_u[2] = {light_metal_universe, light_digi_universe};
 
 	frag_amb = c_intensity(*curr->obj_color, (mat_amb * light_u[COLOR_UNIVERSE]));
 	frag_diff = c_intensity(*curr->obj_color, (mat_diff * light_u[COLOR_UNIVERSE]));
 	frag_spec = c_intensity(*curr->obj_color, (mat_spec * light_u[COLOR_UNIVERSE]));
-	frag = c_mix_3colors(frag_amb, frag_diff, frag_spec); */
+ 
+
+	frag = c_mix_3colors(frag_amb, frag_diff, frag_spec);
 /* 	float metal_universe = pow(diffuse + spec, 1/2.2);
 	float digi_universe = pow(diffuse * spec, 1/2.2); */
 /* 	float metal_universe = ((diffuse + spec));
@@ -179,22 +179,33 @@ t_color c_mix(t_frame *rt, t_obj *curr, double spec, double diffuse)
 	mixed.r = c_range(light.r * (effect_u[COLOR_UNIVERSE]) + (frag.r + effect_u[COLOR_UNIVERSE]), 0, 255);
 	mixed.b = c_range(light.b * (effect_u[COLOR_UNIVERSE]) + (frag.b + effect_u[COLOR_UNIVERSE]), 0, 255);  */
 
-
-	/* soft shadows */
 	frag_amb = c_intensity(*curr->obj_color, (mat_amb));
 	frag_diff = c_intensity(*curr->obj_color,(mat_diff));
 	frag_spec = c_intensity(*curr->obj_color, (mat_spec));
-	frag = c_mix_3colors(frag_amb, frag_diff, frag_spec);
+	frag = c_mix_3colors(frag_amb, frag_diff, frag_spec); 
 
+	
+	/* soft shadows */
+/* 	frag_amb = c_intensity(*curr->obj_color, (mat_amb));
+	frag_diff = c_intensity(*curr->obj_color,(mat_diff));
+	frag_spec = c_intensity(*curr->obj_color, (mat_spec));
+	frag = c_mix_3colors(frag_amb, frag_diff, frag_spec); */
+
+	
 	/* digi bright */
-/* 	mixed.r = c_range(light.r * (spec) + (curr->obj_color->r + diffuse), 0, 255);
-	mixed.g = c_range(light.g * (spec) + (curr->obj_color->g + diffuse), 0, 255);
-	mixed.b = c_range(light.b * (spec) + (curr->obj_color->b + diffuse), 0, 255); */
+	/* new */
+	mixed.r = c_range(light.r * (spec) + (curr->obj_color->r * diffuse), 0, 255);
+	mixed.g = c_range(light.g * (spec) + (curr->obj_color->g * diffuse), 0, 255);
+	mixed.b = c_range(light.b * (spec) + (curr->obj_color->b * diffuse), 0, 255);
+	/* old */
+/* 	mixed.r = c_range(light.r * (spec) + (curr->obj_color->r * diffuse), 0, 255);
+	mixed.g = c_range(light.g * (spec) + (curr->obj_color->g * diffuse), 0, 255);
+	mixed.b = c_range(light.b * (spec) + (curr->obj_color->b * diffuse), 0, 255); */
 
 /* 	pastel brass */
-	mixed.r = c_range(light.r * (spec) + (frag.r * diffuse) * 2, 0, 255);
+/* 	mixed.r = c_range(light.r * (spec) + (frag.r * diffuse) * 2, 0, 255);
 	mixed.g = c_range(light.g * (spec) + (frag.g * diffuse) * 2, 0, 255);
-	mixed.b = c_range(light.b * (spec) + (frag.b * diffuse) * 2, 0, 255);
+	mixed.b = c_range(light.b * (spec) + (frag.b * diffuse) * 2, 0, 255); */
 	return (mixed);
 }
 

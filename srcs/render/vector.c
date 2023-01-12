@@ -14,7 +14,6 @@
 
 t_vec *ro_3(t_ray *ray, t_vec *where)
 {
-    //exit(0);
     ray->start->x = where->x;
     ray->start->y = where->y;
     ray->start->z = where->z;

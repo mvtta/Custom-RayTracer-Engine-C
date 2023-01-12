@@ -26,7 +26,7 @@ LINKBIM		= -L${L2}/bin -lbim
 LINKVEC		= -L${L3}/bin -lvec
 LINKMLX		= -L${L4}/ -lmlx -framework OpenGL -framework AppKit
 LINKFLAGS	= ${LINKMLX} ${LINKLIBFT} ${LINKBIM} ${LINKVEC}
-CFLAGS		= -g -fsanitize=address -Imlx -Werror -Wall -Wextra 
+CFLAGS		= -g -fsanitize=address -Imlx #-Werror -Wall -Wextra 
 LIBS		= libft.a libbim.a libvec.a libmlx.a
 
 # ********************************************************************************

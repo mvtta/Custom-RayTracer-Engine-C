@@ -12,12 +12,61 @@
 
 #include "rtlib.h"
 
+/* 
+static void dialog(void):
+open program dialog followed by instructions
+todo: CLI for easier navigation */
 
 static void dialog(void)
 {
 
+    printi("\n\n\n                    ▂▃▄▅▆▇█▓▒░MiniRt░▒▓█▇▆▅▄▃▂\n", 'g');
+    printi("__________________________________________________________________\n\n", 'g');
 
-    printi( "╔╔══════════════════════╗╗ ", 'y');
+    printi("                            Navigation                             \n", 'g');
+    printi(" i -> zoom in | o -> zoom out | l -> moves light right | k -> moves light left \n arrows -> moves camera up down left right",  'g');  
+}
+
+
+
+int minirt(char *rtfile)
+{
+    t_frame *rt;
+    t_parse *info;
+    
+    rt = init_frame();
+    info = init_parse();
+
+    dialog();
+    fill_frame(info, &rt, rtfile);    
+    create_scene(info, rt);
+    window_init(rt);
+    create_objs(rt);
+    render(rt);
+    mlx_loop(rt->mlx_ptr);
+    return(0);
+}
+
+int main(int ac, char **av)
+{
+    if (ac == 2)
+    {
+        if (filetype_is_valid(av[1], ".rt"))
+            minirt(av[1]);
+        return(1);
+    }
+    else
+        write(1, "Error\n", 6);
+    return (0);
+}
+
+/* 
+Previously used 
+Ascii Art for console dialog
+Found it to bulky and rendered unecessary */
+////////////////////////////////////////////
+
+/*     printi( "╔╔══════════════════════╗╗ ", 'y');
     printi("║║▐█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█▌║║ ", 'm');
     printi("║║▐▌░░▒▒░░▒▒░░▒▒░░▒▒░░▐▌║║ ", 'p');
     printi("║║▐▌▒▒░░▒▒░░▒▒░░▒▒░░▒▒▐▌║║ ", 'g');
@@ -31,10 +80,7 @@ static void dialog(void)
     printi("██▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄██  ", 'm');
     printi("██▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄██  ", 't');
     printi("██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██  ", 'b');
-    printi("▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ ", 'p');
-    
-    printi("▂▃▄▅▆▇█▓▒░MiniRt░▒▓█▇▆▅▄▃▂\n\n", 'p');
-
+    printi("▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ ", 'p'); */
     
 /*     printi("
     ░░░░░░░░░░░░░░░░░░░░░░█████████
@@ -42,7 +88,7 @@ static void dialog(void)
     ░░█▒▒▒▒▒▒█░░░░░░░███▒▒▒▒▒▒▒▒▒▒▒▒▒███
     ░░░█▒▒▒▒▒▒█░░░░██▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒██
     ░░░░█▒▒▒▒▒█░░░██▒▒▒▒▒██▒▒▒▒▒▒██▒▒▒▒▒███
-    ░░░░░█▒▒▒█░░░█▒▒▒▒▒▒████▒▒▒▒████▒▒▒▒▒▒██
+    ░░░░░█▒▒▒█░░░█▒▒▒▒▒▒████▒▒▒▒████▒▒▒▒▒▒██P
     ░░░█████████████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒██
     ░░░█▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒▒▒▒▒▒▒█▒▒▒▒▒▒▒▒▒▒▒██
     ░██▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒██▒▒▒▒▒▒▒▒▒▒██▒▒▒▒██
@@ -77,36 +123,3 @@ static void dialog(void)
     \________/                                   \_________/
     ", 'p');                                    
     return; */
-}
-
-
-int minirt(char *rtfile)
-{
-    t_frame *rt;
-    t_parse *info;
-    
-    rt = init_frame();
-    info = init_parse();
-
-    dialog();
-    fill_frame(info, &rt, rtfile);    
-    create_scene(info, rt);
-    window_init(rt);
-    create_objs(rt);
-    render(rt);
-    mlx_loop(rt->mlx_ptr);
-    return(0);
-}
-
-int main(int ac, char **av)
-{
-    if (ac == 2)
-    {
-        if (filetype_is_valid(av[1], ".rt"))
-            minirt(av[1]);
-        return(1);
-    }
-    else
-        write(1, "Error\n", 6);
-    return (0);
-}

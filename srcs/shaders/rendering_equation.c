@@ -89,8 +89,8 @@ t_color	standard_re(t_frame *rt, t_ray *ray, t_obj *obj)
 	double diff;
 	int l_mod;
 
-	l_mod = 2;
-	//l_mod = L_MOD;
+	//l_mod = 2;
+	l_mod = L_MOD;
 	shadow = in_shadow(rt, ray, obj);
 	//shadow /= ambient(rt, ray, obj);
 	if (l_mod == 0)
