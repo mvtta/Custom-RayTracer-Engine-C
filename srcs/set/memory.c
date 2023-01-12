@@ -12,6 +12,12 @@
 
 #include "rtlib.h"
 
+/* void	mem_error()
+{
+	write(1, "Error\n", 6);
+	return(0);
+} */
+
 void	str_alloc(char **str, char *data)
 {
 	*str = NULL;

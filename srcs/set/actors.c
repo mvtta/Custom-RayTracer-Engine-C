@@ -101,12 +101,6 @@ void	create_light_ref(t_obj *obj, char *data)
 	char	**sphere;
 
 	sphere = ft_split(data, ' ');
-/* 	printf("%s\n", sphere[0]);
-	printf("%s\n", sphere[1]);
-	printf("%s\n", sphere[2]);
-	printf("%s\n", sphere[3]);
-	printf("%s\n", sphere[4]);
-	exit(0); */
 	obj->id1 = 's';
 	obj->id2 = 'r';
 	obj->obj_coord = ascii_to_vec(sphere[1]);

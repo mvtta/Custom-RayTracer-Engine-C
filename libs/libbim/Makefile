@@ -20,7 +20,7 @@ include $(CONFIG)
 ${EXEC}: $(_OBJ)
 	mkdir -p ${BROOT}
 	mkdir -p ${OROOT}
-	@printf "\e[31m[MADE FOLDERS]\e[0m\n"
+	@printf "\e[31m[dirs]\e[0m\n"
 	$(AR) rcs $@ $^
 	ranlib $@
 	@printf "\e[31m[MADE LIB]\e[0m\n"

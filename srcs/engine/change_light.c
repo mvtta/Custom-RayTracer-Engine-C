@@ -15,7 +15,7 @@
 
 int	light_up(int keycode, t_frame *rt)
 {
-	printf("* * * * LIGHT UP * * * * \n[%d]\n", keycode);
+	printf("* * * * LIGHT UP * * * * \n\n");
 	rt->scene->l->light_coord->y -= 10;
 	mlx_destroy_image(rt->mlx_ptr, rt->obj_img.img_ptr);
 	rt->obj_img.img_ptr = mlx_new_image(rt->mlx_ptr, rt->window_w, rt->window_h);
@@ -29,7 +29,7 @@ int	light_up(int keycode, t_frame *rt)
 
 int	light_down(int keycode, t_frame *rt)
 {
-	printf("* * * * LIGHT DOWN * * * * \n[%d]\n", keycode);
+	printf("* * * * LIGHT DOWN * * * * \n\n");
 	rt->scene->l->light_coord->y += 10;
 	mlx_destroy_image(rt->mlx_ptr, rt->obj_img.img_ptr);
 	rt->obj_img.img_ptr = mlx_new_image(rt->mlx_ptr,

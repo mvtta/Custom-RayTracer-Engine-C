@@ -14,11 +14,7 @@
 
 static void	render_status(void)
 {
-    printi("▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀", 'g');
-    printi("██▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄██ ██▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄██  ", 'y');
-	printi("		Rendering . . .", 'y');
-    printi("██▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄██ ██▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄██  ", 'y');
-    printi("▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀", 'g');
+    printi("                            Rendering...                            \n", 'g');
 }
 
 void iterate_obj(t_frame *rt, t_ray *prime, int x, int y)
@@ -30,13 +26,13 @@ void iterate_obj(t_frame *rt, t_ray *prime, int x, int y)
     float fl;
     float fn;
     float ff;
-    float dof;
+    //float dof;
 
     fl = rt->scene->c->focal_l;
     fh = get_hyperfocal_dist(fl, 0.025, 0.02);
     fn = get_near_dof(fl);
     ff = get_far_dof(fl);
-    dof = get_dof_range(fn, ff);
+    //dof = get_dof_range(fn, ff);
 
     current = rt->objs_first;
     int i = 0;
