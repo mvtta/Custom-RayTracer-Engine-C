@@ -12,40 +12,51 @@
 
 #include "rtlib.h"
 
-/* useful equation cheat sheet:
-Standard line eq:
-𝑎 𝑥 + 𝑏 𝑦 + 𝑐 = 0
-The equation of the line can also be realized as a dot product of two vectors as
-Standard eq plane :
- 𝑎 𝑥 + 𝑏 𝑦 + 𝑐 𝑧 + 𝑑 = 0
-Plane from 2 points:
-𝑎 ( 𝑥 − 𝑥 ) + 𝑏 ( 𝑦 − 𝑦 ) + 𝑐 ( 𝑧 − 𝑧 ) = 0
-Normal vector on olane given two vects on point:
-cross_p
-
-ray_plane intersections:
-point in plane: (p−p0)⋅n=0
-ray : l0+l∗t=p
-two eqs in one : (l0+l∗t−p0)⋅n=0
-compute t:
-t = =−(l0−p0)⋅n/ l⋅n
-- l0 is the origin of the ray
--  l is the ray direction
-- p0 point far away in plane
-- n normm vec
+/* notation:
+* Standard line eq:
+* 			𝑎 𝑥 + 𝑏 𝑦 + 𝑐 = 0
+* The equation of the line can also be realized as a
+* dot product of two vectors as
+* Standard eq plane :
+* 			𝑎 𝑥 + 𝑏 𝑦 + 𝑐 𝑧 + 𝑑 = 0
+* Plane from 2 points:
+* 			𝑎 ( 𝑥 − 𝑥 ) + 𝑏 ( 𝑦 − 𝑦 ) + 𝑐 ( 𝑧 − 𝑧 ) = 0
+* Normal vector: cross_p
+*
+* ray_plane intersections:
+* point in plane: (p−p0)⋅n=0
+* ray :
+*			l0+l∗t=p
+* two eqs in one : (
+			l0+l∗t−p0)⋅n=0
+* compute t:
+* 			t = =−(l0−p0)⋅n/ l⋅n
+* 	-------------------------------------
+* 	l0 -> is the origin of the ray
+* 	l -> is the ray direction
+* 	p0 -> point far away in plane
+*	n -> normm vec
 */
 
 float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord)
 {
 
-	t_vec d = v_add(r->start, r->dir);
-	t_vec dist = v_sub(&obj_coord, &d);
+	t_vec d;
+	t_vec dist;
+	float radius;
+	float a;
+	float b;
+	float c;
+	float discr;
 
-	float radius = (s->diameter) / 2;
-	float a = dot_p(r->dir, r->dir);
-	float b = 2.0 * dot_p(r->dir, &dist);
-	float c = dot_p(&dist, &dist) - (radius * radius);
-	float discr = b * b - 4 * a * c;
+	d = v_add(r->start, r->dir);
+	dist = v_sub(&obj_coord, &d);
+	radius = (s->diameter) / 2;
+	a = dot_p(r->dir, r->dir);
+	b = 2.0 * dot_p(r->dir, &dist);
+	c = dot_p(&dist, &dist) - (radius * radius);
+	discr = b * b - 4 * a * c;
+
 	if (discr >= 0)
 	{
 		if (discr == 0)
@@ -53,7 +64,6 @@ float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord)
 			float t0 = -0.5 * b / a;
 			return (t0);
 		}
-		// float q = MAX(-0.5 * (b + sqrftf(discr)), -0.5 * (b - sqrftf(discr)));
 		float t1 = (-b - sqrtf(discr)) / (2 * a);
 		float t2 = (-b + sqrtf(discr)) / (2 * a);
 		if (t1 > t2)
@@ -65,13 +75,11 @@ float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord)
 		if (t1 < 0)
 			t1 = t2;
 		if (t1 > 0)
-		{
-			// printf("\tt1: %f\n", t1);
 			return (t1);
-		}
 	}
 	return (NO_HIT);
 }
+
 /*
 float ray_cy(t_ray *r, t_obj *c, t_vec obj_coord)
 {
@@ -137,7 +145,7 @@ float ray_cy(t_ray *r, t_obj *c, t_vec obj_coord)
 
 
 	0≤(𝐩−𝐱1)⋅(𝐱2−𝐱1)≤(𝐱2−𝐱1)⋅(𝐱2−𝐱1).
-	
+
 	float h = b * b - (a * c);
 	if (h < 0)
 		return(NO_HIT);
@@ -160,7 +168,7 @@ float ray_cy(t_ray *r, t_obj *p, t_vec obj_coord)
 	// pb = v_scale(p->height, p->obj_norm);
 	// pb = v_3(p->height * p->obj_norm->x, p->height * p->obj_norm->y, p->height * p->obj_norm->z);
 	pb = v_scale(p->height, p->obj_norm);
-	t_vec x2 = v_add(&unicam, &pb);	
+	t_vec x2 = v_add(&unicam, &pb);
 	pb = v_add(&pa, &pb);
 	// inverted these two (up) result is the same why ?
 	float radius = sqrt(p->diameter);
@@ -194,24 +202,24 @@ float ray_cy(t_ray *r, t_obj *p, t_vec obj_coord)
 		t_vec xtpa = v_sub(&w, &pa);
 		t_vec xtpb = v_sub(&w, &pb);
 		t_vec axis = v_sub(&pa, &pb);
-		//t_vec inv_axis = v_sub(&pb, &pa);
+		// t_vec inv_axis = v_sub(&pb, &pa);
 		/* tweek here for rot */
 		// float numer = length(cross_p(xtpb, xtpa));
 		float numer = length(cross_p(xtpa, xtpb));
 		float denom = length(axis);
 		if (numer / denom == sqr(radius))
 			return (t1);
-/* 		t_vec term_1 = v_sub(&p, &xtpa);
-		float bounding1 = dot_p(&term_1, &inv_axis);
-		float bounding2 = dot_p(&inv_axis, &inv_axis);
-		if (bounding1 <= denom && bounding2 <= denom)
-			return (t1);
-			 */
-		//0≤(𝐩−𝐱1)⋅(𝐱2−𝐱1)≤(𝐱2−𝐱1)⋅(𝐱2−𝐱1).
+		/* 		t_vec term_1 = v_sub(&p, &xtpa);
+				float bounding1 = dot_p(&term_1, &inv_axis);
+				float bounding2 = dot_p(&inv_axis, &inv_axis);
+				if (bounding1 <= denom && bounding2 <= denom)
+					return (t1);
+					 */
+		// 0≤(𝐩−𝐱1)⋅(𝐱2−𝐱1)≤(𝐱2−𝐱1)⋅(𝐱2−𝐱1).
 		t_vec y1 = v_sub(&p, &x1);
 		t_vec y2 = v_sub(&x2, &x1);
 		float yp = dot_p(&y1, &y2);
-		float zp = dot_p(&y2, &y2); 
+		float zp = dot_p(&y2, &y2);
 		if (0 <= yp && yp <= zp)
 			return (t1);
 		return (t1);
@@ -225,13 +233,13 @@ float ray_plane(t_ray *r, t_obj *p)
 {
 
 	float t;
-	//float o;
-	//float pp;
+	// float o;
+	// float pp;
 	float v;
 	float d;
 	p->test = v_add(r->start, r->dir);
-	//pp = solve_q(p, *p->obj_coord);
-	//o = solve_q(p, *r->start);
+	// pp = solve_q(p, *p->obj_coord);
+	// o = solve_q(p, *r->start);
 	v = solve_q(p, *r->dir);
 	d = solve_d(p, p->test);
 	t = (d / v);

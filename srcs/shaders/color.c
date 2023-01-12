@@ -17,6 +17,7 @@
 /* declaring black */
 const t_color	black = {0, 0, 0, 0};
 const t_color	yellow = {0, 0, 255, 0};
+
 /* declaring primaries */
 const t_color red = {1, 0, 0, 0};
 const t_color green = {0, 1, 0, 0};
@@ -24,12 +25,13 @@ const t_color blue = {0, 0, 1, 0};
 const int rgb[3] = {1, 2, 3};
 
 /* 
-B = LONG \ 65536
-G = (LONG - B * 65536) \ 256
-R = LONG - B * 65536 - G * 256 
-const r = (number & 0xff0000) >> 16;
- const g = (number & 0x00ff00) >> 8;
- const b = (number & 0x0000ff);*/
+ * B = LONG \ 65536
+ * G = (LONG - B * 65536) \ 256
+ * R = LONG - B * 65536 - G * 256 
+ * const r = (number & 0xff0000) >> 16;
+ * const g = (number & 0x00ff00) >> 8;
+ * const b = (number & 0x0000ff);
+ */
 
 
 t_color c_color_components(unsigned int decimal_color)
@@ -146,10 +148,7 @@ t_color c_mix(t_frame *rt, t_obj *curr, double spec, double diffuse)
 	t_color frag_diff;
 	t_color frag_spec;
 	
-	//float mat_amb = curr->material->x;
-
-	
-	/* fresnell law here */
+	/* Fresnel's law here */
 	float mat_amb = curr->material->x;
 	float mat_diff = curr->material->y;
 	float mat_spec = curr->material->z;
@@ -158,7 +157,6 @@ t_color c_mix(t_frame *rt, t_obj *curr, double spec, double diffuse)
 	source = c_intensity(*rt->scene->l->light_color, rt->scene->l->brightness);
 	
 	light = c_mix_2colors(ambient, source);
-	/* maybe have to multiply for gama correction? */
 	float light_metal_universe = 2;
 	float light_digi_universe = 10;
 	float light_u[2] = {light_metal_universe, light_digi_universe};
