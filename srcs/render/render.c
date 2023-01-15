@@ -37,7 +37,7 @@ void iterate_obj(t_frame *rt, t_ray *prime, int x, int y)
     current = rt->objs_first;
     int i = 0;
     while (++i <= rt->nbr_objs)
-    {
+    {   
         hit = compute_obj(prime, current);
         if (hit != NO_HIT)
         {

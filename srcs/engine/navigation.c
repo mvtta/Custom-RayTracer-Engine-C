@@ -14,7 +14,7 @@
 
 int	cam_up(int keycode, t_frame *rt)
 {
-	printf("* * * * CAM UP * * * * \n\n");
+	printf("moving camera on y ↑\n\n");
 	rt->scene->c->cam_coord->y -= 10;
 	mlx_destroy_image(rt->mlx_ptr, rt->obj_img.img_ptr);
 	rt->obj_img.img_ptr = mlx_new_image(rt->mlx_ptr, rt->window_w, rt->window_h);
@@ -28,7 +28,7 @@ int	cam_up(int keycode, t_frame *rt)
 
 int	cam_down(int keycode, t_frame *rt)
 {
-	printf("* * * * CAM DOWN * * * * \n\n");
+	printf("moving camera on y ↓\n\n");
 	rt->scene->c->cam_coord->y += 10;
 	mlx_destroy_image(rt->mlx_ptr, rt->obj_img.img_ptr);
 	rt->obj_img.img_ptr = mlx_new_image(rt->mlx_ptr,
@@ -45,7 +45,7 @@ int	cam_down(int keycode, t_frame *rt)
 
 int	cam_left(int keycode, t_frame *rt)
 {
-	printf("* * * * CAM LEFT * * * * \n\n");
+	printf("moving camera on x <- \n\n");
 	rt->scene->c->cam_coord->x += 10;
 	mlx_destroy_image(rt->mlx_ptr, rt->obj_img.img_ptr);
 	rt->obj_img.img_ptr = mlx_new_image(rt->mlx_ptr,
@@ -62,7 +62,7 @@ int	cam_left(int keycode, t_frame *rt)
 
 int	cam_right(int keycode, t_frame *rt)
 {
-	printf("* * * * CAM RIGHT * * * * \n\n");
+	printf("moving camera on x -> \n\n");
 	rt->scene->c->cam_coord->x -= 10;
 	mlx_destroy_image(rt->mlx_ptr, rt->obj_img.img_ptr);
 	rt->obj_img.img_ptr = mlx_new_image(rt->mlx_ptr,

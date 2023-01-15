@@ -46,13 +46,13 @@ int	light_down(int keycode, t_frame *rt)
 
 int	light_left(int keycode, t_frame *rt)
 {
-	printf("* * * * LIGHT LEFT * * * * \n[%d]\n", keycode);
+	printf("moving spot light <-  \n\n");
 	t_obj *lref = NULL;
 	lref = rt->objs_first;
 	while(lref->next && lref->id2 != 'r')
 		lref = lref->next;
-	rt->scene->l->light_coord->x += 10;
-	lref->obj_coord->x += 10;
+	rt->scene->l->light_coord->x -= 5;
+	lref->obj_coord->x -= 5;
 	mlx_destroy_image(rt->mlx_ptr, rt->obj_img.img_ptr);
 	rt->obj_img.img_ptr = mlx_new_image(rt->mlx_ptr,
 			rt->window_w,
@@ -68,13 +68,13 @@ int	light_left(int keycode, t_frame *rt)
 
 int	light_right(int keycode, t_frame *rt)
 {
-	printf("* * * * LIGHT RIGHT * * * * \n[%d]\n", keycode);
+	printf("moving spot light -> \n\n");
 	t_obj *lref = NULL;
 	lref = rt->objs_first;
 	while(lref->next && lref->id2 != 'r')
 		lref = lref->next;
-	rt->scene->l->light_coord->x -= 10;
-	lref->obj_coord->x -= 10;
+	rt->scene->l->light_coord->x += 5;
+	lref->obj_coord->x += 5;
 	mlx_destroy_image(rt->mlx_ptr, rt->obj_img.img_ptr);
 	rt->obj_img.img_ptr = mlx_new_image(rt->mlx_ptr,
 			rt->window_w, rt->window_h);

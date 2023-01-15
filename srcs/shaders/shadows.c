@@ -34,7 +34,7 @@ int in_shadow(t_frame *rt, t_ray *ray, t_obj *obj)
     t_ray *shadow;
     float hit;
     float bias;
-    int i;
+    int   i;
     t_vec to_hit;
     t_vec ldir;
     t_vec dev;
@@ -60,7 +60,8 @@ int in_shadow(t_frame *rt, t_ray *ray, t_obj *obj)
         {
             return (hit);
         }
-        current = current->next;
+        else
+            current = current->next;
     }
     return (0);
 }

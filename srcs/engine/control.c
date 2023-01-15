@@ -29,7 +29,7 @@ int	key_kill(int keycode, t_frame *rt)
 	if (keycode == 31)
 		zoom_out(keycode, rt);
 	if (keycode == 40)
-		light_left(keycode, rt);
+		light_left(keycode, rt); // make light go up and down
 	if (keycode == 37)
 		light_right(keycode, rt);
 	if (keycode == 126)

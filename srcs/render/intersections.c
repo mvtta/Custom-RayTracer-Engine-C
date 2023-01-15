@@ -80,46 +80,105 @@ float ray_sphere(t_ray *r, t_obj *s, t_vec obj_coord)
 	return (NO_HIT);
 }
 
-/*
 float ray_cy(t_ray *r, t_obj *c, t_vec obj_coord)
 {
-	t_vec pa;
-	t_vec ba;
-	t_vec p = v_add(r->start, r->dir);
+	t_vec ao;
+	t_vec ab;
 	t_vec a = obj_coord;
 	t_vec b = v_scale(c->height, c->obj_norm);
 
-	pa = v_add(&p, &a);
-	ba = v_add(&b, &a);
-	float baba = dot_p(&ba,&ba);
-	float paba = dot_p(&pa,&ba);
+	b = v_add(&a, &b);
 
-	t_vec x_aux1 = v_scale(baba, &pa);
-	t_vec x_aux2 = v_scale(paba, &ba);
-	x_aux1 = v_sub(&x_aux1, &x_aux2);
-	float x = length(x_aux1) - (c->diameter / 2 ) * baba;
+	t_vec o = v_add(r->start, r->dir);
 
-	float y = fabs(paba-baba*0.5)-baba*0.5;
-	float x2 = x*x;
-	float y2 = y*y*baba;
-	float d =  x2 * x2 - (y * y2);
-	if (d >= 0)
-	{
-		float t1 = (-x2 - sqrtf(d)) / (2 * y);
-		float t2 = (-x2 + sqrtf(d)) / (2 * y);
-		if (t1 > t2)
-		{
-			float tmp = t1;
-			t1 = t2;
-			t2 = tmp;
-		}
-		if (t1 < 0)
-			t1 = t2;
-		return(t1);
-	}
+	ao = v_add(&o, &a);
+
+	ab = v_add(&b, &a);
+	t_vec n_ao = normalize(&ao);
+
+	t_vec n_ab = normalize(&ab);
+
+	t_vec ao_x_ab = cross_p(n_ao, n_ab);
+	t_vec v_x_ab = cross_p(*r->dir, n_ab);
+
+	double ab2 = dot_p(&ab, &ab);
+
+	float dot_product_a = dot_p(&v_x_ab, &v_x_ab);
+	float dot_product_b = dot_p(&v_x_ab, &ao_x_ab) * 2;
+	float dot_product_c = dot_p(&ao_x_ab, &ao_x_ab) - c->diameter * ab2;
+
+	float d = dot_product_b * dot_product_b - 4 * dot_product_a * dot_product_c;
+
+	// a*t^2 + b*t + c = 0
+	//t = (-b ± sqrt(b^2 - 4 a c))/(2 a) (a!=0)
+	if (d < 0)
 		return(NO_HIT);
+	
+	
+/* 	INFINITE CYLINDER */
+	
+	double t = - dot_product_b - (sqrt(d)) / 2 * dot_product_a;
+	double t1 = - dot_product_b + (sqrt(d)) /  2 * dot_product_a;
+	if (t1 <= c->diameter)
+		return(t1);
+		//printf("t:	%f --- t1:	%f\n", t, t1);
+/* 	if(t > 0 && t <= c->diameter)
+	{
+		float c_form = pow(c->obj_coord->x * t, 2) + pow(c->obj_coord->y * t,2);
+		if (c_form <= c->diameter)
+		{
+
+			return(t);
+		}
+	}  */
+	return(NO_HIT);
+
+	/* 	if (d >= 0)
+		{
+			double q = (dot_product_a * t) * 2  + dot_product_b * t + dot_product_c;
+			if (t > 0)
+			{
+				double cylinder_form = (o.x * o.x) + (o.y * o.y) + (o.x);
+				if (cylinder_form == 1)
+					return(t);
+			} */
+
+	// double time = - dot_product_b - sqrt(d) / (2 * dot_product_a);
+// t_vec intersection = v_scale(time, &o);
+// d = dot_product_a * (time * time) + dot_product_b * (time) + dot_product_c;
+//  p is in cy if (P-A)X(B-A) * r^2 B-A
+//  or
+// at^2 + bt +c 0 0
 }
-*/
+
+/* Ray : P(t) = O + V * t
+// Cylinder [O, D, r].
+// point Q on cylinder if ((Q - O) x D)^2 = r^2
+//// Cylinder [A, B, r].
+// Point P on infinite cylinder if ((P - A) x (B - A))^2 = r^2 * (B - A)^2
+// expand : ((O - A) x (B - A) + t * (V x (B - A)))^2 = r^2 * (B - A)^2
+// equation in the form (X + t * Y)^2 = d
+// where :
+//  X = (O - A) x (B - A)
+//  Y = V x (B - A)
+//  d = r^2 * (B - A)^2
+// expand the equation :
+// t^2 * (Y . Y) + t * (2 * (X . Y)) + (X . X) - d = 0
+// => second order equation in the form : a*t^2 + b*t + c = 0 where
+// a = (Y . Y)
+// b = 2 * (X . Y)
+// c = (X . X) - d
+//--------------------------------------------------------------------------
+Vector AB = (B - A);
+Vector AO = (O - A);
+Vector AOxAB = (AO ^ AB);
+// cross productVector VxAB  = (V ^ AB);
+// cross productfloat  ab2   = (AB * AB);
+// dot productfloat a      = (VxAB * VxAB);
+// dot productfloat b      = 2 * (VxAB * AOxAB);
+// dot productfloat c      = (AOxAB * AOxAB) - (r*r * ab2);
+// solve second order equation : a*t^2 + b*t + c = 0 */
+
 // infinite plain cylinder
 
 /* float ray_cy(t_ray *r, t_obj *p, t_vec obj_coord)
@@ -130,7 +189,7 @@ float ray_cy(t_ray *r, t_obj *c, t_vec obj_coord)
 	pa = obj_coord;
 	pb = v_scale(p->height, p->obj_norm);
 	pb = v_add(&pa, &pa);
-	//pb = v_3(pa.x + p->height, pa.y, pa.z);
+	pb = v_3(pa.x + p->height, pa.y, pa.z);
 
 	float radi = sqrt(p->diameter);
 	t_vec ca = v_add(&pa, &pb);
@@ -141,93 +200,25 @@ float ray_cy(t_ray *r, t_obj *c, t_vec obj_coord)
 
 	float a = caca - (card * card);
 	float b = caca * dot_p(&oc, r->dir) - caoc * card;
-	float c = caca * dot_p(&oc, r->dir) - (caoc * caoc) - radi * radi * caca;
+	float c = caca * dot_p(&oc, r->dir) - (caoc * caoc) - radi * radi;;
 
-
-	0≤(𝐩−𝐱1)⋅(𝐱2−𝐱1)≤(𝐱2−𝐱1)⋅(𝐱2−𝐱1).
-
-	float h = b * b - (a * c);
+	float h = b * b - 4 * (a * c);
+	if (h >= 0)
+	{
+		float t = (-b - (h)) / (a);
+		float t1 = (+b - (h)) / (a);
+		return(t>t1?t:t1);
+	}
+	if(h != 1)
+	{
+		float t = (-b - (h)) / (a);
+		float t1 = (+b - (h)) / (a);
+		return(t>t1?t:t1);
+	}
 	if (h < 0)
 		return(NO_HIT);
-	h = sqrt(h);
-	float t = (-b - (h)) / (a);
-	return(t);
+	return(NO_HIT);
 } */
-
-float ray_cy(t_ray *r, t_obj *p, t_vec obj_coord)
-{
-	t_vec pa;
-	t_vec pb;
-	t_vec unicam = v_add(r->start, r->dir);
-	t_vec x1 = v_sub(&obj_coord, &unicam);
-	pa = v_add(&unicam, &obj_coord);
-	// pb = project_m(pa, *p->obj_norm);
-	/* 	partial rot
-	pb = v_scale(p->height, p->obj_norm);
-	pb = (&pa, &pb); */
-	// pb = v_scale(p->height, p->obj_norm);
-	// pb = v_3(p->height * p->obj_norm->x, p->height * p->obj_norm->y, p->height * p->obj_norm->z);
-	pb = v_scale(p->height, p->obj_norm);
-	t_vec x2 = v_add(&unicam, &pb);
-	pb = v_add(&pa, &pb);
-	// inverted these two (up) result is the same why ?
-	float radius = sqrt(p->diameter);
-
-	float a = sqr(r->dir->x) + sqr(r->dir->z);
-	float b = (r->dir->x * (r->start->x - pa.x)) + (r->dir->z) * (r->start->z - pa.z);
-	float c = (r->start->x - pa.x) * (r->start->x - pa.x) + (r->start->z - pa.z) * (r->start->z - pa.z) - (radius * radius);
-	float discr = b * b - (a * c);
-	if (discr >= 0)
-	{
-		// float q = MAX(-0.5 * (b + sqrftf(discr)), -0.5 * (b - sqrftf(discr)));
-		float t1 = (-b - sqrtf(discr)) / (2 * a);
-		float t2 = (-b + sqrtf(discr)) / (2 * a);
-		if (t1 > t2)
-		{
-			float tmp = t1;
-			t1 = t2;
-			t2 = tmp;
-		}
-		if (t1 < 0)
-			t1 = t2;
-		t_vec w = v_scale(t1, r->dir);
-		w = v_add(r->start, &w);
-		/* this works without rotation or caps */
-		/* 		if(pa.y <= w.y && pb.y >= w.y)
-					return(t1); */
-		/* 		attempt to use this formula
-				www.math.stackexchange.com/questions/3248356/calculating-ray-cylinder-intersection-points
-				|(𝐱(𝑡)−𝐱1)×(𝐱(𝑡)−𝐱2)|2|𝐱1−𝐱2|2=𝑟2. */
-		t_vec p = v_add(r->start, r->dir);
-		t_vec xtpa = v_sub(&w, &pa);
-		t_vec xtpb = v_sub(&w, &pb);
-		t_vec axis = v_sub(&pa, &pb);
-		// t_vec inv_axis = v_sub(&pb, &pa);
-		/* tweek here for rot */
-		// float numer = length(cross_p(xtpb, xtpa));
-		float numer = length(cross_p(xtpa, xtpb));
-		float denom = length(axis);
-		if (numer / denom == sqr(radius))
-			return (t1);
-		/* 		t_vec term_1 = v_sub(&p, &xtpa);
-				float bounding1 = dot_p(&term_1, &inv_axis);
-				float bounding2 = dot_p(&inv_axis, &inv_axis);
-				if (bounding1 <= denom && bounding2 <= denom)
-					return (t1);
-					 */
-		// 0≤(𝐩−𝐱1)⋅(𝐱2−𝐱1)≤(𝐱2−𝐱1)⋅(𝐱2−𝐱1).
-		t_vec y1 = v_sub(&p, &x1);
-		t_vec y2 = v_sub(&x2, &x1);
-		float yp = dot_p(&y1, &y2);
-		float zp = dot_p(&y2, &y2);
-		if (0 <= yp && yp <= zp)
-			return (t1);
-		return (t1);
-		/* 	caps */
-		/* make caps */
-	}
-	return (NO_HIT);
-}
 
 float ray_plane(t_ray *r, t_obj *p)
 {

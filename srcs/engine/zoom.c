@@ -15,8 +15,8 @@
 
 int    zoom_in(int keycode, t_frame *rt)
 {
-    printf("* * * * ZOOMING IN * * * * \n[%d\n]", keycode);
-    rt->scene->c->cam_coord->z += 10;
+    printf("moving camera forward on z axis ↗ \n\n");
+    rt->scene->c->cam_coord->z += 5;
     mlx_destroy_image(rt->mlx_ptr, rt->obj_img.img_ptr);
     rt->obj_img.img_ptr = mlx_new_image(rt->mlx_ptr, \
         rt->window_w, rt->window_h);
@@ -32,8 +32,8 @@ int    zoom_in(int keycode, t_frame *rt)
 
 int    zoom_out(int keycode, t_frame *rt)
 {
-    printf("* * * * ZOOMING OUT * * * * \n[%d\n]", keycode);
-    rt->scene->c->cam_coord->z -= 10;
+    printf("moving camera back z axis ↙ \n\n");
+    rt->scene->c->cam_coord->z -= 5;
     mlx_destroy_image(rt->mlx_ptr, rt->obj_img.img_ptr);
     rt->obj_img.img_ptr = mlx_new_image(rt->mlx_ptr, \
         rt->window_w, \
